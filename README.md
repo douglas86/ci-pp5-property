@@ -1,2 +1,122 @@
-# ci-pp5-property
-This is a complete re-design of my property website
+# Property Website
+
+---
+
+## Overview
+
+This is a London based property website.
+This forms part of my final Project for Code Institute
+
+---
+
+## Table of Content
+
+- [Planning](#planning)
+- [Deployment](#deployment)
+  - [Setting up on Heroku](#setting-up-on-heroku)
+  - [Forking the GitHub Repository](#forking-the-github-repository)
+  - [Making a Local Clone](#making-a-local-clone)
+  - [Environment Variables](#environment-variables)
+
+---
+
+### [Planning](#table-of-content)
+
+---
+
+### [Deployment](#table-of-content)
+
+Index
+- [Setting up on Heroku](#setting-up-on-heroku)
+- [Forking the GitHub Repository](#forking-the-github-repository)
+- [Making a Local Clone](#making-a-local-clone)
+- [Environment Variables](#environment-variables)
+
+- Make sure to install [Docker Desktop](https://www.docker.com/)
+- If you need additional assistance to install docker desktop
+- click [here](https://www.youtube.com/watch?v=31ieHmcTUOk&list=PL4cUxeGkcC9hxjeEtdHFNYMtCpjNBm3h7) for YouTube video tutorials on getting setup
+
+#### [Setting up on Heroku](#deployment)
+
+#### [Forking the GitHub Repository](#deployment)
+
+- Locate this [repository](https://github.com/douglas86/ci-pp5-property)
+- make sure that you are on the tab that says, "Code"
+- when on that tab, locate the tab that says, "Fork"
+- Click on the Fork tab
+- Once it has been forked
+- You need to clone it to your [local machine](#making-a-local-clone)
+
+#### [Making a Local Clone](#deployment)
+
+- Making a local clone of this repo can either be done by ssh or http
+- make sure that ssh is set up correctly on your PC before using it
+- to ssh use the following command
+
+```
+git clone git@github.com:douglas86/ci-pp5-property.git
+```
+
+- to use http use the following command
+
+```
+git clone https://github.com/douglas86/ci-pp5-property.git
+```
+
+- create an env.py file inside the backend directory
+- scroll down to the [environment variables](#environment-variables) section of this document
+- once the local environment variables have been created
+- you need to then start the virtual machine
+- to do that cd into the backend directory
+
+```
+cd backend
+```
+
+- to start your virtual machine, use the following command
+
+```
+source .venv/bin/activate
+```
+
+- this is going to be used for when you have to install new python packages
+- once the virtual environment has started
+- you can then start up the docker container
+- make sure that docker desktop is running first
+- then use the following command
+
+```
+docker-compose up
+```
+
+#### [Environment Variables](#deployment)
+
+![env.png](backend/assets/docs/env.png)
+
+- create the necessary environment variables
+
+DJANGO_SETTING_KEY environment variable
+
+- django secret keys should never be commited to GitHub
+- so if you need one, follow the following link
+- [generate a new secret key](https://www.makeuseof.com/django-secret-key-generate-new/#:~:text=You%20can%20accidentally%20make%20your,are%20still%20learning%20about%20GitHub.)
+
+CLOUDINARY_URL environment variables
+
+- Login to your [cloudinary account](https://cloudinary.com/users/login)
+- Locate your Profile image, which you should see at the bottom of the tab on the left
+- Once on your profile page, go to your API Keys section
+- At the top of that page copy the one that says, API environment variable
+- place the API Key and API Secret in the correct places in the key parameters
+- this key can now be placed in Heroku or for local development
+- on teh Heroku dashboard, there are two sections of the key and the value
+- place CLOUDINARY_URL in the key section
+- and your api key in the value section
+- on the local development in the env.py file, you need to use the os module for environment variables
+- import the os module at the top
+- and create the following method:
+- os.environ.setdefault("key", "value")
+- placing CLOUDINARY_URL as the key
+- and the api key for cloudinary as the value
+
+---
