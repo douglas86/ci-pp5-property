@@ -38,6 +38,24 @@ Index
 
 #### [Setting up on Heroku](#deployment)
 
+- head over to [Heroku Dashboard](https://id.heroku.com/login) to Login
+- once login, click on New for creating a new project
+- type in the new name for the app
+- click on what region you are wanting your server to be in
+- once the app has been created, locate the tab that says, "Deploy"
+- under the deployment method, connect your GitHub account to your app and search for your repo
+- when you have connected your repo manual deploy your main branch
+- once manually deployed, it will fail next would be to get the environment variables up and running
+- locate the settings tab at the top
+- scroll down until you see config vars
+- click the purple button that says, "Reveal Config Vars"
+- add the [environment variables](#environment-variables) on the Heroku Dashboard
+- then rebuild the application on the Deploy tab
+- make sure to add Heroku Postgres as an addon
+- once you have added the addon it auto create the env for the database
+
+Note: build packs might not be necessary as I am using docker containers
+
 #### [Forking the GitHub Repository](#deployment)
 
 - Locate this [repository](https://github.com/douglas86/ci-pp5-property)
