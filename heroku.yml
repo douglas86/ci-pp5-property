@@ -1,0 +1,6 @@
+build:
+  docker:
+    web: backend/Dockerfile
+
+run:
+  web: daphne property.asgi:application --port $PORT --bind 0.0.0.0
