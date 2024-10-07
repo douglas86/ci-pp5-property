@@ -4,3 +4,4 @@
 
 #environment variables
 env.py
+.env
