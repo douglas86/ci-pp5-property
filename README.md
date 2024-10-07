@@ -63,7 +63,7 @@ git clone git@github.com:douglas86/ci-pp5-property.git
 git clone https://github.com/douglas86/ci-pp5-property.git
 ```
 
-- create an env.py file inside the backend directory
+- create an .env file inside the backend directory
 - scroll down to the [environment variables](#environment-variables) section of this document
 - once the local environment variables have been created
 - you need to then start the virtual machine
@@ -109,13 +109,11 @@ CLOUDINARY_URL environment variables
 - At the top of that page copy the one that says, API environment variable
 - place the API Key and API Secret in the correct places in the key parameters
 - this key can now be placed in Heroku or for local development
-- on teh Heroku dashboard, there are two sections of the key and the value
+- on the Heroku dashboard, there are two sections of the key and the value
 - place CLOUDINARY_URL in the key section
 - and your api key in the value section
-- on the local development in the env.py file, you need to use the os module for environment variables
-- import the os module at the top
-- and create the following method:
-- os.environ.setdefault("key", "value")
+- on the local development in the .env file
+- create the following object:
 - placing CLOUDINARY_URL as the key
 - and the api key for cloudinary as the value
 
