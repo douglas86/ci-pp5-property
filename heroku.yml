@@ -1,9 +1,9 @@
 build:
   docker:
-    web: Dockerfile
+    web: backend/Dockerfile
 
 run:
-  web: gunicorn backend/property.wsgi:application --log-file -
+  web: gunicorn property.wsgi:application --log-file -
 
 release:
   command:
