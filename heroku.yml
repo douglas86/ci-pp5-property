@@ -1,11 +1,13 @@
 build:
   docker:
-    web: ./backend/Dockerfile
-    frontend: ./frontend/Dockerfile
+    web:
+      dockerfile: ./backend/Dockerfile
+    frontend:
+      dockerfile: ./frontend/Dockerfile
 
 run:
   web:
-    command: bash -c "cd backend && daphne property.asgi:application --port $PORT --bind 0.0.0.0"
+    command: daphne property.asgi:application --port $PORT --bind 0.0.0.0
   frontend:
-    command: bash -c "cd frontend && serve -s build"
+    command: npm start
 #  web: daphne property.asgi:application --port $PORT --bind 0.0.0.0
