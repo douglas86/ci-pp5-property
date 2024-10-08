@@ -14,10 +14,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts ../backend/build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "npm run build && mv build/* ../backend/static"
+    "heroku-postbuild": "npm run build && mv ../backend/build/* ../backend/static"
   },
   "eslintConfig": {
     "extends": [
