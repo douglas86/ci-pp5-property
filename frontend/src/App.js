@@ -10,7 +10,7 @@ const App = () => {
     }
   };
 
-  fetchData("http://localhost:8000/")
+  fetchData("http://localhost:8000/api/")
     .then((res) => console.log("res", res.data))
     .catch((err) => console.log("err", err));
 
