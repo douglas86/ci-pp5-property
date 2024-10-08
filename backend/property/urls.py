@@ -15,21 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include, re_path
-from django.shortcuts import render
+from django.urls import path, include
 
 from .views import HomeView
 
-def render_react(request):
-    return render(request, 'index.html')
-
 urlpatterns = [
-    path("api/", HomeView.as_view({'get': 'list'}), name="home"),
+    path("", HomeView.as_view({'get': 'list'}), name="home"),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
-
-    re_path(r"^$", render_react),
-    re_path(r"^(?:.*)/?$", render_react),
 ]
