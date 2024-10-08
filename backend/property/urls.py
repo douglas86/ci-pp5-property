@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from .views import HomeView
+from .views import HomeView, index
 
 urlpatterns = [
+    path('', index, name='index'),
     path("api/", HomeView.as_view({'get': 'list'}), name="home"),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),

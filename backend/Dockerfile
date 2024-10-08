@@ -16,7 +16,8 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 #Copy project files
-COPY . /app/
+COPY . /backend /app/backend/
+COPY ./frontend/build /app/backend/static/
 
 #Expose the port Django will run on
 EXPOSE 8000
