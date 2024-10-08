@@ -14,19 +14,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import os
-
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.shortcuts import render
-from .settings import BASE_DIR
 
 from .views import HomeView
 
 def render_react(request):
-    path_to_manifest = os.path.join(BASE_DIR, 'build/manifest.json')
-    with open(path_to_manifest) as f:
-        return render(request, 'index.html', content_type='application/json')
+    return render(request, 'index.html')
 
 urlpatterns = [
     path("api/", HomeView.as_view({'get': 'list'}), name="home"),
