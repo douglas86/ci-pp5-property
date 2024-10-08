@@ -4,6 +4,3 @@ build:
 
 run:
   web: daphne property.asgi:application --port $PORT --bind 0.0.0.0
-  worker:
-    command:
-      - cd frontend && npm run build && cd ..
