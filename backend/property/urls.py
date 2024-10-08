@@ -21,7 +21,7 @@ from django.shortcuts import render
 from .views import HomeView
 
 def render_react(request):
-    return render(request, 'build/index.html')
+    return render(request, 'index.html')
 
 urlpatterns = [
     path("api/", HomeView.as_view({'get': 'list'}), name="home"),
