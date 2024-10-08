@@ -4,7 +4,11 @@ import axios from "axios";
 const App = () => {
   const fetchData = async (url) => {
     try {
-      return await axios.get(url);
+      return await axios.get(url, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     } catch (e) {
       return e;
     }
