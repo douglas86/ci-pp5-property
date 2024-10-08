@@ -1,6 +1,19 @@
 import "./App.css";
+import axios from "axios";
 
 const App = () => {
+  const fetchData = async (url) => {
+    try {
+      return await axios.get(url);
+    } catch (e) {
+      return e;
+    }
+  };
+
+  fetchData("http://localhost:8000/")
+    .then((res) => console.log("res", res.data))
+    .catch((err) => console.log("err", err));
+
   return (
     <div>
       <h1>App</h1>
