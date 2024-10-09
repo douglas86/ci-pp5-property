@@ -22,4 +22,4 @@ COPY . /app
 EXPOSE 8000
 
 #Run Django Server
-CMD ["python", "manage.py", "runserver"]
+CMD ["sh", "-c", "daphne property.asgi:application --port $PORT --bind 0.0.0.0"]
