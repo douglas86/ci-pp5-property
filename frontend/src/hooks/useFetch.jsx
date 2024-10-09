@@ -33,7 +33,7 @@ const useFetch = (url) => {
           error: err,
         }),
       );
-  }, []);
+  }, [url]);
 
   return {
     message: state.message,
