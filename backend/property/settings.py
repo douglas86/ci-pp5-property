@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 import dj_database_url
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +34,8 @@ REST_AUTH = {
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SETTINGS_KEY')
+
+print('secret', SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -123,8 +128,8 @@ else:
             'NAME': os.environ.get('POSTGRES_DB', 'database'),
             'USER': os.environ.get('POSTGRES_USER', 'user'),
             'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'password'),
-            'HOST': 'db',
             'PORT': 5432,
+            'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
         }
     }
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
