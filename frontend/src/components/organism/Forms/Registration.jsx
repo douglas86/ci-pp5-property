@@ -16,7 +16,7 @@ const Registration = () => {
     // change the url needed for the submitted button
     dispatch({
       type: "FORM SUBMIT URL",
-      payload: "/dj-rest-auth/registration/",
+      payload: "/auth/registration/",
     });
   }, [dispatch]);
 
