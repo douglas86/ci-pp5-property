@@ -7,11 +7,13 @@ import { router } from "../../utils";
 
 import styles from "../../styles/components/organism/Header.module.css";
 import { button } from "../atom/button";
+import Authentication from "./Authentication";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
 
-  const handleClick = () => console.log("You clicked me");
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
 
   return (
     <Navbar bg="light" expand="md">
@@ -37,7 +39,9 @@ const Header = () => {
                 <h4>{title}</h4>
               </Nav.Link>
             ))}
-            {button(handleClick, "Login", "dark")}
+            {button(handleShow, "Login", "dark")}
+
+            <Authentication state={show} setState={setShow} />
           </Nav>
         </Navbar.Collapse>
       </Container>
