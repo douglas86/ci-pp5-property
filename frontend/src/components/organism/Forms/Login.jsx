@@ -9,7 +9,7 @@ const Login = () => {
   useEffect(() => {
     dispatch({ type: "CHANGE HEADER", payload: "Login Form" });
     dispatch({ type: "CHANGE BTN", payload: "Login" });
-  }, []);
+  }, [dispatch]);
 
   const handleClick = () => console.log("You clicked me");
 

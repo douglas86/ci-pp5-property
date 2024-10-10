@@ -8,7 +8,7 @@ const Logout = () => {
   useEffect(() => {
     dispatch({ type: "CHANGE HEADER", payload: "Logout Form" });
     dispatch({ type: "CHANGE BTN", payload: "Logout" });
-  }, []);
+  }, [dispatch]);
 
   return (
     <Form>

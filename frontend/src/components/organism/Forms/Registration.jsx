@@ -1,9 +1,15 @@
 import Form from "react-bootstrap/Form";
 import { button } from "../../atom/button";
+import { useEffect } from "react";
+import useAppContext from "../../../hooks/useAppContext";
 
-const Registration = ({ setState, setBtn }) => {
-  setState("Registration");
-  setBtn("Register");
+const Registration = () => {
+  const { dispatch } = useAppContext();
+
+  useEffect(() => {
+    dispatch({ type: "CHANGE HEADER", payload: "Registration Form" });
+    dispatch({ type: "CHANGE BTN", payload: "Registration" });
+  }, [dispatch]);
 
   const handleClick = () => console.log("you clicked me");
 

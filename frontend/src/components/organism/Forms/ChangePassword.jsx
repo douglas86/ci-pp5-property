@@ -9,7 +9,7 @@ const ChangePassword = () => {
   useEffect(() => {
     dispatch({ type: "CHANGE HEADER", payload: "Change Password Form" });
     dispatch({ type: "CHANGE BTN", payload: "Change Password" });
-  }, []);
+  }, [dispatch]);
 
   const handleClick = () => console.log("You clicked me");
 
