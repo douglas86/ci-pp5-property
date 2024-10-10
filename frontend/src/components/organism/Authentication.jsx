@@ -1,11 +1,11 @@
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Registration from "./Forms/Registration";
 import { useState } from "react";
 import { button } from "../atom/button";
+import Login from "./Forms/Login";
 
 const Authentication = ({ state, setState }) => {
   const [header, setHeader] = useState("Login Form");
+  const [btn, setBtn] = useState("Login");
 
   const handleClose = () => setState(false);
 
@@ -15,13 +15,11 @@ const Authentication = ({ state, setState }) => {
         <Modal.Title>{header}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Registration setState={setHeader} />
+        <Login setState={setHeader} setBtn={setBtn} />
       </Modal.Body>
       <Modal.Footer>
         {button(handleClose, "Close", "secondary")}
-        <Button variant="primary" onClick={handleClose}>
-          Save Changes
-        </Button>
+        {button(handleClose, btn, "warning")}
       </Modal.Footer>
     </Modal>
   );

@@ -1,8 +1,9 @@
 import Form from "react-bootstrap/Form";
 import { button } from "../../atom/button";
 
-const Registration = ({ setState }) => {
+const Registration = ({ setState, setBtn }) => {
   setState("Registration Form");
+  setBtn("Register");
 
   const handleClick = () => console.log("you clicked me");
 
