@@ -2,6 +2,12 @@ import { createContext, useMemo, useReducer } from "react";
 import { rootReducers } from "./rootReducers";
 
 const initialState = {
+  formsReducers: {
+    data: {},
+    errors: {},
+    success: {},
+    url: "",
+  },
   userReducers: null,
   modalReducers: {
     header: "Login",
@@ -12,9 +18,9 @@ const initialState = {
 export const Context = createContext(initialState);
 
 const init = (initialState) => {
-  const { userReducers, modalReducers } = initialState;
+  const { formsReducers, userReducers, modalReducers } = initialState;
 
-  return { userReducers, modalReducers };
+  return { formsReducers, userReducers, modalReducers };
 };
 
 export const Provider = ({ children }) => {

@@ -1,7 +1,8 @@
 import { combineReducers } from "./cobineReducers";
-import { modalReducers, userReducers } from "./reducers";
+import { formsReducers, modalReducers, userReducers } from "./reducers";
 
 export const rootReducers = combineReducers({
+  formsReducers,
   modalReducers,
   userReducers,
 });

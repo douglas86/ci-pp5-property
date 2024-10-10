@@ -3,20 +3,26 @@ import { button } from "../atom/button";
 import useAppContext from "../../hooks/useAppContext";
 import Registration from "./Forms/Registration";
 import { AxiosRegister } from "../../API/AxiosInstance";
-import { useState } from "react";
 
 const Authentication = ({ show, setShow }) => {
-  const [form, setForm] = useState({});
-
-  const { modal } = useAppContext();
+  const { forms, modal, dispatch } = useAppContext();
   const { header, btn } = modal;
+  const { data, url } = forms;
 
   const handleClose = () => setShow(false);
 
   const handleSubmit = async () => {
-    await AxiosRegister.post("/dj-rest-auth/registration/", form)
-      .then((res) => console.log("res", res))
-      .catch((err) => console.log("err", err));
+    await AxiosRegister.post(url, data)
+      .then((res) => {
+        // save data to success forms state in state store
+        dispatch({ type: "FORM SUCCESS", payload: res });
+        // save users data to the users state in state store
+        dispatch({ type: "USER DATA", payload: res.data.user });
+      })
+      .catch((err) =>
+        // when errors occur, it gets save to forms errors state in state store
+        dispatch({ type: "FORM ERRORS", payload: err.response.data }),
+      );
   };
 
   return (
@@ -25,7 +31,7 @@ const Authentication = ({ show, setShow }) => {
         <Modal.Title>{header}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Registration form={form} setForm={setForm} />
+        <Registration />
       </Modal.Body>
       <Modal.Footer>
         {button(handleClose, "Close", "secondary")}
