@@ -20,10 +20,12 @@ const Authentication = ({ show, setShow }) => {
         dispatch({ type: "FORM SUCCESS", payload: res });
         // save users data to the users state in state store
         dispatch({ type: "USER DATA", payload: res.data.user });
+        console.log("res", res);
       })
       .catch((err) => {
         // when errors occur, it gets save to forms errors state in state store
         dispatch({ type: "FORM ERRORS", payload: err.response.data });
+        console.log("err", err);
       });
   };
 

@@ -8,6 +8,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Authentication
 from .serializers import ChangePasswordSerializer
 
+from property.views import AsyncViewSet
+
 
 # Create your views here.
 class LogoutView(APIView):
@@ -56,15 +58,24 @@ class ChangePasswordView(ViewSet):
             username = request.data['username']
 
             if serializer.is_valid():
-                user = User.objects.get(username=username)
-                if not user.check_password(serializer.validated_data['old_password']):
-                    return Response({'message': self.error_message, 'status': self.status_400})
+                try:
+                    # Attempt to retrieve the user by username
+                    user = AsyncViewSet(User.objects.get(username=username)).retrieve()
+                except User.DoesNotExist:
+                    # Return a response if the user is not found
+                    return Response({'message': "This user does not exist"}, status=status.HTTP_404_NOT_FOUND)
 
-                user.set_password(serializer.validated_data['new_password'])
+                # check if the old password was correct
+                if not user.check_password(request.data['old_password']):
+                    return Response({'message': self.error_message}, status=status.HTTP_400_BAD_REQUEST)
+
+                # set and save the new password
+                user.set_password(request.data['new_password'])
                 user.save()
-                return Response({'message': self.success_message, 'status': self.status_200})
+                return Response({'message': self.success_message}, status=status.HTTP_200_OK)
         except KeyError:
-            return Response({'message': self.field_error_message, 'status': self.status_400})
+            # catch missing fields in the request
+            return Response({'message': self.field_error_message}, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request):
         """
