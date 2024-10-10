@@ -1,7 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 import { button } from "../atom/button";
-import Logout from "./Forms/Logout";
+import ChangePassword from "./Forms/ChangePassword";
 
 const Authentication = ({ state, setState }) => {
   const [header, setHeader] = useState("Login Form");
@@ -15,7 +15,7 @@ const Authentication = ({ state, setState }) => {
         <Modal.Title>{header}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Logout setState={setHeader} setBtn={setBtn} />
+        <ChangePassword setState={setHeader} setBtn={setBtn} />
       </Modal.Body>
       <Modal.Footer>
         {button(handleClose, "Close", "secondary")}
