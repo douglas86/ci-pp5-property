@@ -1,9 +1,15 @@
 import Form from "react-bootstrap/Form";
 import { button } from "../../atom/button";
+import { useEffect } from "react";
+import useAppContext from "../../../hooks/useAppContext";
 
-const ChangePassword = ({ setState, setBtn }) => {
-  setState("Change Password");
-  setBtn("Change");
+const ChangePassword = () => {
+  const { dispatch } = useAppContext();
+
+  useEffect(() => {
+    dispatch({ type: "CHANGE HEADER", payload: "Change Password Form" });
+    dispatch({ type: "CHANGE BTN", payload: "Change Password" });
+  }, []);
 
   const handleClick = () => console.log("You clicked me");
 
@@ -18,7 +24,7 @@ const ChangePassword = ({ setState, setBtn }) => {
         <Form.Label column={true}>Your Password</Form.Label>
         <Form.Control type="password" placeholder="your password" />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea2">
         <Form.Label column={true}>New Password</Form.Label>
         <Form.Control type="password" placeholder="change password here" />
       </Form.Group>

@@ -1,8 +1,14 @@
 import Form from "react-bootstrap/Form";
+import useAppContext from "../../../hooks/useAppContext";
+import { useEffect } from "react";
 
-const Logout = ({ setState, setBtn }) => {
-  setState("Logout");
-  setBtn("Logout");
+const Logout = () => {
+  const { dispatch } = useAppContext();
+
+  useEffect(() => {
+    dispatch({ type: "CHANGE HEADER", payload: "Logout Form" });
+    dispatch({ type: "CHANGE BTN", payload: "Logout" });
+  }, []);
 
   return (
     <Form>

@@ -1,9 +1,15 @@
 import { button } from "../../atom/button";
 import Form from "react-bootstrap/Form";
+import { useEffect } from "react";
+import useAppContext from "../../../hooks/useAppContext";
 
-const Login = ({ setState, setBtn }) => {
-  setState("Login");
-  setBtn("Login");
+const Login = () => {
+  const { dispatch } = useAppContext();
+
+  useEffect(() => {
+    dispatch({ type: "CHANGE HEADER", payload: "Login Form" });
+    dispatch({ type: "CHANGE BTN", payload: "Login" });
+  }, []);
 
   const handleClick = () => console.log("You clicked me");
 

@@ -41,7 +41,7 @@ const Header = () => {
             ))}
             {button(handleShow, "Login", "dark")}
 
-            <Authentication state={show} setState={setShow} />
+            <Authentication show={show} setShow={setShow} />
           </Nav>
         </Navbar.Collapse>
       </Container>
