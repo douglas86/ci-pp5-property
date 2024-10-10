@@ -1,7 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import { button } from "../atom/button";
 import useAppContext from "../../hooks/useAppContext";
-import Registration from "./Forms/Registration";
+import Login from "./Forms/Login";
 import { AxiosRegister } from "../../API/AxiosInstance";
 
 const Authentication = ({ show, setShow }) => {
@@ -19,10 +19,10 @@ const Authentication = ({ show, setShow }) => {
         // save users data to the users state in state store
         dispatch({ type: "USER DATA", payload: res.data.user });
       })
-      .catch((err) =>
+      .catch((err) => {
         // when errors occur, it gets save to forms errors state in state store
-        dispatch({ type: "FORM ERRORS", payload: err.response.data }),
-      );
+        dispatch({ type: "FORM ERRORS", payload: err.response.data });
+      });
   };
 
   return (
@@ -31,7 +31,7 @@ const Authentication = ({ show, setShow }) => {
         <Modal.Title>{header}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Registration />
+        <Login />
       </Modal.Body>
       <Modal.Footer>
         {button(handleClose, "Close", "secondary")}
