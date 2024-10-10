@@ -23,5 +23,5 @@ urlpatterns = [
     path("", HomeView.as_view({'get': 'list'}), name="home"),
     path('admin/', admin.site.urls),
 
-    path('auth/', include('auth.urls')),
+    path('auth/', include('authentication.urls')),
 ]
