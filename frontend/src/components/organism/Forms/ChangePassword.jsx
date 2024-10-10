@@ -11,11 +11,15 @@ const ChangePassword = () => {
     dispatch({ type: "CHANGE BTN", payload: "Change Password" });
   }, [dispatch]);
 
-  const handleClick = () => console.log("You clicked me");
+  const handleLogin = () =>
+    dispatch({ type: "WHICH FORM TO USE", payload: "" });
+
+  const handleRegister = () =>
+    dispatch({ type: "WHICH FORM TO USE", payload: "REGISTRATION" });
 
   return (
     <Form>
-      {button(handleClick, "Click here to Login?", "link")}
+      {button(handleLogin, "Click here to Login?", "link")}
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label column={true}>Username</Form.Label>
         <Form.Control type="text" placeholder="my name" autoFocus={true} />
@@ -28,7 +32,7 @@ const ChangePassword = () => {
         <Form.Label column={true}>New Password</Form.Label>
         <Form.Control type="password" placeholder="change password here" />
       </Form.Group>
-      {button(handleClick, "Click here to Register?", "link")}
+      {button(handleRegister, "Click here to Register?", "link")}
     </Form>
   );
 };

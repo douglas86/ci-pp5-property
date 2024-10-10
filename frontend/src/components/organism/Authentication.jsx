@@ -1,13 +1,13 @@
 import Modal from "react-bootstrap/Modal";
 import { button } from "../atom/button";
 import useAppContext from "../../hooks/useAppContext";
-import Login from "./Forms/Login";
 import { AxiosRegister } from "../../API/AxiosInstance";
+import { whichAuthForm } from "../../utils/whichAuthForm";
 
 const Authentication = ({ show, setShow }) => {
   const { forms, modal, dispatch } = useAppContext();
   const { header, btn } = modal;
-  const { data, url } = forms;
+  const { data, url, whichForm } = forms;
 
   const handleClose = () => setShow(false);
 
@@ -30,9 +30,7 @@ const Authentication = ({ show, setShow }) => {
       <Modal.Header closeButton>
         <Modal.Title>{header}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <Login />
-      </Modal.Body>
+      <Modal.Body>{whichAuthForm(whichForm)}</Modal.Body>
       <Modal.Footer>
         {button(handleClose, "Close", "secondary")}
         {button(handleSubmit, btn, "warning")}

@@ -16,7 +16,11 @@ const Login = () => {
     dispatch({ type: "FORM SUBMIT URL", payload: "/auth/login/" });
   }, [dispatch]);
 
-  const handleClick = () => console.log("You clicked me");
+  const handleRegister = () =>
+    dispatch({ type: "WHICH FORM TO USE", payload: "REGISTRATION" });
+
+  const handleChangePassword = () =>
+    dispatch({ type: "WHICH FORM TO USE", payload: "CHANGE PASSWORD" });
 
   // array to be passed to map
   // details of what you want in the form
@@ -29,11 +33,11 @@ const Login = () => {
 
   return (
     <Form>
-      {button(handleClick, "Click here to Register?", "link")}
+      {button(handleRegister, "Click here to Register?", "link")}
       {arr.map(({ id, name, type, placeholder }) => (
         <MapToForm key={id} name={name} type={type} placeholder={placeholder} />
       ))}
-      {button(handleClick, "Click here to change password?", "link")}
+      {button(handleChangePassword, "Click here to change password?", "link")}
     </Form>
   );
 };

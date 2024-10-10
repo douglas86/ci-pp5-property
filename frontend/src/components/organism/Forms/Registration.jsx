@@ -20,7 +20,8 @@ const Registration = () => {
     });
   }, [dispatch]);
 
-  const handleClick = () => console.log("you clicked me");
+  const handleLogin = () =>
+    dispatch({ type: "WHICH FORM TO USE", payload: "" });
 
   // array to be passed to map
   // details of what you want in the form
@@ -44,7 +45,7 @@ const Registration = () => {
 
   return (
     <Form>
-      {button(handleClick, "Click here to Login?", "link")}
+      {button(handleLogin, "Click here to Login?", "link")}
       {arr.map(({ id, name, type, placeholder }) => (
         <MapToForm key={id} name={name} type={type} placeholder={placeholder} />
       ))}

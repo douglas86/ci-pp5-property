@@ -7,6 +7,7 @@ const initialState = {
     errors: {},
     success: {},
     url: "",
+    whichForm: "",
   },
   userReducers: null,
   modalReducers: {
