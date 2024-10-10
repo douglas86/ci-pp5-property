@@ -2,7 +2,7 @@ import { button } from "../../atom/button";
 import Form from "react-bootstrap/Form";
 
 const Login = ({ setState, setBtn }) => {
-  setState("Login Form");
+  setState("Login");
   setBtn("Login");
 
   const handleClick = () => console.log("You clicked me");
