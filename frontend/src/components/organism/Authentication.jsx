@@ -4,10 +4,12 @@ import useAppContext from "../../hooks/useAppContext";
 import { AxiosRegister } from "../../API/AxiosInstance";
 import { whichAuthForm } from "../../utils/whichAuthForm";
 
+import styles from "../../styles/components/organism/Forms.module.css";
+
 const Authentication = ({ show, setShow }) => {
   const { forms, modal, dispatch } = useAppContext();
   const { header, btn } = modal;
-  const { data, url, whichForm } = forms;
+  const { data, errors, url, whichForm } = forms;
 
   const handleClose = () => setShow(false);
 
@@ -30,7 +32,10 @@ const Authentication = ({ show, setShow }) => {
       <Modal.Header closeButton>
         <Modal.Title>{header}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>{whichAuthForm(whichForm)}</Modal.Body>
+      <Modal.Body>
+        {whichAuthForm(whichForm)}
+        <p className={styles.errors}>{errors["non_field_errors"]}</p>
+      </Modal.Body>
       <Modal.Footer>
         {button(handleClose, "Close", "secondary")}
         {button(handleSubmit, btn, "warning")}
