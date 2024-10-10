@@ -6,20 +6,22 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     gcc \
     python3-dev \
-    build-essential
+    build-essential \
+    libjpeg-dev \
+    zlib1g-dev
 
 #Set work directory
 WORKDIR /app
 
 #Install dependencies
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 #Copy project files
-COPY . /app
+COPY . .
 
 #Expose the port Django will run on
-EXPOSE 8000
+ENV PORT=8000
 
 #Run Django Server
 CMD ["sh", "-c", "daphne property.asgi:application --port $PORT --bind 0.0.0.0"]
