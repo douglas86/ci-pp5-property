@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAdminUser
 class HomeView(ViewSet):
     message = 'This is the home view'
 
-    async def list(self):
+    async def list(self, request):
         return Response({'message': self.message})
 
 class AsyncViewSet:
