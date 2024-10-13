@@ -8,6 +8,7 @@ const initialState = {
     success: {},
     url: "",
     whichForm: "",
+    loading: false,
   },
   userReducers: null,
   modalReducers: {

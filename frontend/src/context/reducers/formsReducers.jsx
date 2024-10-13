@@ -13,6 +13,8 @@ export const formsReducers = (state, action) => {
       return { ...state, url: payload };
     case "WHICH FORM TO USE":
       return { ...state, whichForm: payload };
+    case "FORM LOADING":
+      return { ...state, loading: payload };
     default:
       return state;
   }

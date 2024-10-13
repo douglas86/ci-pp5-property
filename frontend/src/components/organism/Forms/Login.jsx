@@ -1,25 +1,22 @@
 // 3rd party
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-
-// bootstrap
 import Form from "react-bootstrap/Form";
 
 // atomic design
 import MapToForm from "../../molecule/mapToForm";
 import { button, spinner } from "../../atom";
 
-// hooks and api
+// utils and custom hooks
+import { onSubmit } from "../../../utils";
 import useAppContext from "../../../hooks/useAppContext";
-import { AxiosRegister } from "../../../API/AxiosInstance";
 
 // styling
 import styles from "../../../styles/components/organism/Forms.module.css";
 
 const Login = () => {
-  const { dispatch } = useAppContext();
-
-  const [loading, setLoading] = useState(false);
+  const { dispatch, forms } = useAppContext();
+  const { loading } = forms;
 
   const {
     register,
@@ -37,26 +34,6 @@ const Login = () => {
 
   const handleChangePassword = () =>
     dispatch({ type: "WHICH FORM TO USE", payload: "CHANGE PASSWORD" });
-
-  const onSubmit = async (data) => {
-    setLoading(true);
-
-    await AxiosRegister.post("/auth/login/", data)
-      .then((res) => {
-        // save data to success forms state in state store
-        dispatch({ type: "FORM SUCCESS", payload: res });
-        // save users data to the users state in state store
-        dispatch({ type: "USER DATA", payload: res.data.user });
-        // close modal when data is correct from server
-        dispatch({ type: "CHANGE MODAL STATE", payload: false });
-      })
-      .catch((err) => {
-        // when errors occur, it gets save to forms errors state in state store
-        dispatch({ type: "FORM ERRORS", payload: err.response.data });
-      });
-
-    setLoading(false);
-  };
 
   // array to be passed to map
   // details of what you want in the form
@@ -81,7 +58,11 @@ const Login = () => {
   ];
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      onSubmit={handleSubmit((data) =>
+        onSubmit(data, "/auth/login/", dispatch),
+      )}
+    >
       {/*display message based on server response*/}
       {loading ? spinner() : null}
 

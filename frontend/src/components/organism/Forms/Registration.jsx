@@ -1,15 +1,22 @@
+// 3rd party
 import Form from "react-bootstrap/Form";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
+// atomic design
+import MapToForm from "../../molecule/mapToForm";
 import { button, spinner } from "../../atom";
-import { useEffect, useState } from "react";
+
+// utils and custom hooks
+import { onSubmit } from "../../../utils";
 import useAppContext from "../../../hooks/useAppContext";
 
-import MapToForm from "../../molecule/mapToForm";
-import { AxiosRegister } from "../../../API/AxiosInstance";
-import { useForm } from "react-hook-form";
+// styling
 import styles from "../../../styles/components/organism/Forms.module.css";
 
 const Registration = () => {
-  const { dispatch } = useAppContext();
+  const { dispatch, forms } = useAppContext();
+  const { loading } = forms;
 
   const {
     register,
@@ -17,8 +24,6 @@ const Registration = () => {
     watch,
     formState: { errors },
   } = useForm();
-
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // change the header of the modal
@@ -35,24 +40,8 @@ const Registration = () => {
   const handleLogin = () =>
     dispatch({ type: "WHICH FORM TO USE", payload: "" });
 
-  const onSubmit = async (data) => {
-    setLoading(true);
-
-    await AxiosRegister.post("/auth/registration/", data)
-      .then((res) => {
-        dispatch({ type: "FORM SUCCESS", payload: res });
-        dispatch({ type: "USER DATA", payload: res.data.user });
-        dispatch({ type: "CHANGE MODAL STATE", payload: false });
-      })
-      .catch((err) => {
-        dispatch({ type: "FORM ERRORS", payload: err.response.data });
-        console.log("err", err);
-      });
-
-    setLoading(false);
-  };
-
-  const password = watch("password1");
+  // password checking
+  const passwordMatch = watch("password1");
   const commonPasswords = ["123456", "password", "12345678", "qwerty"];
 
   // array to be passed to map
@@ -101,19 +90,22 @@ const Registration = () => {
             "This password is too short. It must contain at least 8 characters",
         },
         validate: {
-          passwordMatch: (value) =>
-            value === password || "Passwords do not match",
+          match: (value) => value === passwordMatch || "Passwords do not match",
           common: (value) =>
-              !commonPasswords.includes(value) || "This password is too common",
+            !commonPasswords.includes(value) || "This password is too common",
           numeric: (value) =>
-              !/^\d+$/.test(value) || "This password is entirely numeric",
+            !/^\d+$/.test(value) || "This password is entirely numeric",
         },
       },
     },
   ];
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      onSubmit={handleSubmit((data) =>
+        onSubmit(data, "/auth/registration/", dispatch),
+      )}
+    >
       {loading ? spinner() : null}
 
       {button(handleLogin, "Click here to Login?", "link")}
