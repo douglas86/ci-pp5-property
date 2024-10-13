@@ -130,7 +130,7 @@ const Registration = () => {
           "Cancel",
           "secondary",
         )}
-        {button("submit", "Login", "warning")}
+        {button("submit", "Register", "warning")}
       </div>
     </Form>
   );
