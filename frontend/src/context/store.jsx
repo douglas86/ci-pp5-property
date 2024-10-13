@@ -12,7 +12,7 @@ const initialState = {
   userReducers: null,
   modalReducers: {
     header: "Login",
-    btn: "Login",
+    showModal: false,
   },
 };
 

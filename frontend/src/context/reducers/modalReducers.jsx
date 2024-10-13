@@ -4,8 +4,8 @@ export const modalReducers = (state, action) => {
   switch (type) {
     case "CHANGE HEADER":
       return { ...state, header: payload };
-    case "CHANGE BTN":
-      return { ...state, btn: payload };
+    case "CHANGE MODAL STATE":
+      return { ...state, showModal: payload };
     default:
       return state;
   }

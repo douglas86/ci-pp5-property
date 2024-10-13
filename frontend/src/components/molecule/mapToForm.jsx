@@ -18,7 +18,7 @@ const MapToForm = ({ items, errors, register }) => {
         name={name}
       />
       {/*show an error message*/}
-      {/*  from React hook form*/}
+      {/*from React hook form*/}
       {errors[name] && <p className="text-danger">{errors[name].message}</p>}
       {/*from server*/}
       {err[name] && <p className="text-danger">{err[name]}</p>}

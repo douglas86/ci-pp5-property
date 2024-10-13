@@ -1,16 +1,25 @@
-import { button } from "../../atom/button";
-import Form from "react-bootstrap/Form";
+// 3rd party
 import { useEffect, useState } from "react";
-import useAppContext from "../../../hooks/useAppContext";
-import MapToForm from "../../molecule/mapToForm";
 import { useForm } from "react-hook-form";
-import { Button } from "react-bootstrap";
+
+// bootstrap
+import Form from "react-bootstrap/Form";
+
+// atomic design
+import MapToForm from "../../molecule/mapToForm";
+import { button, spinner } from "../../atom";
+
+// hooks and api
+import useAppContext from "../../../hooks/useAppContext";
 import { AxiosRegister } from "../../../API/AxiosInstance";
+
+// styling
+import styles from "../../../styles/components/organism/Forms.module.css";
 
 const Login = () => {
   const { dispatch } = useAppContext();
 
-  const [loading, setLoading] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -30,7 +39,7 @@ const Login = () => {
     dispatch({ type: "WHICH FORM TO USE", payload: "CHANGE PASSWORD" });
 
   const onSubmit = async (data) => {
-    setLoading("Please wait while we process your data?");
+    setLoading(true);
 
     await AxiosRegister.post("/auth/login/", data)
       .then((res) => {
@@ -38,13 +47,15 @@ const Login = () => {
         dispatch({ type: "FORM SUCCESS", payload: res });
         // save users data to the users state in state store
         dispatch({ type: "USER DATA", payload: res.data.user });
-        // when data has been processed close form and reset loading state
-        setLoading("");
+        // close modal when data is correct from server
+        dispatch({ type: "CHANGE MODAL STATE", payload: false });
       })
       .catch((err) => {
         // when errors occur, it gets save to forms errors state in state store
         dispatch({ type: "FORM ERRORS", payload: err.response.data });
       });
+
+    setLoading(false);
   };
 
   // array to be passed to map
@@ -72,12 +83,15 @@ const Login = () => {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       {/*display message based on server response*/}
-      <h3>{loading}</h3>
+      {loading ? spinner() : null}
 
       {/*register and change password buttons*/}
-      {button(handleRegister, "Click here to Register?", "secondary")}
-      {button(handleChangePassword, "Change Password Here?", "primary")}
+      <div className={styles.btn}>
+        {button(handleRegister, "Click here to Register?", "secondary")}
+        {button(handleChangePassword, "Change Password Here?", "primary")}
+      </div>
 
+      {/*form groups*/}
       {arr.map((items) => (
         <MapToForm
           key={items.id}
@@ -87,9 +101,15 @@ const Login = () => {
         />
       ))}
 
-      <Button type="submit" variant="warning">
-        Login
-      </Button>
+      {/*close modal or login buttons*/}
+      <div className={styles.btn}>
+        {button(
+          () => dispatch({ type: "CHANGE MODAL STATE", payload: false }),
+          "Cancel",
+          "secondary",
+        )}
+        {button("submit", "Login", "warning")}
+      </div>
     </Form>
   );
 };

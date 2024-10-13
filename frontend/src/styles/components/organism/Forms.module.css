@@ -1,10 +1,4 @@
-.errors {
-    color: red;
-}
-
-.loading {
-    text-align: center;
-    color: darkgoldenrod;
-    font-weight: bold;
-    margin: 0.5em;
+.btn {
+    display: flex;
+    justify-content: space-evenly;
 }

@@ -6,14 +6,14 @@ import { logo } from "../atom";
 import { router } from "../../utils";
 
 import styles from "../../styles/components/organism/Header.module.css";
-import { button } from "../atom/button";
+import { button } from "../atom";
 import Authentication from "./Authentication";
+import useAppContext from "../../hooks/useAppContext";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
 
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
+  const { dispatch } = useAppContext();
 
   return (
     <Navbar bg="light" expand="md">
@@ -39,9 +39,13 @@ const Header = () => {
                 <h4>{title}</h4>
               </Nav.Link>
             ))}
-            {button(handleShow, "Login", "dark")}
+            {button(
+              () => dispatch({ type: "CHANGE MODAL STATE", payload: true }),
+              "Login",
+              "dark",
+            )}
 
-            <Authentication show={show} setShow={setShow} />
+            <Authentication />
           </Nav>
         </Navbar.Collapse>
       </Container>
