@@ -1,13 +1,17 @@
+// 3rd pary
 import Modal from "react-bootstrap/Modal";
-import useAppContext from "../../hooks/useAppContext";
-import { whichAuthForm } from "../../utils/whichAuthForm";
 
-const Authentication = () => {
+// utils and custom hooks
+import { whichAuthForm } from "../../utils/whichAuthForm";
+import useAppContext from "../../hooks/useAppContext";
+
+const FormModal = () => {
   const { dispatch, forms, modal } = useAppContext();
   const { header, showModal } = modal;
   const { err, whichForm } = forms;
 
-  const handleClose = () => dispatch({ type: "CHANGE MODAL STATE", payload: false });
+  const handleClose = () =>
+    dispatch({ type: "CHANGE MODAL STATE", payload: false });
 
   return (
     <Modal show={showModal} onHide={handleClose}>
@@ -24,4 +28,4 @@ const Authentication = () => {
   );
 };
 
-export default Authentication;
+export default FormModal;

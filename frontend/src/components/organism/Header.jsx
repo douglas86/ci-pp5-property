@@ -7,7 +7,7 @@ import { router } from "../../utils";
 
 import styles from "../../styles/components/organism/Header.module.css";
 import { button } from "../atom";
-import Authentication from "./Authentication";
+import FormModal from "./FormModal";
 import useAppContext from "../../hooks/useAppContext";
 
 const Header = () => {
@@ -45,7 +45,7 @@ const Header = () => {
               "dark",
             )}
 
-            <Authentication />
+            <FormModal />
           </Nav>
         </Navbar.Collapse>
       </Container>
