@@ -6,7 +6,7 @@ export const formsReducers = (state, action) => {
       const { name, value } = payload;
       return { ...state, data: { ...state.data, [name]: value } };
     case "FORM ERRORS":
-      return { ...state, errors: payload };
+      return { ...state, err: payload };
     case "FORM SUCCESS":
       return { ...state, success: payload };
     case "FORM SUBMIT URL":

@@ -4,7 +4,7 @@ import { rootReducers } from "./rootReducers";
 const initialState = {
   formsReducers: {
     data: {},
-    errors: {},
+    err: {},
     success: {},
     url: "",
     whichForm: "",

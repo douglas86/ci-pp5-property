@@ -1,25 +1,27 @@
 import Form from "react-bootstrap/Form";
 import useAppContext from "../../hooks/useAppContext";
 
-import styles from "../../styles/components/organism/Forms.module.css";
+const MapToForm = ({ items, errors, register }) => {
+  const { name, type, placeholder, formValidation } = items;
 
-const MapToForm = ({ name, type, placeholder }) => {
-  const { forms, dispatch } = useAppContext();
-  const { errors } = forms;
+  const { forms } = useAppContext();
+  const { err } = forms;
 
   return (
     <Form.Group className="mb-3" controlId={name}>
       <Form.Label column={true}>{name}</Form.Label>
       <Form.Control
         type={type}
+        {...register(name, formValidation)}
         placeholder={placeholder}
         autoFocus={true}
         name={name}
-        onChange={(e) =>
-          dispatch({ type: "FORM INPUT DATA", payload: e.target })
-        }
       />
-      <p className={styles.errors}>{errors[name]}</p>
+      {/*show an error message*/}
+      {/*  from React hook form*/}
+      {errors[name] && <p className="text-danger">{errors[name].message}</p>}
+      {/*from server*/}
+      {err[name] && <p className="text-danger">{err[name]}</p>}
     </Form.Group>
   );
 };
