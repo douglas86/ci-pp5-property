@@ -1,14 +1,22 @@
 import Form from "react-bootstrap/Form";
-import { button } from "../../atom/button";
+import { button, spinner } from "../../atom";
 import { useEffect } from "react";
 import useAppContext from "../../../hooks/useAppContext";
 import MapToForm from "../../molecule/mapToForm";
+import { onSubmit } from "../../../utils";
 
 import styles from "../../../styles/components/organism/Forms.module.css";
+import { useForm } from "react-hook-form";
 
 const ChangePassword = () => {
   const { dispatch, forms } = useAppContext();
-  const { errors } = forms;
+  const { loading, err } = forms;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     // change the header of the modal
@@ -25,30 +33,77 @@ const ChangePassword = () => {
   const handleRegister = () =>
     dispatch({ type: "WHICH FORM TO USE", payload: "REGISTRATION" });
 
+  const commonPasswords = ["123456", "password", "12345678", "qwerty"];
+
   const arr = [
-    { id: 1, name: "username", type: "text", placeholder: "Your Username" },
+    {
+      id: 1,
+      name: "username",
+      type: "text",
+      placeholder: "Your Username",
+      formValidation: { required: "This field is required" },
+    },
     {
       id: 2,
       name: "old_password",
       type: "password",
       placeholder: "Your Password",
+      formValidation: { required: "This field is required" },
     },
     {
       id: 3,
       name: "new_password",
       type: "password",
       placeholder: "Re-type Password",
+      formValidation: {
+        required: "This field is required",
+        minLength: {
+          value: 8,
+          message:
+            "This password is too short. It must contain at least 8 characters",
+        },
+        validate: {
+          common: (value) =>
+            !commonPasswords.includes(value) || "This password is too common",
+          numeric: (value) =>
+            !/^\d+$/.test(value) || "This password is entirely numeric",
+        },
+      },
     },
   ];
 
   return (
-    <Form>
-      {button(handleLogin, "Click here to Login?", "link")}
-      {arr.map(({ id, name, type, placeholder }) => (
-        <MapToForm key={id} name={name} type={type} placeholder={placeholder} />
+    <Form
+      onSubmit={handleSubmit((data) =>
+        onSubmit(data, "/auth/change_password/", dispatch),
+      )}
+    >
+      {loading ? spinner() : null}
+
+      <div className={styles.btn}>
+        {button(handleRegister, "Click here to Register?", "secondary")}
+        {button(handleLogin, "Login Here?", "primary")}
+      </div>
+
+      {arr.map((items) => (
+        <MapToForm
+          key={items.id}
+          items={items}
+          errors={errors}
+          register={register}
+        />
       ))}
-      <p className={styles.errors}>{errors["message"]}</p>
-      {button(handleRegister, "Click here to Register?", "link")}
+
+      <div className={styles.btn}>
+        {button(
+          () => dispatch({ type: "", payload: false }),
+          "Cancel",
+          "secondary",
+        )}
+        {button("submit", "Change Password", "warning")}
+      </div>
+
+      {err["message"] && <p className="text-danger">{err["message"]}</p>}
     </Form>
   );
 };

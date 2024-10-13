@@ -108,7 +108,9 @@ const Registration = () => {
     >
       {loading ? spinner() : null}
 
-      {button(handleLogin, "Click here to Login?", "link")}
+      <div className={styles.btn}>
+        {button(handleLogin, "Login Here?", "primary")}
+      </div>
 
       {arr.map((items) => (
         <MapToForm
