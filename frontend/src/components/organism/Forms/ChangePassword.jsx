@@ -1,12 +1,18 @@
+// 3rd party
 import Form from "react-bootstrap/Form";
-import { button, spinner } from "../../atom";
 import { useEffect } from "react";
-import useAppContext from "../../../hooks/useAppContext";
+import { useForm } from "react-hook-form";
+
+// atomic design
 import MapToForm from "../../molecule/mapToForm";
+import { button, spinner } from "../../atom";
+
+// utils and custom hooks
+import useAppContext from "../../../hooks/useAppContext";
 import { onSubmit } from "../../../utils";
 
+// styling
 import styles from "../../../styles/components/organism/Forms.module.css";
-import { useForm } from "react-hook-form";
 
 const ChangePassword = () => {
   const { dispatch, forms } = useAppContext();
@@ -21,20 +27,23 @@ const ChangePassword = () => {
   useEffect(() => {
     // change the header of the modal
     dispatch({ type: "CHANGE HEADER", payload: "Change Password Form" });
-    // change the submit button text on modal
-    dispatch({ type: "CHANGE BTN", payload: "Change Password" });
-    // change the url needed for the submitted button
-    dispatch({ type: "FORM SUBMIT URL", payload: "/auth/change_password/" });
   }, [dispatch]);
 
+  // load login form
   const handleLogin = () =>
     dispatch({ type: "WHICH FORM TO USE", payload: "" });
 
+  // load register form
   const handleRegister = () =>
     dispatch({ type: "WHICH FORM TO USE", payload: "REGISTRATION" });
 
+  // password checking
   const commonPasswords = ["123456", "password", "12345678", "qwerty"];
 
+  // description of arr
+  // id - this is only used for the map, must be a unique id
+  // name, type and placeholder attributes for Form.Control elements
+  // formValidation - used for React hook forms to validate data in form
   const arr = [
     {
       id: 1,
@@ -85,10 +94,13 @@ const ChangePassword = () => {
         {button(handleLogin, "Login Here?", "primary")}
       </div>
 
-      {arr.map((items) => (
+      {arr.map(({ id, name, type, placeholder, formValidation }) => (
         <MapToForm
-          key={items.id}
-          items={items}
+          key={id}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          formValidation={formValidation}
           errors={errors}
           register={register}
         />
@@ -96,7 +108,7 @@ const ChangePassword = () => {
 
       <div className={styles.btn}>
         {button(
-          () => dispatch({ type: "", payload: false }),
+          () => dispatch({ type: "CHANGE MODAL STATE", payload: false }),
           "Cancel",
           "secondary",
         )}

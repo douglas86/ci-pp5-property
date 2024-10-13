@@ -1,14 +1,17 @@
+// 3rd party
 import { useState } from "react";
 import { Navbar, Nav, Button, Container } from "react-bootstrap";
 
-import { logo } from "../atom";
-
-import { router } from "../../utils";
-
-import styles from "../../styles/components/organism/Header.module.css";
-import { button } from "../atom";
+// atomic design
 import FormModal from "./FormModal";
+import { logo, button } from "../atom";
+
+// utils and hooks
+import { router } from "../../utils";
 import useAppContext from "../../hooks/useAppContext";
+
+// styling
+import styles from "../../styles/components/organism/Header.module.css";
 
 const Header = () => {
   const [open, setOpen] = useState(false);

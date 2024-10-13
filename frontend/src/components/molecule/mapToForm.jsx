@@ -1,9 +1,14 @@
 import Form from "react-bootstrap/Form";
 import useAppContext from "../../hooks/useAppContext";
 
-const MapToForm = ({ items, errors, register }) => {
-  const { name, type, placeholder, formValidation } = items;
-
+const MapToForm = ({
+  name,
+  type,
+  placeholder,
+  formValidation,
+  errors,
+  register,
+}) => {
   const { forms } = useAppContext();
   const { err } = forms;
 

@@ -35,11 +35,10 @@ const Login = () => {
   const handleChangePassword = () =>
     dispatch({ type: "WHICH FORM TO USE", payload: "CHANGE PASSWORD" });
 
-  // array to be passed to map
-  // details of what you want in the form
-  // it must always have name, a type; placeholder
-  // formValidation is for React hook forms validation
-  // the id value is just for the map as it always needs a key
+  // description of arr
+  // id - this is only used for the map, must be a unique id
+  // name, type and placeholder attributes for Form.Control elements
+  // formValidation - used for React hook forms to validate data in form
   const arr = [
     {
       id: 1,
@@ -73,10 +72,13 @@ const Login = () => {
       </div>
 
       {/*form groups*/}
-      {arr.map((items) => (
+      {arr.map(({ id, name, type, placeholder, formValidation }) => (
         <MapToForm
-          key={items.id}
-          items={items}
+          key={id}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          formValidation={formValidation}
           errors={errors}
           register={register}
         />
