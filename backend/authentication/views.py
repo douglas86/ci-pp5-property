@@ -10,7 +10,6 @@ from .serializers import ChangePasswordSerializer
 
 from property.views import AsyncViewSet
 
-
 # Create your views here.
 class LogoutView(APIView):
     """
