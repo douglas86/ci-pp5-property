@@ -16,7 +16,7 @@ import styles from "../../styles/components/organism/Header.module.css";
 const Header = () => {
   const [open, setOpen] = useState(false);
 
-  const { dispatch } = useAppContext();
+  const { dispatch, user } = useAppContext();
 
   return (
     <Navbar bg="light" expand="md">
@@ -42,12 +42,23 @@ const Header = () => {
                 <h4>{title}</h4>
               </Nav.Link>
             ))}
-            {button(
-              () => dispatch({ type: "CHANGE MODAL STATE", payload: true }),
-              "Login",
-              "dark",
-            )}
-
+            {user
+              ? button(
+                  () => {
+                    dispatch({ type: "WHICH FORM TO USE", payload: "LOGOUT" });
+                    dispatch({ type: "CHANGE MODAL STATE", payload: true });
+                  },
+                  "Logout",
+                  "dark",
+                )
+              : button(
+                  () => {
+                    dispatch({ type: "WHICH FORM TO USE", payload: "" });
+                    dispatch({ type: "CHANGE MODAL STATE", payload: true });
+                  },
+                  "Login",
+                  "dark",
+                )}
             <FormModal />
           </Nav>
         </Navbar.Collapse>

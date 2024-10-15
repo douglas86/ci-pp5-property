@@ -39,6 +39,7 @@ const useTokens = () => {
       }
     }
 
+    // Ensure that the modal header is set to Registration Form
     if (header === "Registration Form" && success?.data) {
       if (success.data.refresh) {
         storeRefreshToken(success.data.refresh);
@@ -48,6 +49,19 @@ const useTokens = () => {
         storeAuthToken(success.data.access);
       }
     }
+
+    // Ensure that the modal header is set to Log out Form
+    if (header === "Logout Form" && success?.data) {
+      const { detail } = success.data;
+
+      if (detail && detail === "Successfully logged out.") {
+        Cookies.remove("refresh-token");
+        Cookies.remove("auth-token");
+        dispatch({ type: "USER DATA", payload: null });
+      }
+    }
+
+    console.log("success", success);
   }, [success, header]);
 
   // check when auth and token cookies are available for use
@@ -92,7 +106,7 @@ const useTokens = () => {
             payload: err.response.data,
           });
         });
-  }, [refreshToken, authToken]);
+  }, [dispatch, refreshToken, authToken]);
 };
 
 export default useTokens;
