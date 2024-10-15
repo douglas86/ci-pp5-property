@@ -9,7 +9,8 @@ const useAppContext = () => {
     state,
     dispatch,
     forms: state.formsReducers,
-    user: state.userReducers,
+    user: state.userReducers.user,
+    userError: state.userReducers.err,
     modal: state.modalReducers,
   };
 };

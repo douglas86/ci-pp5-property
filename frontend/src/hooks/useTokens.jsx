@@ -9,7 +9,7 @@ const useTokens = () => {
   const [authToken, setAuthToken] = useState(null);
   const [refreshToken, setRefreshToken] = useState(null);
 
-  const { forms, modal } = useAppContext();
+  const { dispatch, forms, modal } = useAppContext();
   const { success } = forms;
   const { header } = modal;
 
@@ -83,10 +83,14 @@ const useTokens = () => {
     authToken &&
       getProfileData()
         .then((res) => {
-          console.log("res", res);
+          const { data } = res.data;
+          dispatch({ type: "USER DATA", payload: data });
         })
         .catch((err) => {
-          console.log("err", err);
+          dispatch({
+            type: "ERROR FETCH USER DATA",
+            payload: err.response.data,
+          });
         });
   }, [refreshToken, authToken]);
 };

@@ -1,12 +1,19 @@
+// 3rd parties
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { router } from "../utils/index";
 
-import "../styles/App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+// atomic design
 import Layout from "../components/templates/Layout";
+
+// utilities and custom hooks
+import { router } from "../utils/index";
 import useTokens from "../hooks/useTokens";
 
+// styling
+import "../styles/App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 const App = () => {
+  // fetches Profile data from server
   useTokens();
 
   return (

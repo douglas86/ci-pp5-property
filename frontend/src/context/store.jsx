@@ -10,7 +10,10 @@ const initialState = {
     whichForm: "",
     loading: false,
   },
-  userReducers: null,
+  userReducers: {
+    user: null,
+    err: null,
+  },
   modalReducers: {
     header: "Login",
     showModal: false,
