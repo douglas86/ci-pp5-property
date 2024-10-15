@@ -4,10 +4,10 @@ import { router } from "../utils/index";
 import "../styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Layout from "../components/templates/Layout";
-import useRefreshToken from "../hooks/useRefreshToken";
+import useTokens from "../hooks/useTokens";
 
 const App = () => {
-  useRefreshToken();
+  useTokens();
 
   return (
     <Layout>
