@@ -11,16 +11,10 @@ import useTokens from "../hooks/useTokens";
 // styling
 import "../styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import useAppContext from "../hooks/useAppContext";
 
 const App = () => {
-  const { user, isUser } = useAppContext();
-
-  // fetches Profile data from server
+  // fetches Profile data from server if you are logged in
   useTokens();
-
-  console.log("user", user);
-  console.log("isUser", isUser);
 
   return (
     <Layout>

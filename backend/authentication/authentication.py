@@ -7,18 +7,15 @@ class JWTAuthenticationFromCookie(JWTAuthentication):
         # Try to get the token from the 'Authorization' header (default behavior)
         header_token = super().authenticate(request)
         if header_token is not None:
-            print("header token found: ", header_token)
             return header_token
 
         # Try to get the token from cookies if it's not in the header
         cookie_token = request.COOKIES.get('auth-token')
         if cookie_token:
-            print("Cookie token found: ", cookie_token)
             try:
                 validated_token = self.get_validated_token(cookie_token)
                 return self.get_user(validated_token), validated_token
             except jwt.InvalidTokenError:
                 raise AuthenticationFailed('Invalid token in cookie')
 
-        print("No token found in cookies or headers")
         return None
