@@ -11,6 +11,12 @@ const useAppContext = () => {
     forms: state.formsReducers,
     user: state.userReducers.user,
     userError: state.userReducers.err,
+    isAdmin: state.userReducers.user
+      ? state.userReducers.user.role === "admin"
+      : null,
+    isUser: state.userReducers.user
+      ? state.userReducers.user.role === "user"
+      : null,
     modal: state.modalReducers,
   };
 };

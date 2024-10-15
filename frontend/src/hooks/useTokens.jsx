@@ -60,9 +60,7 @@ const useTokens = () => {
         dispatch({ type: "USER DATA", payload: null });
       }
     }
-
-    console.log("success", success);
-  }, [success, header]);
+  }, [dispatch, success, header]);
 
   // check when auth and token cookies are available for use
   // check on mount then check every second
