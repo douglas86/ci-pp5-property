@@ -15,7 +15,6 @@ export const onSubmit = async (data, url, dispatch) => {
     })
     .catch((err) => {
       dispatch({ type: "FORM ERRORS", payload: err.response.data });
-      console.log("err", err);
     });
 
   // hide loading symbol on server response

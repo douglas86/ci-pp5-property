@@ -65,7 +65,7 @@ describe("Login", () => {
   });
 
   it("Should successfully log in a user", () => {
-    const username = "douglas";
+    const username = "testing";
     const password = "IAMininGLOrN";
 
     // Intercept the login API request
@@ -110,8 +110,8 @@ describe("Logout", () => {
     cy.get("body").should("contain", "Login"); // Makes sure that page is loaded
   });
 
-  it("Should successfully log in a user", () => {
-    const username = "douglas";
+  it("Should successfully log out a user", () => {
+    const username = "testing";
     const password = "IAMininGLOrN";
 
     // Intercept the login API request
@@ -211,6 +211,11 @@ describe("Change Password", () => {
     cy.wait("@changePasswordRequest").then((interception) => {
       // check if the request was successful
       expect(interception.response.statusCode).to.equal(200);
+
+      // Optionally, check if the response contains the expected data
+      const { message, status } = interception.response.body;
+      expect(message).to.exist;
+      expect(status).to.exist;
 
       // Optionally, check if the response contains the expected data
       cy.get(".btn").contains("Change Password").click({ force: true });

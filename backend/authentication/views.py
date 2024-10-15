@@ -59,22 +59,22 @@ class ChangePasswordView(ViewSet):
             if serializer.is_valid():
                 try:
                     # Attempt to retrieve the user by username
-                    user = AsyncViewSet(User.objects.get(username=username)).retrieve()
+                    user = User.objects.get(username=username)
                 except User.DoesNotExist:
                     # Return a response if the user is not found
-                    return Response({'message': "This user does not exist"}, status=status.HTTP_404_NOT_FOUND)
+                    return Response({'message': "This user does not exist", 'status': 404}, status=status.HTTP_404_NOT_FOUND)
 
                 # check if the old password was correct
                 if not user.check_password(request.data['old_password']):
-                    return Response({'message': self.error_message}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({'message': self.error_message, 'status':400}, status=status.HTTP_400_BAD_REQUEST)
 
                 # set and save the new password
                 user.set_password(request.data['new_password'])
                 user.save()
-                return Response({'message': self.success_message}, status=status.HTTP_200_OK)
+                return Response({'message': self.success_message, 'status': 200}, status=status.HTTP_200_OK)
         except KeyError:
             # catch missing fields in the request
-            return Response({'message': self.field_error_message}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': self.field_error_message, 'status': 400}, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request):
         """
