@@ -2,6 +2,8 @@
 #Use official Python image as a base
 FROM python:3.12
 
+ENV PYTHONUNBUFFERED = 1
+
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     gcc \
@@ -24,4 +26,5 @@ COPY . .
 ENV PORT=8000
 
 #Run Django Server
-CMD ["sh", "-c", "daphne property.asgi:application --port $PORT --bind 0.0.0.0"]
+#CMD ["sh", "-c", "daphne property.asgi:application --port $PORT --bind 0.0.0.0"]
+CMD ["daphne", "-u", "python", "-b", "0.0.0.0", "-p", "8000", "property.asgi:application"]

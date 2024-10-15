@@ -16,6 +16,7 @@ class MyProfileView(ViewSet):
 
     modal = Authentication
     serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
 
     def retrieve(self, request):
         """
@@ -30,7 +31,7 @@ class MyProfileView(ViewSet):
             return Response({'message': 'You do not have permission to access this profile.', 'status': 403})
 
         profile = self.modal.objects.get(user=request.user.id)
-        serializer = self.serializer_class(instance=profile, many=True, context={'request': request})
+        serializer = self.serializer_class(instance=profile, context={'request': request})
 
         return Response({'message':'Data retrieved successfully', 'data': serializer.data, 'status': 200})
 

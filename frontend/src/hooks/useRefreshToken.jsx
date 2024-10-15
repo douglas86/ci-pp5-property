@@ -18,7 +18,7 @@ const useRefreshToken = () => {
     };
 
     const storeAuthToken = (token) => {
-      Cookies.set("authToken", token, { expires: 7 });
+      Cookies.set("auth-token", token, { expires: 7 });
     };
 
     // Ensure `success` has valid data before attempting to store tokens

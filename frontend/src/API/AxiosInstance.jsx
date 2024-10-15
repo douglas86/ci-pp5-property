@@ -13,11 +13,6 @@ export const AxiosRegister = axios.create({
 const AxiosInstance = axios.create({
   baseURL: environment === "production" ? heroku : local,
   withCredentials: true,
-  headers: access
-    ? {
-        Authorization: `Bearer ${access}`,
-      }
-    : {},
 });
 
 export default AxiosInstance;

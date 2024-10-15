@@ -4,7 +4,6 @@ from adrf.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
 
-
 class HomeView(ViewSet):
     message = 'This is the home view'
 
