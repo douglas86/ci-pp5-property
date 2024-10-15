@@ -3,5 +3,5 @@
 .vscode
 
 #environment variables
-env.py
-.env
+backend/env.py
+backend/.env
