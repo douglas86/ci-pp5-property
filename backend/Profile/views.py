@@ -16,7 +16,6 @@ class MyProfileView(ViewSet):
 
     modal = Authentication
     serializer_class = ProfileSerializer
-    permission_classes = [IsAuthenticated]
 
     def retrieve(self, request):
         """
@@ -25,10 +24,12 @@ class MyProfileView(ViewSet):
         :return:
         """
 
-        if not request.user.is_authenticated:
-            return Response({'message': 'You do not have permission to access this profile.', 'status': 200})
+        print('request', request.user)
 
-        profile = self.modal.objects.filter(user=request.user.id)
+        if not request.user.is_authenticated:
+            return Response({'message': 'You do not have permission to access this profile.', 'status': 403})
+
+        profile = self.modal.objects.get(user=request.user.id)
         serializer = self.serializer_class(instance=profile, many=True, context={'request': request})
 
         return Response({'message':'Data retrieved successfully', 'data': serializer.data, 'status': 200})
