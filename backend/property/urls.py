@@ -25,4 +25,5 @@ urlpatterns = [
 
     path('auth/', include('authentication.urls')),
     path('profile/', include('Profile.urls')),
+    path('testing/', include('testing.urls')),
 ]

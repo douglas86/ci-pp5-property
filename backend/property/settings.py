@@ -61,6 +61,7 @@ INSTALLED_APPS = [
 
     'authentication',
     'Profile',
+    'testing',
 ]
 
 MIDDLEWARE = [
