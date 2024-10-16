@@ -112,7 +112,7 @@ docker-compose up
 
 #### [Environment Variables](#deployment)
 
-![env.png](backend/assets/docs/env.png)
+![env.png](frontend/src/assets/docs/env.png)
 
 - create the necessary environment variables
 
