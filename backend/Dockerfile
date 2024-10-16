@@ -22,9 +22,11 @@ RUN pip install -r requirements.txt
 #Copy project files
 COPY . .
 
+EXPOSE 8000
+
 #Expose the port Django will run on
 ENV PORT=8000
 
 #Run Django Server
 #CMD ["sh", "-c", "daphne property.asgi:application --port $PORT --bind 0.0.0.0"]
-CMD ["daphne", "-u", "python", "-b", "0.0.0.0", "-p", "8000", "property.asgi:application"]
+CMD ["daphne", "-u", "python", "-b", "0.0.0.0", "-p", "$PORT", "property.asgi:application"]

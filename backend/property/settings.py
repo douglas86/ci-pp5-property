@@ -25,8 +25,6 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SETTINGS_KEY')
 
@@ -156,16 +154,19 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('bearer',),
 }
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com']
 CORS_ALLOWED_ORIGIN_REGEXES = [
     "http://localhost:3000",
+    "https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com"
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
-CORS_TRUSTED_ORIGINS = ['http://localhost:3000']
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000', 'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com']
+CORS_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com']
 CORS_ALLOW_METHODS = [
     "DELETE",
     "GET",
