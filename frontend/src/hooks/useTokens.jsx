@@ -104,6 +104,9 @@ const useTokens = () => {
         .then((res) => {
           const { data } = res.data;
           dispatch({ type: "USER DATA", payload: data });
+
+          console.log("res", res);
+          console.log("data", data);
         })
         .catch((err) => {
           dispatch({
