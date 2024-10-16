@@ -221,4 +221,17 @@ describe("Change Password", () => {
       cy.get(".btn").contains("Change Password").click({ force: true });
     });
   });
+
+  it("Delete Testing User After All Successful Tests", () => {
+    // Request deleting endpoint
+    cy.request("DELETE", `${server}/testing/delete_user/`).then((response) => {
+      // Optionally, check if the response contains the expected data
+      expect(response.status).to.eq(200);
+
+      // Optionally, check if the response contains the expected data
+      const { message, status } = response.body;
+      expect(message).to.exist;
+      expect(status).to.exist;
+    });
+  });
 });
