@@ -12,6 +12,10 @@ export const onSubmit = async (data, url, dispatch) => {
       dispatch({ type: "USER DATA", payload: res.data.user });
       // close modal when data is correct from server
       dispatch({ type: "CHANGE MODAL STATE", payload: false });
+
+      setTimeout(() => {
+        dispatch({ type: "RESET FORM" });
+      }, 5000);
     })
     .catch((err) => {
       dispatch({ type: "FORM ERRORS", payload: err.response.data });

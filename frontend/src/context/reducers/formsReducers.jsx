@@ -15,6 +15,16 @@ export const formsReducers = (state, action) => {
       return { ...state, whichForm: payload };
     case "FORM LOADING":
       return { ...state, loading: payload };
+    case "RESET FORM":
+      return {
+        ...state,
+        data: {},
+        err: {},
+        success: {},
+        url: "",
+        whichForm: "",
+        loading: false,
+      };
     default:
       return state;
   }
