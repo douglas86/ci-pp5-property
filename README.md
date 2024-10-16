@@ -326,21 +326,131 @@ Index
 
 #### [Setting up on Heroku](#deployment)
 
-- head over to [Heroku Dashboard](https://id.heroku.com/login) to Login
-- once login, click on New for creating a new project
-- type in the new name for the app
-- click on what region you are wanting your server to be in
-- once the app has been created, locate the tab that says, "Deploy"
-- under the deployment method, connect your GitHub account to your app and search for your repo
-- when you have connected your repo manual deploy your main branch
-- once manually deployed, it will fail next would be to get the environment variables up and running
-- locate the settings tab at the top
-- scroll down until you see config vars
-- click the purple button that says, "Reveal Config Vars"
-- add the [environment variables](#environment-variables) on the Heroku Dashboard
-- then rebuild the application on the Deploy tab
-- make sure to add Heroku Postgres as an addon
-- once you have added the addon it auto create the env for the database
+- When creating your app on Heroku, I created two separate apps from one repository
+- Reason for that, it will be easier to manage as I can keep the code separate from one another
+
+- Head on over to the [Heroku Dashboard](https://dashboard.heroku.com/apps) to Log in
+- Once you are Logged in, start by Creating the React app first
+- by clicking on the New button on the right-hand side
+- Then click on Create new app
+- Enter the new apps name I called mine ci-pp5-property-v2-react bear in mind that app names are unique in Heroku
+- Enter the Region were you want it deployed, clicking on the region that is closest to you
+- You only have two options either the United States or Europe
+- Click on Create app the app will then be created
+- That is all we need to do for the React Heroku app as the rest will be done on the command line
+
+
+- Now we need to create the second app the API
+- Go back to the Heroku Dashboard and click on the New button on the right-hand side
+- Then click on Create new app
+- Enter the new apps name I called this one ci-pp5-property-v2-api bear in mind that app names are unique in Heroku
+- Enter the Region were you want it deployed to click on the region that is closest to you
+- You only have two options either the United States or Europe
+- Click on Create app the app will then be created
+- The next steps for the api will be the environment variables
+- Once created, locate the tab that says, "Settings"
+- Scroll down until you see config Vars as we need to create the environment variables
+- Click the button that says reveal config vars
+- There are two columns, the first is the key and the other the value
+- You need to create four environment variables
+- CLOUDINARY_URL, DATABASE_URL, DJANGO_SETTINGS_KEY, ENV
+- scroll down to the [environment section](#environment-variables) to see how to set that up
+- once down come back here
+
+
+- The next stage is getting setup on heroku using the command line
+- We will begin by setting up the React app first
+- In the web browser for the React app that was created open up heroku logs
+- So that we can see what is happening when commands are pushed
+- To do that, click on the app name in the dashboard
+- On the far right there will be a button that says, "More"
+- In the popup menu, click on View logs
+- when view logs are loaded, we need to go back to our IDE
+- Getting the app ready for production
+- open up a terminal in the IDE that you are using
+- cd into the frontend directory
+
+```
+cd frontend
+```
+
+- Then log into the heroku container
+
+```
+heroku container:login
+```
+
+- Once login we can push and release the code needed
+- By using two separate commands
+- We first we push to Heroku
+
+```
+heroku container:push web --app ci-pp5-property-v2-react --arg Dockerfile
+```
+
+- the words after --app flag is the heroku apps name
+- the flag --arg is used to say that there is an argument coming
+- once you have pushed the code, then we need to use the release command
+
+```
+heroku container:release web --app ci-pp5-property-v2-react
+```
+
+- once that command has finished, then the React app is ready for production
+- the next step is getting the API up and running
+
+
+- In the heroku dashboard, go to the app that was created for Heroku API
+- go to the Resources section as I created Postgres DB as an add-on to this project
+- In the resources section type Postgres in the search bar
+- When you start to type, the addons will appear
+- Type postgres, click that to add it to your project
+- A window pops up asking you to Submit order Form
+- and it tells you the price
+- once you click on the "Submit order Form" button
+- Postgres gets added and the database environment variable
+- get added to your project automatically
+- open up the view logs for this heroku app
+- the same way it was done to React
+- now that the database is up and running, we can start getting our app ready for production
+- go to the terminal in your IDE
+- cd into the backend directory
+- if you are still sitting in the frontend directory
+- cd out-of-that first with this command
+
+```
+cd ..
+```
+
+- when you are in the home directory, then we can cd into the backend directory
+
+```
+cd backend
+```
+
+- Now we can push, release and migrate the database
+- first, the code needs to be pushed to the database
+
+```
+heroku container:push web --app ci-pp5-property-v2-api --arg Dockerfile
+```
+
+- once the code has been pushed, then we can migrate the database
+
+```
+heroku run python manage.py migrate --app ci-pp5-property-v2-api
+```
+
+- when the migration is done, we can then use the release command for final production
+
+```
+heroku container:release web --app ci-pp5-property-v2-api
+```
+
+- Then you can go back to your web browser to the Heroku logs for this app
+- give it a few minutes to update
+- once finished, you can click the Open app button on the right-hand side
+- Which will open the app in a new browser tab and load the app as JSON data
 
 Note: build packs might not be necessary as I am using docker containers
 
@@ -415,13 +525,29 @@ CLOUDINARY_URL environment variables
 - At the top of that page copy the one that says, API environment variable
 - place the API Key and API Secret in the correct places in the key parameters
 - this key can now be placed in Heroku or for local development
-- on the Heroku dashboard, there are two sections of the key and the value
+- on the Heroku dashboard, there are two columns the key and the value
 - place CLOUDINARY_URL in the key section
 - and your api key in the value section
 - on the local development in the .env file
 - create the following object:
 - placing CLOUDINARY_URL as the key
 - and the api key for cloudinary as the value
+
+DATABASE_URL environment variable
+
+- I have added an addon postgres database with heroku
+- This normally gets created automatically with Postgres addon
+- but if you don't want the heroku addon, you can add your own env to the config vars
+- there is no reason to use this locally as I am using docker containers
+- all that gets built when docker builds
+
+ENV environment variable
+
+- this environment variable is only used on Heroku
+- it is not necessary to use it locally
+- the purpose of this variable is to tell the app when the app is in production
+- in heroku, the key will be ENV
+- and the value will be production
 
 ---
 
