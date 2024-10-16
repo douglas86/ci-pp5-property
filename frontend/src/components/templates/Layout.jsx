@@ -1,5 +1,6 @@
 import Header from "../organism/Header";
 import Footer from "../organism/Footer";
+import AlertBox from "../molecule/AlertBox";
 
 const Layout = ({ children }) => {
   return (
@@ -7,6 +8,7 @@ const Layout = ({ children }) => {
       <header>
         <Header />
       </header>
+      <AlertBox />
       <main>{children}</main>
       <footer>
         <Footer />

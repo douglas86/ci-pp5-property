@@ -6,12 +6,29 @@ export const onSubmit = async (data, url, dispatch) => {
 
   await AxiosRegister.post(url, data)
     .then((res) => {
+      const results = res.data;
+
       // save data to success forms state in state store
       dispatch({ type: "FORM SUCCESS", payload: res });
       // save users data to the users state in state store
       dispatch({ type: "USER DATA", payload: res.data.user });
       // close modal when data is correct from server
       dispatch({ type: "CHANGE MODAL STATE", payload: false });
+
+      // This is what is returned when user logs out
+      results.detail &&
+        dispatch({ type: "SUCCESSFUL MESSAGE", payload: results.detail });
+
+      // Logic to handle loging in user
+      results.user &&
+        dispatch({
+          type: "SUCCESSFUL MESSAGE",
+          payload: "You have Logged in Successfully!",
+        });
+
+      // Everything else
+      results.message &&
+        dispatch({ type: "SUCCESSFUL MESSAGE", payload: results.message });
 
       setTimeout(() => {
         dispatch({ type: "RESET FORM" });
