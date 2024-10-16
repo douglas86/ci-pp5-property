@@ -35,6 +35,10 @@ REST_USE_JWT = True
 JWT_AUTH_COOKIE='authToken'
 JWT_AUTH_REFRESH_COOKIE='refreshToken'
 
+if os.getenv('ENV') == 'production':
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -154,6 +158,8 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('bearer',),
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com']
@@ -161,9 +167,6 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     "http://localhost:3000",
     "https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com"
 ]
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_WHITELIST = ['http://localhost:3000', 'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com']
 CORS_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com']
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com']
