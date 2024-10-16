@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 // atomic design
-import MapToForm from "../../molecule/mapToForm";
+import MapToForm from "../../molecule/MapToForm";
 import { button, spinner } from "../../atom";
 
 // utils and custom hooks
@@ -14,6 +14,11 @@ import useAppContext from "../../../hooks/useAppContext";
 // styling
 import styles from "../../../styles/components/organism/Forms.module.css";
 
+/**
+ * Registration Form currently being used for displaying in the modal
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Registration = () => {
   const { dispatch, forms } = useAppContext();
   const { loading } = forms;

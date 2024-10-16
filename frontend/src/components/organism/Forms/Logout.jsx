@@ -13,6 +13,11 @@ import { button } from "../../atom";
 // styling
 import styles from "../../../styles/components/organism/Forms.module.css";
 
+/**
+ * Logout form currently being used for displaying in the Modal
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Logout = () => {
   const { dispatch } = useAppContext();
 

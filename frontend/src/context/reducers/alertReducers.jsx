@@ -1,3 +1,9 @@
+/**
+ * Alert Reducer function responsible for handling the alert messages
+ * @param state
+ * @param action
+ * @returns {(*&{msg, status: number})|*|(*&{msg: string})}
+ */
 export const alertReducers = (state, action) => {
   const { type, payload } = action;
 

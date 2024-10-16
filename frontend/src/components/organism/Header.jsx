@@ -13,9 +13,17 @@ import useAppContext from "../../hooks/useAppContext";
 // styling
 import styles from "../../styles/components/organism/Header.module.css";
 
+/**
+ * Header organism gets displayed on all pages
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Header = () => {
+  // opening and closing of the hamburger menu
+  // on tablet and smaller devices
   const [open, setOpen] = useState(false);
 
+  // state store
   const { dispatch, user } = useAppContext();
 
   return (
@@ -42,8 +50,10 @@ const Header = () => {
                 <h4>{title}</h4>
               </Nav.Link>
             ))}
+            {/*Authentication buttons for Login and Logout*/}
             {user
-              ? button(
+              ? // Logout button
+                button(
                   () => {
                     dispatch({ type: "WHICH FORM TO USE", payload: "LOGOUT" });
                     dispatch({ type: "CHANGE MODAL STATE", payload: true });
@@ -51,7 +61,8 @@ const Header = () => {
                   "Logout",
                   "dark",
                 )
-              : button(
+              : // Login button
+                button(
                   () => {
                     dispatch({ type: "WHICH FORM TO USE", payload: "" });
                     dispatch({ type: "CHANGE MODAL STATE", payload: true });

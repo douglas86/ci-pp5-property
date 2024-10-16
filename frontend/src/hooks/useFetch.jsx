@@ -1,7 +1,14 @@
+// 3rd parties
 import { useEffect, useState } from "react";
 
+// API calling
 import AxiosInstance from "../API/AxiosInstance";
 
+/**
+ * Custom hook used for fetching external data to Django Rest Framework API
+ * @param url
+ * @returns {{data: [], message: string, error: string, status: number}}
+ */
 const useFetch = (url) => {
   const [state, setState] = useState({
     message: "",

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 // atomic design
-import MapToForm from "../../molecule/mapToForm";
+import MapToForm from "../../molecule/MapToForm";
 import { button, spinner } from "../../atom";
 
 // utils and custom hooks
@@ -14,10 +14,17 @@ import { onSubmit } from "../../../utils";
 // styling
 import styles from "../../../styles/components/organism/Forms.module.css";
 
+/**
+ * Change a Password form this is being displayed inside the modal
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ChangePassword = () => {
+  // state store
   const { dispatch, forms } = useAppContext();
   const { loading, err } = forms;
 
+  // React hook form functions
   const {
     register,
     handleSubmit,
@@ -40,10 +47,7 @@ const ChangePassword = () => {
   // password checking
   const commonPasswords = ["123456", "password", "12345678", "qwerty"];
 
-  // description of arr
-  // id - this is only used for the map, must be a unique id
-  // name, type and placeholder attributes for Form.Control elements
-  // formValidation - used for React hook forms to validate data in form
+  // array for MapToForm molecule
   const arr = [
     {
       id: 1,
@@ -72,6 +76,7 @@ const ChangePassword = () => {
             "This password is too short. It must contain at least 8 characters",
         },
         validate: {
+          // Validation to check that password is not too common or all numeric
           common: (value) =>
             !commonPasswords.includes(value) || "This password is too common",
           numeric: (value) =>
@@ -87,13 +92,16 @@ const ChangePassword = () => {
         onSubmit(data, "/auth/change_password/", dispatch),
       )}
     >
+      {/*Display spinner when waiting for server response*/}
       {loading ? spinner() : null}
 
+      {/*Buttons to link back to Register and Login Form*/}
       <div className={styles.btn}>
         {button(handleRegister, "Click here to Register?", "secondary")}
         {button(handleLogin, "Login Here?", "primary")}
       </div>
 
+      {/*displaying of Form Control input elements and error messages*/}
       {arr.map(({ id, name, type, placeholder, formValidation }) => (
         <MapToForm
           key={id}
@@ -106,6 +114,7 @@ const ChangePassword = () => {
         />
       ))}
 
+      {/*Cancel and Submit buttons*/}
       <div className={styles.btn}>
         {button(
           () => dispatch({ type: "CHANGE MODAL STATE", payload: false }),
@@ -115,6 +124,7 @@ const ChangePassword = () => {
         {button("submit", "Change Password", "warning")}
       </div>
 
+      {/*display an error message only if they occur*/}
       {err["message"] && <p className="text-danger">{err["message"]}</p>}
     </Form>
   );

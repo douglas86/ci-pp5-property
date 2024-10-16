@@ -1,3 +1,9 @@
+/**
+ * Forms Reducer function responsible for handling all form data
+ * @param state
+ * @param action
+ * @returns {(*&{whichForm: string, data: {}, err: {}, success: {}, loading: boolean, url: string})|(*&{data})|(*&{whichForm})|(*&{err})|(*&{success})|*|(*&{loading})|(*&{url})}
+ */
 export const formsReducers = (state, action) => {
   const { type, payload } = action;
 

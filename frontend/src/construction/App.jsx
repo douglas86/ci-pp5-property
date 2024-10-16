@@ -4,7 +4,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 // atomic design
 import Layout from "../components/templates/Layout";
 
-// utilities and custom hooks
+// utils and custom hooks
 import { router } from "../utils/index";
 import useTokens from "../hooks/useTokens";
 
@@ -12,6 +12,12 @@ import useTokens from "../hooks/useTokens";
 import "../styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+/**
+ * The Main structure part responsible for routing and the use of authentication tokens
+ * Layout template will also be called from here as I can only wrap around the app from here
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const App = () => {
   // fetches Profile data from server if you are logged in
   useTokens();

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Form from "react-bootstrap/Form";
 
 // atomic design
-import MapToForm from "../../molecule/mapToForm";
+import MapToForm from "../../molecule/MapToForm";
 import { button, spinner } from "../../atom";
 
 // utils and custom hooks
@@ -14,31 +14,38 @@ import useAppContext from "../../../hooks/useAppContext";
 // styling
 import styles from "../../../styles/components/organism/Forms.module.css";
 
+/**
+ * Login Form this is currently for being displayed in the modal
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Login = () => {
+  // state store
   const { dispatch, forms } = useAppContext();
   const { loading } = forms;
 
+  // React hook form functions
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  // change modal header on component mounting
   useEffect(() => {
     // change the header of the modal
     dispatch({ type: "CHANGE HEADER", payload: "Login Form" });
   }, [dispatch]);
 
+  // function to change to the register form
   const handleRegister = () =>
     dispatch({ type: "WHICH FORM TO USE", payload: "REGISTRATION" });
 
+  // function to change to the change password form
   const handleChangePassword = () =>
     dispatch({ type: "WHICH FORM TO USE", payload: "CHANGE PASSWORD" });
 
-  // description of arr
-  // id - this is only used for the map, must be a unique id
-  // name, type and placeholder attributes for Form.Control elements
-  // formValidation - used for React hook forms to validate data in form
+  // array used for MapToForm Molecule
   const arr = [
     {
       id: 1,
@@ -62,7 +69,7 @@ const Login = () => {
         onSubmit(data, "/auth/login/", dispatch),
       )}
     >
-      {/*display message based on server response*/}
+      {/*Display spinner when waiting for server response*/}
       {loading ? spinner() : null}
 
       {/*register and change password buttons*/}
@@ -71,7 +78,7 @@ const Login = () => {
         {button(handleChangePassword, "Change Password Here?", "primary")}
       </div>
 
-      {/*form groups*/}
+      {/*displaying of Form Control input elements and error messages*/}
       {arr.map(({ id, name, type, placeholder, formValidation }) => (
         <MapToForm
           key={id}
@@ -84,7 +91,7 @@ const Login = () => {
         />
       ))}
 
-      {/*close modal or login buttons*/}
+      {/*Cancel and login buttons*/}
       <div className={styles.btn}>
         {button(
           () => dispatch({ type: "CHANGE MODAL STATE", payload: false }),

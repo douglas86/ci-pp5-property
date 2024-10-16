@@ -1,3 +1,4 @@
+// 3rd parties
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
@@ -5,10 +6,16 @@ import Cookies from "js-cookie";
 import AxiosInstance from "../API/AxiosInstance";
 import useAppContext from "./useAppContext";
 
+/**
+ * Custom hook responsible for handling auth tokens of the current logged-in user
+ */
 const useTokens = () => {
+  // setting auth token
   const [authToken, setAuthToken] = useState(null);
+  // setting of refresh token
   const [refreshToken, setRefreshToken] = useState(null);
 
+  // state store
   const { dispatch, forms, modal } = useAppContext();
   const { success } = forms;
   const { header } = modal;

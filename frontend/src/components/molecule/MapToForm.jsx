@@ -1,6 +1,20 @@
+// 3rd parties
 import Form from "react-bootstrap/Form";
+
+// custom hook
 import useAppContext from "../../hooks/useAppContext";
 
+/**
+ * This molecule is responsible for display error message and Form control elements
+ * @param name - input attribute a requirement for when posting data to server
+ * @param type - input attribute used to define the type of the input being used
+ * @param placeholder - input attribute used to define what text you want to see in the input before typing
+ * @param formValidation - this is used for React hook forms validation checking
+ * @param errors - used for react hook forms to see what errors need to be displayed
+ * @param register - used to register the input with React Hook Forms
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const MapToForm = ({
   name,
   type,
