@@ -110,6 +110,8 @@ const useTokens = () => {
             type: "ERROR FETCH USER DATA",
             payload: err.response.data,
           });
+
+          console.log("err", err);
         });
   }, [dispatch, refreshToken, authToken]);
 };
