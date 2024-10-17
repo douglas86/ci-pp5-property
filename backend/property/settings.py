@@ -120,7 +120,7 @@ if os.getenv('ENV') == 'production':
         'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
     }
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
-        'rest_framework.renderers.JSONRenderer'
+        'rest_framework.renderers.BrowsableAPIRenderer'
     ]
 else:
     DATABASES = {
