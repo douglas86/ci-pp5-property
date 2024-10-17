@@ -14,6 +14,10 @@ export const AxiosRegister = axios.create({
 const AxiosInstance = axios.create({
   baseURL: heroku,
   withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${authToken}`,
+  },
 });
 
 export default AxiosInstance;
