@@ -5,7 +5,7 @@ const environment = process.env.NODE_ENV; // check if your environment is develo
 const heroku = "https://ci-pp5-property-v2-api-cc7edcd1041d.herokuapp.com";
 const local = "http://localhost:8000";
 const csrfToken = Cookies.get("csrftoken");
-const authToken = Cookies.get("authToken");
+const authToken = Cookies.get("auth-token");
 
 export const AxiosRegister = axios.create({
   baseURL: environment === "production" ? heroku : local,
