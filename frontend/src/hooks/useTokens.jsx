@@ -93,7 +93,7 @@ const useTokens = () => {
   useEffect(() => {
     const getProfileData = async () => {
       try {
-        return await AxiosInstance.get("profile/me/");
+        return await AxiosInstance.get("/profile/me/");
       } catch (e) {
         return e;
       }
