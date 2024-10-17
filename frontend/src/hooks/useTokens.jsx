@@ -103,16 +103,22 @@ const useTokens = () => {
       getProfileData()
         .then((res) => {
           const { data } = res.data;
-          dispatch({ type: "USER DATA", payload: data });
+          // dispatch({ type: "USER DATA", payload: data });
+
+          console.log("auth1", authToken);
+          console.log("refresh1", refreshToken);
 
           console.log("res", res);
           console.log("data", data);
         })
         .catch((err) => {
-          dispatch({
-            type: "ERROR FETCH USER DATA",
-            payload: err.response.data,
-          });
+          // dispatch({
+          //   type: "ERROR FETCH USER DATA",
+          //   payload: err.response.data,
+          // });
+
+          console.log("auth2", authToken);
+          console.log("refresh2", refreshToken);
 
           console.log("err", err);
         });
