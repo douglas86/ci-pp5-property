@@ -15,6 +15,7 @@ import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
+from rest_framework.authentication import SessionAuthentication
 
 load_dotenv()
 
@@ -34,6 +35,10 @@ DEBUG = True
 REST_USE_JWT = True
 JWT_AUTH_COOKIE='authToken'
 JWT_AUTH_REFRESH_COOKIE='refreshToken'
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+    def enforce_csrf(self, request):
+        return
 
 if os.getenv('ENV') == 'production':
     SESSION_COOKIE_SECURE = True
@@ -83,9 +88,13 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'authentication.authentication.JWTAuthenticationFromCookie',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
