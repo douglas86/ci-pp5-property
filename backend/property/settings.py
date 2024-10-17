@@ -167,9 +167,22 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     "http://localhost:3000",
     "https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com"
 ]
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000', 'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com']
-CORS_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com']
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com']
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com',
+    'https://ci-pp5-property-v2-api-cc7edcd1041d.herokuapp.com'
+]
+CORS_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com',
+    'https://ci-pp5-property-v2-api-cc7edcd1041d.herokuapp.com'
+]
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com'
+    'https://ci-pp5-property-v2-api-cc7edcd1041d.herokuapp.com'
+]
+
 CORS_ALLOW_METHODS = [
     "DELETE",
     "GET",
