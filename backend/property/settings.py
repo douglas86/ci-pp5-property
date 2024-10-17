@@ -29,18 +29,12 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SETTINGS_KEY')
 
-print(SECRET_KEY)
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 REST_USE_JWT = True
-JWT_AUTH_COOKIE='authToken'
-JWT_AUTH_REFRESH_COOKIE='refreshToken'
-
-class CsrfExemptSessionAuthentication(SessionAuthentication):
-    def enforce_csrf(self, request):
-        return
+JWT_AUTH_COOKIE='auth-token'
+JWT_AUTH_REFRESH_COOKIE='refresh-token'
 
 if os.getenv('ENV') == 'production':
     SESSION_COOKIE_SECURE = True
