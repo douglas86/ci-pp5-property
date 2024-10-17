@@ -17,6 +17,7 @@ const AxiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${authToken}`,
+    "X-CSRFToken": csrfToken,
   },
 });
 
