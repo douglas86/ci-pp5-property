@@ -101,12 +101,10 @@ const useTokens = () => {
 
     authToken &&
       getProfileData()
-        .then((res) => {
-          const { data } = res.data;
+        .then(async (res) => {
+          const { data } = await res.data;
           dispatch({ type: "USER DATA", payload: data });
 
-          console.log("auth1", authToken);
-          console.log("refresh1", refreshToken);
           console.log("res", res);
           console.log("data", data);
         })
@@ -115,9 +113,6 @@ const useTokens = () => {
             type: "ERROR FETCH USER DATA",
             payload: err.response.data,
           });
-
-          console.log("auth2", authToken);
-          console.log("refresh2", refreshToken);
 
           console.log("err", err);
         });

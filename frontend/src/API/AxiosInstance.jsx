@@ -11,8 +11,6 @@ export const AxiosRegister = axios.create({
   baseURL: heroku,
 });
 
-export const Auth = Cookies.get("auth-token");
-
 const AxiosInstance = axios.create({
   baseURL: heroku,
   withCredentials: true,
