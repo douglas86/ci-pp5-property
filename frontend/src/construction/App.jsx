@@ -11,6 +11,7 @@ import useTokens from "../hooks/useTokens";
 // styling
 import "../styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Cookies from "js-cookie";
 
 /**
  * The Main structure part responsible for routing and the use of authentication tokens
@@ -23,6 +24,10 @@ const App = () => {
   useTokens();
 
   console.log("env", process.env.NODE_ENV);
+
+  const authToken = Cookies.get("auth-token");
+
+  console.log("authToken", authToken);
 
   return (
     <Layout>
