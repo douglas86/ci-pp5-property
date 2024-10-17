@@ -32,9 +32,9 @@ SECRET_KEY = os.environ.get('DJANGO_SETTINGS_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-REST_USE_JWT = True
-JWT_AUTH_COOKIE='auth-token'
-JWT_AUTH_REFRESH_COOKIE='refresh-token'
+# REST_USE_JWT = True
+# JWT_AUTH_COOKIE='auth-token'
+# JWT_AUTH_REFRESH_COOKIE='refresh-token'
 
 if os.getenv('ENV') == 'production':
     SESSION_COOKIE_SECURE = True
