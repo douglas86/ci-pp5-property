@@ -11,6 +11,7 @@ import useTokens from "../hooks/useTokens";
 // styling
 import "../styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Auth } from "../API/AxiosInstance";
 
 /**
  * The Main structure part responsible for routing and the use of authentication tokens
@@ -21,6 +22,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const App = () => {
   // fetches Profile data from server if you are logged in
   useTokens();
+
+  console.log("Auth", Auth);
 
   return (
     <Layout>
