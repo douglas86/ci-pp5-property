@@ -28,5 +28,5 @@ EXPOSE 8000
 ENV PORT=8000
 
 #Run Django Server
-CMD ["sh", "-c", "daphne property.asgi:application --port $PORT --bind 0.0.0.0"]
-#CMD ["daphne", "-u", "python", "-b", "0.0.0.0", "-p", "$PORT", "property.asgi:application"]
+#CMD ["sh", "-c", "daphne property.asgi:application --port $PORT --bind 0.0.0.0"]
+CMD ["daphne", "-u", "python", "-b", "0.0.0.0", "-p", "$PORT", "property.asgi:application"]
