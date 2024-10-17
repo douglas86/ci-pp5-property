@@ -25,6 +25,8 @@ class MyProfileView(ViewSet):
         :return:
         """
 
+        print('headers', request.headers)
+
         if not request.user.is_authenticated:
             return Response({'message': 'You do not have permission to access this profile.', 'status': 403})
 

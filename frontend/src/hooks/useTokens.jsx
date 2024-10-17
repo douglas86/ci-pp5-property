@@ -107,7 +107,6 @@ const useTokens = () => {
 
           console.log("auth1", authToken);
           console.log("refresh1", refreshToken);
-
           console.log("res", res);
           console.log("data", data);
         })
