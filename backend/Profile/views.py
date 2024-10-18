@@ -28,6 +28,9 @@ class MyProfileView(ViewSet):
 
         is_authenticated = JWTAuthenticationFromCookie().authenticate(request)
 
+        print('is_authenticated', is_authenticated)
+        print('request', request)
+
         if is_authenticated:
             profile = self.modal.objects.get(user=request.user.id)
             serializer = self.serializer_class(instance=profile, context={'request': request})
