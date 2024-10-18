@@ -102,19 +102,28 @@ const useTokens = () => {
     authToken &&
       getProfileData()
         .then(async (res) => {
-          const { data } = await res.data;
-          dispatch({ type: "USER DATA", payload: data });
-
-          console.log("res", res);
-          console.log("data", data);
+          try {
+            // save profile data to state store
+            const { data } = await res.data;
+            dispatch({ type: "USER DATA", payload: data });
+          } catch {
+            // reset user data back to null on fetchin profile data error
+            dispatch({ type: "USER DATA", payload: null });
+            // display error message when data fetch error
+            dispatch({
+              type: "ERROR MESSAGE",
+              payload: "Server Error: There was an error login you in",
+            });
+          }
         })
         .catch((err) => {
+          // save profile data to state store
+          dispatch({ type: "USER DATA", payload: null });
+          // display error message when data fetch error
           dispatch({
-            type: "ERROR FETCH USER DATA",
+            type: "ERROR MESSAGE",
             payload: err.response.data,
           });
-
-          console.log("err", err);
         });
   }, [dispatch, refreshToken, authToken]);
 };
