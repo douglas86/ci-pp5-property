@@ -16,7 +16,7 @@ class MyProfileView(ViewSet):
 
     modal = Authentication
     serializer_class = ProfileSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def retrieve(self, request):
         """
@@ -26,6 +26,7 @@ class MyProfileView(ViewSet):
         """
 
         print('headers', request.headers)
+        print('user', request.user)
 
         if not request.user.is_authenticated:
             return Response({'message': 'You do not have permission to access this profile.', 'status': 403})
