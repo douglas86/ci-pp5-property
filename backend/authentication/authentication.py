@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import AccessToken
+from django.contrib.auth.models import User
 import jwt
 
 # class JWTAuthenticationFromCookie(JWTAuthentication):
