@@ -26,7 +26,6 @@ class MyProfileView(ViewSet):
         """
 
         print('headers', request.headers)
-        print('user', request.user)
 
         if not request.user.is_authenticated:
             return Response({'message': 'You do not have permission to access this profile.', 'status': 403})
