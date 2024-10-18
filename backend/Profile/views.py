@@ -30,6 +30,7 @@ class MyProfileView(ViewSet):
 
         print('is_authenticated', is_authenticated)
         print('request', request)
+        print('user', request.user.id)
 
         if is_authenticated:
             profile = self.modal.objects.get(user=request.user.id)
