@@ -1,3 +1,5 @@
+from django.contrib.messages import success
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import AuthenticationFailed
@@ -24,6 +26,9 @@ import jwt
 
 class JWTAuthenticationFromCookie:
 
+    success_code = True
+    error_code = False
+
     def authenticate(self, request):
 
         # get Authorization from header
@@ -33,9 +38,7 @@ class JWTAuthenticationFromCookie:
         # check if the token is valid
         token_valid = AccessToken(token)
 
-        print('authorization_header', authorization_header)
-        print('token', token)
-        print('token_valid', token_valid)
-
-
-        return Response({'message', 'Found'})
+        if token_valid:
+            return self.success_code
+        else:
+            return self.error_code
