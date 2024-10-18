@@ -8,11 +8,11 @@ const csrfToken = Cookies.get("csrftoken");
 const authToken = Cookies.get("auth-token");
 
 export const AxiosRegister = axios.create({
-  baseURL: heroku,
+  baseURL: local,
 });
 
 const AxiosInstance = axios.create({
-  baseURL: heroku,
+  baseURL: local,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",

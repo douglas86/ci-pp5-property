@@ -15,7 +15,6 @@ import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
-from rest_framework.authentication import SessionAuthentication
 
 load_dotenv()
 
@@ -57,6 +56,8 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -158,7 +159,7 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
-    'AUTH_HEADER_TYPES': ('bearer',),
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
 CORS_ORIGIN_ALLOW_ALL = True

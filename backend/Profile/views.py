@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
+from authentication.authentication import JWTAuthenticationFromCookie
 from authentication.models import Authentication
 
 from Profile.serializers import ProfileSerializer
@@ -25,10 +26,14 @@ class MyProfileView(ViewSet):
         :return:
         """
 
-        print('headers', request.headers)
+        is_authenticated = JWTAuthenticationFromCookie().authenticate(request)
 
-        # if not request.user.is_authenticated:
-        #     return Response({'message': 'You do not have permission to access this profile.', 'status': 403})
+        print('headers', request.headers)
+        print('user', request.user)
+        print('is_authenticated', is_authenticated)
+
+        if not request.user.is_authenticated:
+            return Response({'message': 'You do not have permission to access this profile.', 'status': 403})
 
         profile = self.modal.objects.get(user=request.user.id)
         serializer = self.serializer_class(instance=profile, context={'request': request})
