@@ -38,6 +38,10 @@ class JWTAuthenticationFromCookie:
         # check if the token is valid
         token_valid = AccessToken(token)
 
+        user_id = token_valid['user_id']
+        user = User.objects.get(id=user_id)
+        request.user = user
+
         if token_valid:
             return self.success_code
         else:
