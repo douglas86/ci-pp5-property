@@ -27,8 +27,8 @@ class MyProfileView(ViewSet):
 
         print('headers', request.headers)
 
-        if not request.user.is_authenticated:
-            return Response({'message': 'You do not have permission to access this profile.', 'status': 403})
+        # if not request.user.is_authenticated:
+        #     return Response({'message': 'You do not have permission to access this profile.', 'status': 403})
 
         profile = self.modal.objects.get(user=request.user.id)
         serializer = self.serializer_class(instance=profile, context={'request': request})
