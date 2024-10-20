@@ -68,6 +68,24 @@ const useTokens = () => {
       setFlag(false);
     }
   }, [dispatch, data, auth, refresh]);
+
+  useEffect(() => {
+    const checkCookie = () => {
+      const authValue = Cookies.get("auth-token");
+      const refreshValue = Cookies.get("refresh-token");
+
+      if (authValue === "undefined" && refreshValue === "undefined") {
+        Cookies.remove("auth-token");
+        Cookies.remove("refresh-token");
+      }
+    };
+
+    const interval = setInterval(() => {
+      checkCookie();
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [refresh, auth]);
 };
 
 export default useTokens;

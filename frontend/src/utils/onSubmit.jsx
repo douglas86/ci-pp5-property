@@ -39,8 +39,13 @@ export const onSubmit = async (data, url, dispatch) => {
 
       // This is what is returned when user logs out
       //   this will be used for the displaying of alert messages
-      results.detail &&
+      if (results.detail) {
         dispatch({ type: "SUCCESSFUL MESSAGE", payload: results.detail });
+        Cookies.remove("refresh-token");
+        Cookies.remove("auth-token");
+      }
+      // results.detail &&
+      //   dispatch({ type: "SUCCESSFUL MESSAGE", payload: results.detail })
 
       // Logic to handle loging in user
       //   this logic will be used for the displaying of alert messages on successful login
@@ -52,8 +57,13 @@ export const onSubmit = async (data, url, dispatch) => {
 
       // Everything else
       //   When the Logout and Login have not been successfully this will occur
-      results.message &&
+      if (results.message) {
         dispatch({ type: "SUCCESSFUL MESSAGE", payload: results.message });
+        Cookies.remove("refresh-token");
+        Cookies.remove("auth-token");
+      }
+      // results.message &&
+      //   dispatch({ type: "SUCCESSFUL MESSAGE", payload: results.message });
 
       // Reset form data after 5 seconds
       // only runs once

@@ -56,7 +56,7 @@ class ChangePasswordView(ViewSet):
     model = Authentication
     serializer_class = ChangePasswordSerializer
 
-    success_message = 'You have successfully changed password.'
+    success_message = 'You have successfully changed password, you can login.'
     error_message = 'There was an error changing password.'
     field_error_message = 'All fields are required.'
 
