@@ -67,15 +67,21 @@ export const onSubmit = async (data, url, dispatch) => {
 
       // Reset form data after 5 seconds
       // only runs once
-      setTimeout(() => {
-        dispatch({ type: "RESET FORM" });
-      }, 5000);
+      // setTimeout(() => {
+      //   dispatch({ type: "RESET FORM" });
+      // }, 5000);
     })
     .catch((err) => {
       // passing error messages to the state store,
       // these error messages get returned to the user on the current form when the modal is showing
       dispatch({ type: "FORM ERRORS", payload: err.response.data });
     });
+
+  if (refresh) {
+    setTimeout(() => {
+      dispatch({ type: "RESET FORM" });
+    }, 5000);
+  }
 
   // Post data to server
   // await AxiosInstance.post(url, data)
