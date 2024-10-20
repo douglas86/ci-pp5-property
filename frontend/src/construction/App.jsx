@@ -23,9 +23,9 @@ const App = () => {
   // fetches Profile data from server if you are logged in
   useTokens();
 
-  const { user } = useAppContext();
+  const env = process.env.NODE_ENV;
 
-  console.log("user", user);
+  console.log("env", env);
 
   return (
     <Layout>
