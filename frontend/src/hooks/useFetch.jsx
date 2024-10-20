@@ -11,6 +11,8 @@ const useFetch = (url, flag = true) => {
   const heroku = "https://ci-pp5-property-v2-api-cc7edcd1041d.herokuapp.com";
   const local = "http://localhost:8000";
 
+  console.log("env1", env);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
