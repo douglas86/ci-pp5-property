@@ -65,9 +65,7 @@ const Login = () => {
 
   return (
     <Form
-      onSubmit={handleSubmit((data) =>
-        onSubmit(data, "/auth/login/", dispatch),
-      )}
+      onSubmit={handleSubmit((data) => onSubmit(data, "auth/login/", dispatch))}
     >
       {/*Display spinner when waiting for server response*/}
       {loading ? spinner() : null}

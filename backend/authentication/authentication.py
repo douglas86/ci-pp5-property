@@ -44,10 +44,8 @@ class JWTAuthenticationFromCookie:
             user = User.objects.get(id=user_id)
             request.user = user
 
-            print("token valid", token_valid)
             return self.success_code
 
         except Exception as e:
-            print("token error")
             return self.error_code
 

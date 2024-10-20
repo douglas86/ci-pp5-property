@@ -17,6 +17,7 @@ class MyProfileView(ViewSet):
 
     modal = Authentication
     serializer_class = ProfileSerializer
+
     # permission_classes = [IsAuthenticated]
 
     def retrieve(self, request):
@@ -28,15 +29,12 @@ class MyProfileView(ViewSet):
 
         is_authenticated = JWTAuthenticationFromCookie().authenticate(request)
 
-        print('is_authenticated', is_authenticated)
-        print('request', request)
-        print('user', request.user.id)
-
         if is_authenticated:
             profile = self.modal.objects.get(user=request.user.id)
             serializer = self.serializer_class(instance=profile, context={'request': request})
 
-            return Response({'message': 'Data retrieved successfully', 'data': serializer.data}, status=status.HTTP_200_OK)
+            return Response({'message': 'Data retrieved successfully', 'data': serializer.data},
+                            status=status.HTTP_200_OK)
         else:
             return Response({'message': 'You are Forbidden from access this content'}, status=status.HTTP_403_FORBIDDEN)
 
@@ -53,7 +51,8 @@ class ProfileByIdView(ViewSet):
     def retrieve(self, request, pk=None):
 
         if request.user.id != int(pk):
-            return Response({'message': 'You do not have permission to access this profile.'}, status=status.HTTP_403_FORBIDDEN)
+            return Response({'message': 'You do not have permission to access this profile.'},
+                            status=status.HTTP_403_FORBIDDEN)
 
         profile = self.model.objects.filter(user_id=request.user.id)
 

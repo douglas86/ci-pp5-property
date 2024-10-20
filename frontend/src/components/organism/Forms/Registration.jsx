@@ -107,7 +107,7 @@ const Registration = () => {
   return (
     <Form
       onSubmit={handleSubmit((data) =>
-        onSubmit(data, "/auth/registration/", dispatch),
+        onSubmit(data, "auth/registration/", dispatch),
       )}
     >
       {loading ? spinner() : null}

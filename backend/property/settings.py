@@ -31,9 +31,26 @@ SECRET_KEY = os.environ.get('DJANGO_SETTINGS_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-REST_USE_JWT = True
-JWT_AUTH_COOKIE='auth-token'
-JWT_AUTH_REFRESH_COOKIE='refresh-token'
+# REST_USE_JWT = True
+# JWT_AUTH_COOKIE='auth-token'
+# JWT_AUTH_REFRESH_COOKIE='Refresh'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+}
 
 if os.getenv('ENV') == 'production':
     SESSION_COOKIE_SECURE = True
@@ -147,15 +164,15 @@ REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_HTTPONLY': False,
     'JWT_AUTH_COOKIE': 'auth-token',
-    'JWT_AUTH_REFRESH_COOKIE': 'refresh-token',
+    # 'JWT_AUTH_REFRESH_COOKIE': 'Refresh',
     'JWT_AUTH_SECURE': True,
     'JWT_AUTH_SAMESITE': 'None',
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=7),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': False,
+    'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
@@ -202,11 +219,11 @@ CORS_ALLOW_HEADERS = [
     "user-agent",
     "x-csrftoken",
     "sessionid",
-    "refresh",
+    "Refresh",
     "access",
     "x-requested-with",
     "credentials",
-    "x-refresh-token",
+    "X-Refresh-Token",
 ]
 
 # Password validation

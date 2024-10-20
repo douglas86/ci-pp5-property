@@ -89,7 +89,7 @@ const ChangePassword = () => {
   return (
     <Form
       onSubmit={handleSubmit((data) =>
-        onSubmit(data, "/auth/change_password/", dispatch),
+        onSubmit(data, "auth/change_password/", dispatch),
       )}
     >
       {/*Display spinner when waiting for server response*/}

@@ -31,7 +31,7 @@ const Logout = () => {
   return (
     <Form
       onSubmit={handleSubmit((data) =>
-        onSubmit(data, "/auth/logout/", dispatch),
+        onSubmit(data, "auth/logout/", dispatch),
       )}
     >
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">

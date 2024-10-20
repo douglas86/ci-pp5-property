@@ -1,3 +1,9 @@
+import logging
+
+from rest_framework.permissions import AllowAny
+
+logger = logging.getLogger(__name__)
+
 from django.contrib.auth.models import User
 from adrf.viewsets import ViewSet
 from rest_framework import status
@@ -10,6 +16,7 @@ from .serializers import ChangePasswordSerializer
 
 from property.views import AsyncViewSet
 
+
 # Create your views here.
 class LogoutView(APIView):
     """
@@ -18,13 +25,25 @@ class LogoutView(APIView):
 
     message = "You have successfully logged out."
 
+    permission_classes = [AllowAny]
+
     def post(self, request):
+        logger.info(f'Request headers: {request.headers}')
         return self.logout(request)
 
     def logout(self, request):
-        refresh = request.headers.get('refresh')
-        refresh_token = RefreshToken(refresh)
-        refresh_token.blacklist()
+        print('refresh', request.headers)
+        refresh_token = request.headers.get('X-Refresh-Token')
+        logger.info(f'Refresh token: {refresh_token}')
+
+        if not refresh_token:
+            return Response({'detail': 'Refresh token was not provided.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+        except Exception as e:
+            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response({'message': self.message, 'status': status.HTTP_200_OK})
 
@@ -62,11 +81,12 @@ class ChangePasswordView(ViewSet):
                     user = User.objects.get(username=username)
                 except User.DoesNotExist:
                     # Return a response if the user is not found
-                    return Response({'message': "This user does not exist", 'status': 404}, status=status.HTTP_404_NOT_FOUND)
+                    return Response({'message': "This user does not exist", 'status': 404},
+                                    status=status.HTTP_404_NOT_FOUND)
 
                 # check if the old password was correct
                 if not user.check_password(request.data['old_password']):
-                    return Response({'message': self.error_message, 'status':400}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({'message': self.error_message, 'status': 400}, status=status.HTTP_400_BAD_REQUEST)
 
                 # set and save the new password
                 user.set_password(request.data['new_password'])

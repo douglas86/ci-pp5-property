@@ -3,27 +3,21 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
+// utils
+import { server } from "../utils";
+
 const useFetch = (url, flag = true) => {
   const [data, setData] = useState({});
   const [error, setError] = useState(null);
 
-  const env = process.env.REACT_APP_NODE_ENV || "development";
-  const heroku = "https://ci-pp5-property-v2-api-cc7edcd1041d.herokuapp.com";
-  const local = "http://localhost:8000";
-
-  console.log("env1", env);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        return await axios.get(
-          `${env === "development" ? local : heroku}/${url}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("auth-token")}`,
-            },
+        return await axios.get(`${server}/${url}`, {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("auth-token")}`,
           },
-        );
+        });
       } catch (error) {
         return error;
       }
@@ -39,7 +33,7 @@ const useFetch = (url, flag = true) => {
           setError(err);
         });
     }
-  }, [flag, env, url]);
+  }, [flag, server, url]);
 
   return {
     data: data.data,
