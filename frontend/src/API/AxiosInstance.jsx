@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const environment = process.env.NODE_ENV;
+const environment = process.env.REACT_APP_NODE_ENV;
 const heroku = "https://ci-pp5-property-v2-api-cc7edcd1041d.herokuapp.com";
 const local = "http://localhost:8000";
 const authToken = Cookies.get("auth-token");
