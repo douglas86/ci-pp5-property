@@ -1,9 +1,3 @@
-import logging
-
-from rest_framework.permissions import AllowAny
-
-logger = logging.getLogger(__name__)
-
 from django.contrib.auth.models import User
 from adrf.viewsets import ViewSet
 from rest_framework import status
@@ -25,16 +19,11 @@ class LogoutView(APIView):
 
     message = "You have successfully logged out."
 
-    permission_classes = [AllowAny]
-
     def post(self, request):
-        logger.info(f'Request headers: {request.headers}')
         return self.logout(request)
 
     def logout(self, request):
-        print('refresh', request.headers)
         refresh_token = request.headers.get('X-Refresh-Token')
-        logger.info(f'Refresh token: {refresh_token}')
 
         if not refresh_token:
             return Response({'detail': 'Refresh token was not provided.'}, status=status.HTTP_400_BAD_REQUEST)
