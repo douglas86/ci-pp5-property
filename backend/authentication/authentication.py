@@ -32,18 +32,22 @@ class JWTAuthenticationFromCookie:
 
     def authenticate(self, request):
 
-        # get Authorization from header
-        authorization_header = request.headers['Authorization']
-        # get token from header after Bearer
-        token = authorization_header.split(" ")[1]
-        # check if the token is valid
-        token_valid = AccessToken(token)
+        try:
+            # get Authorization from header
+            authorization_header = request.headers['Authorization']
+            # get token from header after Bearer
+            token = authorization_header.split(" ")[1]
+            # check if the token is valid
+            token_valid = AccessToken(token)
 
-        user_id = token_valid['user_id']
-        user = User.objects.get(id=user_id)
-        request.user = user
+            user_id = token_valid['user_id']
+            user = User.objects.get(id=user_id)
+            request.user = user
 
-        if token_valid:
+            print("token valid", token_valid)
             return self.success_code
-        else:
+
+        except Exception as e:
+            print("token error")
             return self.error_code
+

@@ -1,5 +1,5 @@
 // API
-import { AxiosRegister } from "../API/AxiosInstance";
+import AxiosInstance from "../API/AxiosInstance";
 
 /**
  * Helper function used for forms when submitting data between React to Django
@@ -13,7 +13,7 @@ export const onSubmit = async (data, url, dispatch) => {
   dispatch({ type: "FORM LOADING", payload: true });
 
   // Post data to server
-  await AxiosRegister.post(url, data)
+  await AxiosInstance.post(url, data)
     .then((res) => {
       // variable for response from server
       const results = res.data;
