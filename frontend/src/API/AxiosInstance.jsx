@@ -9,7 +9,7 @@ const refreshToken = Cookies.get("refresh-token");
 const csrfToken = Cookies.get("csrftoken");
 
 const AxiosInstance = axios.create({
-  baseURL: environment === "production" ? heroku : local,
+  baseURL: environment === "development" ? local : heroku,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
