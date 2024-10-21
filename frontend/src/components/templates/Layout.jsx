@@ -3,6 +3,9 @@ import Header from "../organism/Header";
 import Footer from "../organism/Footer";
 import AlertBox from "../molecule/AlertBox";
 
+// styling
+import styles from "../../styles/components/templates/Layout.module.css";
+
 /**
  * Layout template used for displaying the header and footer on all pages
  * This will also display the Alertbox under the header
@@ -13,11 +16,9 @@ import AlertBox from "../molecule/AlertBox";
 const Layout = ({ children }) => {
   return (
     <>
-      <header>
-        <Header />
-      </header>
+      <Header />
       <AlertBox />
-      <main>{children}</main>
+      <main className={styles.mainContent}>{children}</main>
       <Footer />
     </>
   );

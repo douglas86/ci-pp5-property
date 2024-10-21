@@ -9,3 +9,10 @@
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
+
+/*title atom*/
+.h1 {
+    color: #2f301d;
+    font-weight: bold;
+    padding: 2rem;
+}
