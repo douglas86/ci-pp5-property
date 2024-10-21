@@ -1,0 +1,21 @@
+.carouselContainer {
+    padding: 5rem;
+}
+
+.imageContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.image {
+    width: 100%;
+    height: 30rem;
+    max-height: 50rem;
+    object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+    .image {
+        height: 20rem;
+    }
+}
