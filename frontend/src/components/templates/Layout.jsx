@@ -18,9 +18,7 @@ const Layout = ({ children }) => {
       </header>
       <AlertBox />
       <main>{children}</main>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </>
   );
 };
