@@ -9,7 +9,7 @@ import useTokens from "../hooks/useTokens";
 import { router } from "../utils/index";
 
 // styling
-import "../styles/App.css";
+import styles from "../styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 /**
@@ -23,15 +23,17 @@ const App = () => {
   useTokens();
 
   return (
-    <Layout>
-      <BrowserRouter>
-        <Routes>
-          {router.map(({ id, path, page }) => (
-            <Route key={id} path={path} element={page} />
-          ))}
-        </Routes>
-      </BrowserRouter>
-    </Layout>
+    <div className={styles.app}>
+      <Layout className={styles.layout}>
+        <BrowserRouter>
+          <Routes>
+            {router.map(({ id, path, page }) => (
+              <Route key={id} path={path} element={page} />
+            ))}
+          </Routes>
+        </BrowserRouter>
+      </Layout>
+    </div>
   );
 };
 
