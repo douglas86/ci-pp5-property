@@ -1,7 +1,11 @@
+import CarouselContent from "../organism/CarouselContent";
+
+import styles from "../../styles/components/pages/LandingPage.module.css";
+
 const LandingPage = () => {
   return (
-    <div>
-      <h1>Home page</h1>
+    <div className={styles.container}>
+      <CarouselContent />
     </div>
   );
 };

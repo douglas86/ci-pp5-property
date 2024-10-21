@@ -59,7 +59,7 @@ Requires core.js and SelectBox.js.
 
             quickElement(
                 'span', search_filter_label, '',
-                'class', 'help-tooltip search-label-icon',
+                'class', 'help-tooltip search-labeled-icon',
                 'title', interpolate(gettext("Type into this box to filter down the list of available %s."), [field_name])
             );
 
@@ -104,7 +104,7 @@ Requires core.js and SelectBox.js.
 
             quickElement(
                 'span', search_filter_selected_label, '',
-                'class', 'help-tooltip search-label-icon',
+                'class', 'help-tooltip search-labeled-icon',
                 'title', interpolate(gettext("Type into this box to filter down the list of selected %s."), [field_name])
             );
 

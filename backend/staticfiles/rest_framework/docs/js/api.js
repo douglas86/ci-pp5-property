@@ -166,11 +166,11 @@ $(function () {
       $toggleView.removeClass('hide')
 
       // Fill in the "200 OK" display.
-      $responseStatusCode.removeClass('label-success').removeClass('label-danger')
+      $responseStatusCode.removeClass('labeled-success').removeClass('labeled-danger')
       if (response.ok) {
-        $responseStatusCode.addClass('label-success')
+        $responseStatusCode.addClass('labeled-success')
       } else {
-        $responseStatusCode.addClass('label-danger')
+        $responseStatusCode.addClass('labeled-danger')
       }
       $responseStatusCode.text(response.status)
       $meta.removeClass('hide')

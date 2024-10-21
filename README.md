@@ -244,11 +244,11 @@ The five building blocks are Atoms, Molecules, Organisms, Templates and Pages
 
 Atoms
 
-Basic building blocks of matter, such as a button, input and a form label. They're not useful on their own.
+Basic building blocks of matter, such as a button, input and a form labeled. They're not useful on their own.
 
 Molecules
 
-Grouping atoms together, such as combining a button, input and form label to build functionality.
+Grouping atoms together, such as combining a button, input and form labeled to build functionality.
 
 Organisms
 
