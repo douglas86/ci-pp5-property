@@ -20,27 +20,30 @@ const CarouselContent = ({ data }) => {
     {
       id: 1,
       image: first,
-      label: "Redhill",
-      paragraph: "Nice cottage located 10min walk from Redhill train station",
+      label: "£1200 per month",
+      paragraph: "2 bedroom flat for sale",
+      place: "Palmer House, Fulham W6",
     },
     {
       id: 2,
       image: second,
-      label: "Redhill",
-      paragraph: "Nice cottage located 10min walk from Redhill train station",
+      label: "£1000 per month",
+      paragraph: "1 bedroom apartment for sale",
+      place: "The Welsh Reservoir, Hendon NW9",
     },
     {
       id: 3,
       image: third,
-      label: "Redhill",
-      paragraph: "Nice cottage located 10min walk from Redhill train station",
+      label: "£1600 per month",
+      paragraph: "1 bedroom penthouse for sale",
+      place: "Egerton Road, Twickenham TW2",
     },
   ];
 
   return (
     <div className={styles.carouselContainer}>
       <Carousel activeIndex={index} onSelect={handleSelect}>
-        {arr.map(({ id, image, label, paragraph }) => (
+        {arr.map(({ id, image, label, paragraph, place }) => (
           <Carousel.Item key={id}>
             <div className={styles.imageContainer}></div>
             <Image
@@ -49,9 +52,10 @@ const CarouselContent = ({ data }) => {
               className={styles.image}
               rounded
             />
-            <Carousel.Caption>
+            <Carousel.Caption className={styles.carouselCaption}>
               {labeled(label)}
               {message(paragraph)}
+              {message(place)}
             </Carousel.Caption>
           </Carousel.Item>
         ))}
