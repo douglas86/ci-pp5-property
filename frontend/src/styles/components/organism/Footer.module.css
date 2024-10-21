@@ -1,11 +1,32 @@
 .footer {
-    background-color: #343a40;
-    color: white;
+    display: flex;
     text-align: center;
     padding: 10px;
     position: absolute;
     width: 100%;
+    margin-top: 2rem;
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+.left {
+    width: 50%;
+    text-align: center;
+}
+
+.right {
+    width: 50%;
+    text-align: center;
+}
+
+.images {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.image {
+    padding: 2rem;
 }
