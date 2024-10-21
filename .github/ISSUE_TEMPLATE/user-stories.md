@@ -1,7 +1,7 @@
 ---
 name: User Stories
 about: This is for all new user stories
-title: 'User Story: <title>'
+heading: 'User Story: <heading>'
 labels: ''
 assignees: ''
 

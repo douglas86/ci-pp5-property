@@ -10,9 +10,30 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-/*title atom*/
+/*heading atom*/
 .h1 {
     color: #2f301d;
     font-weight: bold;
     padding: 2rem;
+}
+
+/*title atom*/
+.h3 {
+    font-size: 3rem;
+    color: #2f301d;
+    text-align: center;
+    padding: 2rem;
+    text-transform: uppercase;
+}
+
+/*sub heading atom*/
+.p {
+    color: #bfbfa7;
+    text-align: center;
+    font-weight: bold;
+}
+
+.text {
+    font-size: 1rem;
+    font-weight: 500;
 }
