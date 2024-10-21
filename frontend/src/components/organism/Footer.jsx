@@ -4,6 +4,8 @@ import Image from "react-bootstrap/Image";
 
 import githubLogo from "../../assets/images/footer/GitHub.png";
 import LinkedinLogo from "../../assets/images/footer/LinkedIn Circled.png";
+import AndroidLogo from "../../assets/images/footer/Android Phone.png";
+import EmailLogo from "../../assets/images/footer/Email.png";
 
 const Footer = () => {
   return (
@@ -35,7 +37,18 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <div className={styles.right}>{labeled("Text")}</div>
+      <div className={styles.right}>
+        <div className={styles.section}>
+          <Image src={`${EmailLogo}`} alt="Email Logo" />
+          <div className={styles.text}>
+            {labeled("douglasmaxton@gmail.com")}
+          </div>
+        </div>
+        <div className={styles.section}>
+          <Image src={`${AndroidLogo}`} alt="Android Logo" />
+          <div className={styles.text}>{labeled("074 427 81 303")}</div>
+        </div>
+      </div>
     </footer>
   );
 };
