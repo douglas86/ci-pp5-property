@@ -2,4 +2,8 @@ export * from "./button";
 export * from "./labeled";
 export * from "./logo";
 export * from "./message";
+export * from "./heading";
 export * from "./spinner";
+export * from "./title";
+export * from "./subHeading";
+export * from "./text";

@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <div className={styles.app}>
-      <Layout className={styles.layout}>
+      <Layout>
         <BrowserRouter>
           <Routes>
             {router.map(({ id, path, page }) => (

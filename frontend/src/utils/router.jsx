@@ -5,7 +5,7 @@ import NotFound from "../components/pages/NotFound";
 
 /**
  * Helper function used to store all url paths within this application
- * @type {[{path: string, id: number, page: JSX.Element, title: string},{path: string, id: number, page: JSX.Element, title: string},{path: string, id: number, page: JSX.Element}]}
+ * @type {[{path: string, id: number, page: JSX.Element, heading: string},{path: string, id: number, page: JSX.Element, heading: string},{path: string, id: number, page: JSX.Element}]}
  */
 export const router = [
   // links on navbar

@@ -1,11 +1,55 @@
 /*logo atom*/
 .image {
-    width: 80%;
+  width: 80%;
 }
 
 /*message atom*/
 .message {
-    text-align: center;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/*heading atom*/
+.h1 {
+  color: #2f301d;
+  font-weight: bold;
+  padding: 2rem;
+}
+
+/*title atom*/
+.h3 {
+  font-size: 3.5rem;
+  color: #2f301d;
+  text-align: center;
+  padding: 2rem;
+  text-transform: uppercase;
+}
+
+/*sub heading atom*/
+.p {
+  color: #bfbfa7;
+  text-align: center;
+  font-weight: bold;
+}
+
+.text {
+  font-size: 1rem;
+  font-weight: 450;
+}
+
+@media screen and (max-width: 400px) {
+  .h3 {
+    font-size: 0.5rem;
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .h3 {
+    font-size: 2rem;
+  }
+  .text {
+    font-size: 0.8rem;
+  }
 }
