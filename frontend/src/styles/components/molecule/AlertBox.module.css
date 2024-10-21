@@ -1,0 +1,11 @@
+/*AlertBox Molecule*/
+.alertBox {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 1em;
+}
+
+.alert {
+    width: 80%;
+}

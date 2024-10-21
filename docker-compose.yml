@@ -12,6 +12,12 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: database
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      PORT: 8000
   frontend:
     build:
       context: ./frontend
@@ -19,7 +25,7 @@ services:
     volumes:
       - ./frontend:/app
     ports:
-      - "3000:80"
+      - "3000:3000"
     depends_on:
       - backend
   db:
@@ -31,6 +37,8 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    expose:
+      - 5432
     ports:
       - "5432:5432"
 

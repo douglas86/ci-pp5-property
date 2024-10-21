@@ -1,5 +1,5 @@
 """
-WSGI config for property project.
+WSGI config for a property project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

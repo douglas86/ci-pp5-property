@@ -1,6 +1,16 @@
 build:
   docker:
-    web: backend/Dockerfile
+    web:
+      dockerfile: ./backend/Dockerfile
+    frontend:
+      dockerfile: ./frontend/Dockerfile
 
 run:
-  web: daphne property.asgi:application --port $PORT --bind 0.0.0.0
+  web:
+    image: web
+    command:
+      - daphne property.asgi:application --port $PORT --bind 0.0.0.0
+  frontend:
+    image: frontend
+    command:
+      - npm start
