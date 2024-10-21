@@ -24,6 +24,7 @@ const Logout = () => {
   const { handleSubmit } = useForm();
 
   useEffect(() => {
+    dispatch({ type: "FORM ERRORS", payload: {} });
     // change the header of the modal
     dispatch({ type: "CHANGE HEADER", payload: "Logout Form" });
   }, [dispatch]);

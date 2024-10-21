@@ -23,10 +23,6 @@ const App = () => {
   // fetches Profile data from server if you are logged in
   useTokens();
 
-  const { user } = useAppContext();
-
-  console.log("user", user);
-
   return (
     <Layout>
       <BrowserRouter>
