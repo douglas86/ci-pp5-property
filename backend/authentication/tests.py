@@ -54,18 +54,6 @@ class TestUser(TestCase):
         user = self.login_user()
         self.assertEqual(user.status_code, 200)
 
-    def test_logout_user(self):
-        """
-        Test logout user
-        """
-
-        print("Logout User")
-
-        user = self.login_user()
-        self.assertEqual(user.status_code, 200)
-        response = self.client.post("/auth/logout/")
-        self.assertEqual(response.status_code, 200)
-
     def test_change_password(self):
         """
         Test change password

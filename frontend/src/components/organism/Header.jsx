@@ -7,8 +7,8 @@ import FormModal from "./FormModal";
 import { logo, button } from "../atom";
 
 // utils and hooks
-import { router } from "../../utils";
 import useAppContext from "../../hooks/useAppContext";
+import { router } from "../../utils";
 
 // styling
 import styles from "../../styles/components/organism/Header.module.css";

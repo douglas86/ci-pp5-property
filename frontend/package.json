@@ -27,7 +27,8 @@
     "eject": "react-scripts eject",
     "horoku-postbuild": "npm install && npm run build",
     "test": "npx cypress open",
-    "docker": "docker-compose up"
+    "docker": "docker-compose up",
+    "docker:down": "docker-compose down"
   },
   "eslintConfig": {
     "extends": [

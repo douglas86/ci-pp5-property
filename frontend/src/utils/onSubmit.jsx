@@ -15,12 +15,15 @@ import { server } from "./apiSettings";
 export const onSubmit = async (data, url, dispatch) => {
   // display loading symbol on server request
   dispatch({ type: "FORM LOADING", payload: true });
+
+  // check if the refresh token is present
   const refresh = Cookies.get("refresh-token");
 
   // if refresh token exists, send data and refresh token to server
   // if refresh token does not exist, send only data to server
   const formData = refresh ? { data, refresh } : data;
 
+  // post form data to server
   await axios
     .post(`${server}/${url}`, formData, {
       headers: {

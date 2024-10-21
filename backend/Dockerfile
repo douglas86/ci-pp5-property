@@ -26,8 +26,8 @@ EXPOSE 8000
 
 #Expose the port Django will run on
 ENV PORT=8000
+#Expose variable for using print statments in docker
 ENV PYTHONUNBUFFERED=1
 
 #Run Django Server
 CMD ["sh", "-c", "python -u -m daphne property.asgi:application --port $PORT --bind 0.0.0.0"]
-#CMD ["daphne", "-u", "python", "-b", "0.0.0.0", "-p", "$PORT", "property.asgi:application"]

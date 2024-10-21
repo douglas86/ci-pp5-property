@@ -2,8 +2,8 @@
 import Modal from "react-bootstrap/Modal";
 
 // utils and custom hooks
-import { whichAuthForm } from "../../utils/whichAuthForm";
 import useAppContext from "../../hooks/useAppContext";
+import { whichAuthForm } from "../../utils/whichAuthForm";
 
 /**
  * Modal that is being used to handle forms

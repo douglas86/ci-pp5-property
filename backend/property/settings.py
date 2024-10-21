@@ -138,7 +138,6 @@ else:
         'rest_framework.renderers.BrowsableAPIRenderer',
     ]
 
-
 REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_HTTPONLY': False,
@@ -159,22 +158,27 @@ SIMPLE_JWT = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com',
 ]
+
 CORS_ALLOWED_ORIGIN_REGEXES = [
     "http://localhost:3000",
     "https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com",
 ]
+
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com',
 ]
+
 CORS_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com',
 ]
+
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'https://ci-pp5-property-v2-react-a76ea7c32afe.herokuapp.com'
@@ -187,6 +191,7 @@ CORS_ALLOW_METHODS = [
     "POST",
     "PUT",
 ]
+
 CORS_ALLOW_HEADERS = [
     "accept",
     "accept-encoding",
@@ -236,7 +241,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 

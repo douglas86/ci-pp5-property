@@ -8,8 +8,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Authentication
 from .serializers import ChangePasswordSerializer
 
-from property.views import AsyncViewSet
-
 
 # Create your views here.
 class LogoutView(APIView):

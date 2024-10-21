@@ -8,8 +8,8 @@ import MapToForm from "../../molecule/MapToForm";
 import { button, spinner } from "../../atom";
 
 // utils and custom hooks
-import { onSubmit } from "../../../utils";
 import useAppContext from "../../../hooks/useAppContext";
+import { onSubmit } from "../../../utils";
 
 // styling
 import styles from "../../../styles/components/organism/Forms.module.css";
@@ -20,9 +20,11 @@ import styles from "../../../styles/components/organism/Forms.module.css";
  * @constructor
  */
 const Registration = () => {
+  // state store
   const { dispatch, forms } = useAppContext();
   const { loading } = forms;
 
+  // React hook forms functions
   const {
     register,
     handleSubmit,
@@ -42,6 +44,7 @@ const Registration = () => {
     });
   }, [dispatch]);
 
+  // Login user form will load
   const handleLogin = () =>
     dispatch({ type: "WHICH FORM TO USE", payload: "" });
 
@@ -49,10 +52,7 @@ const Registration = () => {
   const passwordMatch = watch("password1");
   const commonPasswords = ["123456", "password", "12345678", "qwerty"];
 
-  // description of arr
-  // id - this is only used for the map, must be a unique id
-  // name, type and placeholder attributes for Form.Control elements
-  // formValidation - used for React hook forms to validate data in form
+  // array used for MapToForm molecule
   const arr = [
     {
       id: 1,
@@ -74,6 +74,8 @@ const Registration = () => {
             "This password is too short. It must contain at least 8 characters",
         },
         validate: {
+          // validation to check if password is not too common
+          // and for checking if password is not all numeric
           common: (value) =>
             !commonPasswords.includes(value) || "This password is too common",
           numeric: (value) =>
@@ -94,6 +96,7 @@ const Registration = () => {
             "This password is too short. It must contain at least 8 characters",
         },
         validate: {
+          // validates if passwords match, common passwords and password is not all numeric
           match: (value) => value === passwordMatch || "Passwords do not match",
           common: (value) =>
             !commonPasswords.includes(value) || "This password is too common",

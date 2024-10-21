@@ -15,6 +15,7 @@ This forms part of my final Project for Code Institute
   - [Wireframes](#wireframes)
   - [UX/UI Designs on Figma](#uxui-designs-on-figma)
   - [Color pallet](#color-pallet)
+  - [ERD diagrams for mapping out my models](#erd-diagrams-for-mapping-out-my-models)
   - [User Stories using MOSCOW Prioritization techniques](#user-stories-using-moscow-prioritization-techniques)
 - [Features](#features)
   - [Project Description](#project-description)
@@ -29,6 +30,9 @@ This forms part of my final Project for Code Institute
 - [Testing](#testing)
   - [Manual Testing](#manual-testing)
   - [Auto Testing](#auto-testing)
+    - [Testing the API locally](#testing-the-api-locally)
+    - [Testing React locally with Cypress](#testing-react-locally-with-cypress)
+- [Credits](#credits)
 
 ---
 
@@ -148,6 +152,10 @@ Mobile
 
 ![color_pallet.png](frontend/src/assets/docs/planning/color_pallet.png)
 
+#### [ERD diagrams for mapping out my models](#planning)
+
+![model.png](frontend/src/assets/docs/planning/api/model.png)
+
 #### [User Stories using MOSCOW Prioritization techniques](#planning)
 
 ##### Description
@@ -266,7 +274,6 @@ Description of the design structure in a project setting
 
 Description of Project structure
 
-- API directory: defines the defaults for using create axios
 - assets directory: used to store all static files like images for this document
 - components directory: this is where the atomic design sits
 - construction directory: this is where the App.jsx will sit
@@ -276,7 +283,7 @@ Description of Project structure
 - utils directory: If I need some sort of logic that is going to be used often, used as helper functions
 - index.js: The most important file in this project, 
 - used for two purposes: 
-- use as a wrap for the Provider function with the state store and to attach itself to the HTML file of for React
+- use as a wrap for the Provider function with the state store and to attach itself to the HTML file for Rendering App.jsx
 
 - There is a directory that is used outside the scope of the src directory
 - called cypress
@@ -326,19 +333,35 @@ Index
 
 #### [Setting up on Heroku](#deployment)
 
+Description
+
 - When creating your app on Heroku, I created two separate apps from one repository
 - Reason for that, it will be easier to manage as I can keep the code separate from one another
+
+
+React setup
 
 - Head on over to the [Heroku Dashboard](https://dashboard.heroku.com/apps) to Log in
 - Once you are Logged in, start by Creating the React app first
 - by clicking on the New button on the right-hand side
 - Then click on Create new app
-- Enter the new apps name I called mine ci-pp5-property-v2-react bear in mind that app names are unique in Heroku
+- Enter the new apps name, I called mine ci-pp5-property-v2-react bear in mind that app names are unique in Heroku
 - Enter the Region were you want it deployed, clicking on the region that is closest to you
 - You only have two options either the United States or Europe
 - Click on Create app the app will then be created
+- You only need to create one environment variable for React
+- Head on over to the settings tab
+- Scroll down until you see config vars
+- click reveal config vars
+- type in the key value pair that you want
+- for the key type: REACT_APP_NODE_ENV
+- for the value type: production
+- This environment variable is used for React to determine what environment they are on
+- when in production, it will use the heroku api for server requests
+- when in development, it will use the local api for server requests
 - That is all we need to do for the React Heroku app as the rest will be done on the command line
 
+API setup
 
 - Now we need to create the second app the API
 - Go back to the Heroku Dashboard and click on the New button on the right-hand side
@@ -352,12 +375,15 @@ Index
 - Scroll down until you see config Vars as we need to create the environment variables
 - Click the button that says reveal config vars
 - There are two columns, the first is the key and the other the value
-- You need to create four environment variables
-- CLOUDINARY_URL, DATABASE_URL, DJANGO_SETTINGS_KEY, ENV
+- You need to create five environment variables
+- CLOUDINARY_URL, DATABASE_URL, DISABLE_COLLECTSTATIC, DJANGO_SETTINGS_KEY, ENV
 - scroll down to the [environment section](#environment-variables) to see how to set that up
 - once down come back here
 
 
+Setting up locally and getting ready for React and Heroku deployment
+
+- This Project assumes that you have heroku cli installed on your system already 
 - The next stage is getting setup on heroku using the command line
 - We will begin by setting up the React app first
 - In the web browser for the React app that was created open up heroku logs
@@ -382,7 +408,7 @@ heroku container:login
 
 - Once login we can push and release the code needed
 - By using two separate commands
-- We first we push to Heroku
+- We first push to Heroku
 
 ```
 heroku container:push web --app ci-pp5-property-v2-react --arg Dockerfile
@@ -422,7 +448,7 @@ heroku container:release web --app ci-pp5-property-v2-react
 cd ..
 ```
 
-- when you are in the home directory, then we can cd into the backend directory
+- when you are in the home directory, then we can change the directory into the backend directory
 
 ```
 cd backend
@@ -435,6 +461,9 @@ cd backend
 heroku container:push web --app ci-pp5-property-v2-api --arg Dockerfile
 ```
 
+- the words after --app flag is the heroku apps name
+- the flag --arg is used to say that there is an argument coming
+- once you have pushed the code, then we need to use the release command 
 - once the code has been pushed, then we can migrate the database
 
 ```
@@ -482,28 +511,50 @@ git clone https://github.com/douglas86/ci-pp5-property.git
 - create an .env file inside the backend directory
 - scroll down to the [environment variables](#environment-variables) section of this document
 - once the local environment variables have been created
-- you need to then start the virtual machine
-- to do that cd into the backend directory
+- cd out of the backend directory as this project you can get up and running
+- with docker containers
+- make sure that you have docker setup and running on your system
+- if you need help getting docker setup, follow this [YouTube tutorial](https://www.youtube.com/watch?v=31ieHmcTUOk&list=PL4cUxeGkcC9hxjeEtdHFNYMtCpjNBm3h7)
+- once it has been set up, make sure that the docker desktop app is running
+- I have created a docker-compose command that will help in running docker every time that you need it
+- npm run docker command will get docker up and running
+
+```
+npm run docker
+```
+
+- if you want to tear docker down, I have created a script for that to
+
+```
+npm run docker:down
+```
+
+- once docker is up and running, you will need to migrate the local database
+- to migrate the database change directory to the backend directory
 
 ```
 cd backend
 ```
 
-- to start your virtual machine, use the following command
+- then migrate using the following command
 
 ```
-source .venv/bin/activate
+python manage.py makemigrations
 ```
 
-- this is going to be used for when you have to install new python packages
-- once the virtual environment has started
-- you can then start up the docker container
-- make sure that docker desktop is running first
-- then use the following command
+- then migrate
 
 ```
-docker-compose up
+python manage.py migrate
 ```
+
+- once done, you should be able to go to the web browser
+- and start the apps
+- To start React, go to localhost:3000 on your web browser
+- To start Django React, go to localhost:8000 on your web browser
+
+Note: sometimes the docker containers need to be restarted when using Django Rest
+Note: it does not happen all the times just sometimes
 
 #### [Environment Variables](#deployment)
 
@@ -516,6 +567,8 @@ DJANGO_SETTING_KEY environment variable
 - django secret keys should never be committed to GitHub
 - so if you need one, follow the following link
 - [generate a new secret key](https://www.makeuseof.com/django-secret-key-generate-new/#:~:text=You%20can%20accidentally%20make%20your,are%20still%20learning%20about%20GitHub.)
+- this gets added to the .env file in your backend directory for local development
+- and get added to heroku
 
 CLOUDINARY_URL environment variables
 
@@ -532,6 +585,15 @@ CLOUDINARY_URL environment variables
 - create the following object:
 - placing CLOUDINARY_URL as the key
 - and the api key for cloudinary as the value
+- add this to the .env file in your backend directory
+
+DISABLE_COLLECTSTATIC
+
+- This variable needs to be set to 1
+- Not sure if it is necessary at all
+- but I have a template used for displaying the favicon icon
+- during local development
+- but it is there for incase
 
 DATABASE_URL environment variable
 
@@ -568,6 +630,7 @@ ENV environment variable
 | Click on Cancel modal is closed                            | Pass      |
 | Modal title says, "Login Form"                             | Pass      |
 | Click on "Login" data gets sent to server                  | Pass      |
+| Works on Heroku for live deployment                        | Pass      |
 
 - Register Form
 
@@ -585,6 +648,7 @@ ENV environment variable
 | Click on Cancel modal is closed                           | Pass      |
 | Click on "X" modal is closed                              | Pass      |
 | Form validation works on server and is displayed on form  | Pass      |
+| Works on Heroku for live deployment                       | Pass      |
 
 - Change Password Form
 
@@ -601,6 +665,7 @@ ENV environment variable
 | Check new_password is longer than 8 characters                    | Pass      |
 | Form validation works in React hook form                          | Pass      |
 | Form validation works on server and is displayed on form          | Pass      |
+| Works on Heroku for live deployment                               | Pass      |
 
 - Logout Form
 
@@ -612,7 +677,64 @@ ENV environment variable
 | Logout message appears on Form      | Pass      |
 | Submit button says Logout           | Pass      |
 | Token Cookies get deleted on Logout | Pass      |
+| Works on Heroku for live deployment | Pass      |
 
 #### [Auto Testing](#table-of-content)
+
+Section Index
+
+- [Testing the API locally](#testing-the-api-locally)
+- [Testing React locally with Cypress](#testing-the-api-locally)
+
+##### [Testing the API locally](#auto-testing)
+
+Authentication
+
+- I have only done basic testing for authentication as most of the testing was done manually
+- Testing if a user can register
+- Testing if a user can log in
+- Testing if a user can change password
+
+![auth.png](frontend/src/assets/docs/testing/auto_testing/auth.png)
+
+##### [Testing React locally with Cypress](#auto-testing)
+
+Authentication
+
+- I used Cypress e2e for testing the authentication
+- I have created a script in package.json for running cypress
+
+```
+npm run test
+```
+
+- once you have run that command, a Cypress welcoming screen opens
+- select E2E Testing
+- then select the browser I selected firefox
+- then click start E2E testing
+- once it opens, click on the one that says authentication.cy.jsx
+- as that I created for authentication testing
+- the test will start to run immediately
+
+![starting.png](frontend/src/assets/docs/testing/auto_testing/starting.png)
+
+- once it has finished, you will see ticks next to the tests
+
+![finishing.png](frontend/src/assets/docs/testing/auto_testing/finishing.png)
+
+- I have run the tests 50 times by clicking refresh and it passed everytime
+
+Note: Please do not stop the tests halfway as you will have to delete the testing user from db manual
+
+Note: I have created an endpoint to auto delete the testing user from db after all tests have been completed
+
+- Once the test has finished, you can press ctrl+c to exit the cypress terminal
+
+---
+
+### [Credits](#table-of-content)
+
+- [Code Institute](https://codeinstitute.net/) - Bootcamp
+- [Luke Buchanan](https://www.linkedin.com/in/lukebuchanan67/) - Mentor
 
 ---

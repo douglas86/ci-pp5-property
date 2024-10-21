@@ -3,12 +3,12 @@ import { useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 
-// utils and custom hooks
-import { onSubmit } from "../../../utils";
-import useAppContext from "../../../hooks/useAppContext";
-
 // atomic design
 import { button } from "../../atom";
+
+// utils and custom hooks
+import useAppContext from "../../../hooks/useAppContext";
+import { onSubmit } from "../../../utils";
 
 // styling
 import styles from "../../../styles/components/organism/Forms.module.css";
@@ -19,11 +19,14 @@ import styles from "../../../styles/components/organism/Forms.module.css";
  * @constructor
  */
 const Logout = () => {
+  // state store
   const { dispatch } = useAppContext();
 
+  // React hook form functions
   const { handleSubmit } = useForm();
 
   useEffect(() => {
+    // clear error messages from state store
     dispatch({ type: "FORM ERRORS", payload: {} });
     // change the header of the modal
     dispatch({ type: "CHANGE HEADER", payload: "Logout Form" });

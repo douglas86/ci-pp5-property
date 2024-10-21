@@ -5,13 +5,12 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Layout from "../components/templates/Layout";
 
 // utils and custom hooks
-import { router } from "../utils/index";
 import useTokens from "../hooks/useTokens";
+import { router } from "../utils/index";
 
 // styling
 import "../styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import useAppContext from "../hooks/useAppContext";
 
 /**
  * The Main structure part responsible for routing and the use of authentication tokens

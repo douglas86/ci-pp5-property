@@ -51,7 +51,6 @@ class ProfileByIdView(ViewSet):
 
         if is_authenticated:
 
-
             profile = self.model.objects.filter(user_id=pk)
 
             if not profile:
@@ -59,7 +58,8 @@ class ProfileByIdView(ViewSet):
 
             serializer = self.serializer_class(instance=profile, many=True, context={'request': request})
 
-            return Response({'message': 'Data successfully received', 'data': serializer.data}, status=status.HTTP_200_OK)
+            return Response({'message': 'Data successfully received', 'data': serializer.data},
+                            status=status.HTTP_200_OK)
 
         else:
             return Response({'message': 'You do not have permission to access this profile.'},
