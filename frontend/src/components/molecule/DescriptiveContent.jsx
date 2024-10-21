@@ -6,7 +6,7 @@ const DescriptiveContent = ({ heading, subTitle, paragraph }) => {
   return (
     <div className={style.descriptiveContent}>
       {title(heading)}
-      {subHeading(subTitle)}
+      {subTitle ? subHeading(subTitle) : null}
       {text(paragraph)}
     </div>
   );

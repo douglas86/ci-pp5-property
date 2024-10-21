@@ -18,7 +18,23 @@ const AboutPage = () => {
           />
         </div>
         <div className={style.right}>
-          <Image src={`${House}`} alt="House" />
+          <Image src={`${House}`} alt="House" fluid />
+        </div>
+      </div>
+      <div className={style.content}>
+        <div className={style.left}>
+          <DescriptiveContent
+            heading="Our Mission"
+            subTitle=""
+            paragraph="Our Mission is to help empower you with the tools, information and support that you need to help you with achieving your vision to obtain your next property."
+          />
+        </div>
+        <div className={style.right}>
+          <DescriptiveContent
+            heading="Our Commitment"
+            subTitle=""
+            paragraph="We are committed to transparency, integrity and honesty in everything we do. Our goal is to build long lasting relationships with our clients. Your satisfaction is our number 1 priority."
+          />
         </div>
       </div>
     </div>

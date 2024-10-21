@@ -1,3 +1,15 @@
 .descriptiveContent {
-    padding: 5rem;
+  padding: 5rem;
+}
+
+@media screen and (max-width: 400px) {
+  .descriptiveContent {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .descriptiveContent {
+    padding: 2rem;
+  }
 }

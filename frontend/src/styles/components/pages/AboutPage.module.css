@@ -1,13 +1,23 @@
 .content {
-    display: flex;
-    padding: 2rem;
+  display: flex;
+  padding: 2rem;
 }
 
 .left {
-    width: 50%;
-    text-align: center;
+  width: 50%;
+  text-align: center;
 }
 
 .right {
-    width: 50%;
+  width: 50%;
+}
+
+@media screen and (max-width: 1024px) {
+  .content {
+    display: block;
+  }
+  .left,
+  .right {
+    width: 100%;
+  }
 }
