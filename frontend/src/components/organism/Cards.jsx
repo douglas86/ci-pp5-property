@@ -1,8 +1,11 @@
+// 3rd party
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
+// atomic design
 import MapToCards from "../molecule/MapToCards";
 
+// assets
 import Avatar from "../../assets/images/avatars/Avatar.png";
 import Avatar2 from "../../assets/images/avatars/Avatar2.png";
 import Avatar3 from "../../assets/images/avatars/Avatar3.png";

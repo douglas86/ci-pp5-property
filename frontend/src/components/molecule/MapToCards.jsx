@@ -1,5 +1,15 @@
+// 3rd party
 import { Card, Image } from "react-bootstrap";
 
+/**
+ * Map for cards to be displayed on board
+ * @param quote
+ * @param name
+ * @param description
+ * @param image
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const MapToCards = ({ quote, name, description, image }) => {
   return (
     <Card className="mb-4 custom-border shadow-lg">
