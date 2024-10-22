@@ -628,7 +628,7 @@ ENV environment variable
 | Form validation works from server and is displayed on form | Pass      |
 | Click on "X" closes the modal                              | Pass      |
 | Click on Cancel modal is closed                            | Pass      |
-| Modal heading says, "Login Form"                             | Pass      |
+| Modal heading says, "Login Form"                           | Pass      |
 | Click on "Login" data gets sent to server                  | Pass      |
 | Works on Heroku for live deployment                        | Pass      |
 
@@ -636,7 +636,7 @@ ENV environment variable
 
 | Title                                                     | Pass/Fail |
 |-----------------------------------------------------------|-----------|
-| Modal heading says, "Registration Form"                     | Pass      |
+| Modal heading says, "Registration Form"                   | Pass      |
 | Click Login button: Login form loads                      | Pass      |
 | All Fields required validation                            | Pass      |
 | Form Validation works in React hook form                  | Pass      |
@@ -656,7 +656,7 @@ ENV environment variable
 |-------------------------------------------------------------------|-----------|
 | click Register button: register form Loads                        | Pass      |
 | click login button: login form loads                              | Pass      |
-| Modal heading says, "Change Password Form"                          | Pass      |
+| Modal heading says, "Change Password Form"                        | Pass      |
 | Click on "X" modal is closed                                      | Pass      |
 | Click on Cancel modal is closed                                   | Pass      |
 | All Fields required validation                                    | Pass      |
