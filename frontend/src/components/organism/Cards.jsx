@@ -1,10 +1,19 @@
 import React from "react";
-import { Card, Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
+
+import MapToCards from "../molecule/MapToCards";
+
 import Avatar from "../../assets/images/avatars/Avatar.png";
 import Avatar2 from "../../assets/images/avatars/Avatar2.png";
 import Avatar3 from "../../assets/images/avatars/Avatar3.png";
 
+/**
+ * Display cards with shadow box
+ * @returns {Element}
+ * @constructor
+ */
 const Cards = () => {
+  // array to be mapped to cards
   const cardInformation = [
     {
       id: 1,
@@ -32,28 +41,14 @@ const Cards = () => {
   return (
     <Container>
       <Row>
-        {cardInformation.map((testimonial, index) => (
-          <Col key={index} md={4}>
-            <Card className="mb-4 custom-border shadow-lg">
-              <Card.Body>
-                <blockquote className="blockquote mb-4">
-                  <p>"{testimonial.quote}"</p>
-                </blockquote>
-                <div className="d-flex align-items-center">
-                  <Image
-                    src={testimonial.image}
-                    roundedCircle
-                    width="50"
-                    height="50"
-                    className="me-3"
-                  />
-                  <div>
-                    <Card.Title className="mb-0">{testimonial.name}</Card.Title>
-                    <Card.Text>{testimonial.description}</Card.Text>
-                  </div>
-                </div>
-              </Card.Body>
-            </Card>
+        {cardInformation.map(({ id, quote, name, description, image }) => (
+          <Col key={id} md={4}>
+            <MapToCards
+              quote={quote}
+              name={name}
+              description={description}
+              image={image}
+            />
           </Col>
         ))}
       </Row>
