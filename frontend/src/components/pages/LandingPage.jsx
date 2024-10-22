@@ -12,7 +12,7 @@ const LandingPage = () => {
       <CarouselContent />
       <DescriptiveContent
         heading="Testimonials"
-        subTitle="Have a look what previous customers are saying"
+        subTitle="Have a look at what previous customers are saying!"
       />
       <Cards />
     </div>
