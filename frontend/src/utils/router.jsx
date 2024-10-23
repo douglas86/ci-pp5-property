@@ -2,8 +2,8 @@
 import LandingPage from "../components/pages/LandingPage";
 import AboutPage from "../components/pages/AboutPage";
 import NotFound from "../components/pages/NotFound";
-import AdminDashboard from "../components/pages/AdminDashboard";
-import UsersDashboard from "../components/pages/UsersDashboard";
+import AdminDashboard from "../components/pages/dashboards/AdminDashboard";
+import UsersDashboard from "../components/pages/dashboards/UsersDashboard";
 
 /**
  * Helper function used to store all url paths within this application
