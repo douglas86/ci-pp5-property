@@ -1,8 +1,12 @@
-import useAppContext from "../../../hooks/useAppContext";
+// 3rd party
 import { useEffect } from "react";
 
-const AdminDashboard = () => {
-  const { dispatch, user, isAdmin } = useAppContext();
+// custom hooks
+import useAppContext from "./useAppContext";
+
+const useAdmin = () => {
+  // state store
+  const { dispatch, isAdmin } = useAppContext();
 
   useEffect(() => {
     // check if user is not admin
@@ -14,20 +18,7 @@ const AdminDashboard = () => {
     } else {
       dispatch({ type: "CHANGE MODAL STATE", payload: false });
     }
-  }, [isAdmin]);
-
-  console.log("user", user);
-  console.log("isAdmin", isAdmin);
-
-  return (
-    <>
-      {user ? (
-        <h1>Admin Dashboard</h1>
-      ) : (
-        <h1>This is a protected page please login</h1>
-      )}
-    </>
-  );
+  }, [dispatch, isAdmin]);
 };
 
-export default AdminDashboard;
+export default useAdmin;
