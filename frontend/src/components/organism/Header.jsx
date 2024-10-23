@@ -26,6 +26,9 @@ const Header = () => {
   // state store
   const { dispatch, user } = useAppContext();
 
+  // check to see what role user plays
+  const isRole = (role) => user.role === role;
+
   return (
     <Navbar bg="light" expand="md">
       <Container>
@@ -45,10 +48,38 @@ const Header = () => {
           className="justify-content-end"
         >
           <Nav className={`ms-auto ${styles.nav}`}>
-            {router.map(({ id, title, path }) => (
-              <Nav.Link key={id} href={path}>
-                <h4>{title}</h4>
-              </Nav.Link>
+            {/*Display links on Navbar*/}
+            {router.map(({ id, title, path, role }) => (
+              <div key={id}>
+                {/*check if user is logged in*/}
+                {user ? (
+                  // display a dashboard link based on a user role
+                  <>
+                    {/*display all other routes except protected*/}
+                    {!role && (
+                      <Nav.Link href={path}>
+                        <h4>{title}</h4>
+                      </Nav.Link>
+                    )}
+                    {/*display dashboard based on users' role*/}
+                    {isRole(role) && (
+                      <Nav.Link href={path}>
+                        <h4>{title}</h4>
+                      </Nav.Link>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {/*check to see if protected route*/}
+                    {/*if protected display null*/}
+                    {role ? null : (
+                      <Nav.Link href={path}>
+                        <h4>{title}</h4>
+                      </Nav.Link>
+                    )}
+                  </>
+                )}
+              </div>
             ))}
             {/*Authentication buttons for Login and Logout*/}
             {user
