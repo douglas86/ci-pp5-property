@@ -3,7 +3,7 @@ from allauth.account.views import logout
 from rest_framework.response import Response
 from rest_framework import status
 
-from authentication.authentication import JWTAuthenticationFromCookie
+from authentication.authentication import IsAuthenticated
 from authentication.models import Authentication
 
 from Profile.serializers import ProfileSerializer
@@ -18,6 +18,7 @@ class MyProfileView(ViewSet):
 
     modal = Authentication
     serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
 
     def retrieve(self, request):
         """
@@ -26,9 +27,7 @@ class MyProfileView(ViewSet):
         :return:
         """
 
-        is_authenticated = JWTAuthenticationFromCookie().authenticate(request)
-
-        if is_authenticated:
+        if request.user.is_authenticated:
             profile = self.modal.objects.get(user=request.user.id)
             serializer = self.serializer_class(instance=profile, context={'request': request})
 

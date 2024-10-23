@@ -8,41 +8,11 @@ from rest_framework_simplejwt.tokens import AccessToken
 from django.contrib.auth.models import User
 
 
-class JWTAuthenticationFromCookie:
-    """
-    Class to check if token is valid
-    """
-
-    success_code = True
-    error_code = False
-
-    def authenticate(self, request):
-        """
-        Authenticate token and return user information
-        """
-
-        try:
-            # get Authorization token from header
-            authorization_header = request.headers['Authorization']
-            # get token from header after Bearer
-            token = authorization_header.split(" ")[1]
-            # check if the token is valid
-            token_valid = AccessToken(token)
-
-            # return user information after token valid
-            user_id = token_valid['user_id']
-            user = User.objects.get(id=user_id)
-            request.user = user
-
-            # return true on token_valid
-            return self.success_code
-
-        except TokenError:
-            # return false if token not valid
-            return self.error_code
-
-
 class IsAuthenticated(BasePermission):
+    """
+    Allows access only to authenticated users.
+    """
+
     model = User
 
     message = "You are allowed to access this endpoint"
@@ -53,19 +23,21 @@ class IsAuthenticated(BasePermission):
             if 'Authorization' not in request.headers:
                 raise AuthenticationFailed('Authorization header is missing')
 
+            # validate tokens in requested headers
             authorization_header = request.headers['Authorization']
             token = authorization_header.split(" ")[1]
             token_valid = AccessToken(token)
 
+            # fetch users data when token valid
             user_id = token_valid['user_id']
             user = self.model.objects.get(id=user_id)
             request.user = user
 
+            # if user is authenticated return user data
             if user:
                 return True
             else:
                 return False
-
 
         except (TokenError, User.DoesNotExist):
             raise AuthenticationFailed('Token is invalid or user not found')
@@ -80,33 +52,47 @@ class IsAuthenticated(BasePermission):
 
 
 class IsSuperUser(BasePermission):
+    """
+    Allows access only to superusers.
+    """
+
     model = User
 
     message = "You are allowed to access this endpoint"
     error_message = "You are forbidden to access this endpoint"
 
     def authenticate(self, request):
+        """
+        Authenticate users based on tokens
+        """
+
         try:
             if 'Authorization' not in request.headers:
                 raise AuthenticationFailed('Authorization header is missing')
 
+            # validate tokens in requested header
             authorization_header = request.headers['Authorization']
             token = authorization_header.split(" ")[1]
             token_valid = AccessToken(token)
 
+            # fetch users data when token valid
             user_id = token_valid['user_id']
             user = self.model.objects.get(id=user_id)
 
+            # validate is the current logged-in user a superuser
             if user.is_superuser:
                 return user
             else:
                 return False
 
-
         except (TokenError, User.DoesNotExist):
             raise AuthenticationFailed('Token is invalid or user not found')
 
     def has_permission(self, request, view):
+        """
+        Authenticate users based on tokens
+        """
+
         user = self.authenticate(request)
 
         if user and user.is_superuser:
