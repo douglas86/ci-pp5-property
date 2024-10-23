@@ -11,6 +11,9 @@ class Authentication(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='images/', default='../default_profile_rkmhff')
+    address = models.CharField(max_length=120, default=None)
+    area_code = models.CharField(max_length=120, default=None)
+    rent = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     role = models.CharField(max_length=50, default='user')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
