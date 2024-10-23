@@ -9,13 +9,22 @@ const Users = () => {
   // custom hook for admin check
   useAdmin();
 
-  const heading = ["#", "", "Address", "Area", "Area code", "Rent"];
+  const heading = [
+    "#",
+    "",
+    "Name of Person",
+    "Address",
+    "Area code",
+    "Role",
+    "Rent",
+  ];
   const body = [
     1,
     "image",
+    "name of person",
     "address of property",
-    "area of property",
     "area code",
+    "user",
     "£ 1000",
   ];
 
