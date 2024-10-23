@@ -1,12 +1,13 @@
 from adrf.viewsets import ViewSet
+from allauth.account.views import logout
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
 
 from authentication.authentication import JWTAuthenticationFromCookie
 from authentication.models import Authentication
 
 from Profile.serializers import ProfileSerializer
+from authentication.authentication import IsSuperUser
 
 
 # Create your views here.
@@ -64,3 +65,15 @@ class ProfileByIdView(ViewSet):
         else:
             return Response({'message': 'You do not have permission to access this profile.'},
                             status=status.HTTP_403_FORBIDDEN)
+
+class ProfileView(ViewSet):
+
+    model = Authentication
+    serializer_class = ProfileSerializer
+    permission_classes = [IsSuperUser]
+
+    def retrieve(self, request, pk=None):
+        profile = self.model.objects.all()
+        serializer = self.serializer_class(instance=profile, many=True, context={'request': request})
+        print("profile", profile)
+        return Response({'message': 'Data fetched successfully', 'data': serializer.data, 'status': 200}, status=status.HTTP_200_OK)
