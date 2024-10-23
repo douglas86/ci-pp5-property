@@ -1,7 +1,10 @@
+// atomic design
 import Panel from "../../organism/Admin/Panel";
+import DataTable from "../../organism/Admin/DataTable";
+
+// custom hooks
 import useAdmin from "../../../hooks/useAdmin";
 import useAppContext from "../../../hooks/useAppContext";
-import DataTable from "../../organism/Admin/DataTable";
 
 const Users = () => {
   const { isAdmin } = useAppContext();
