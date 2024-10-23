@@ -74,5 +74,5 @@ class ProfileView(ViewSet):
     def retrieve(self, request, pk=None):
         profile = self.model.objects.all()
         serializer = self.serializer_class(instance=profile, many=True, context={'request': request})
-        print("profile", profile)
+        print("profile", serializer.data)
         return Response({'message': 'Data fetched successfully', 'data': serializer.data, 'status': 200}, status=status.HTTP_200_OK)

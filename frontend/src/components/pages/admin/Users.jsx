@@ -5,12 +5,19 @@ import DataTable from "../../organism/Admin/DataTable";
 // custom hooks
 import useAdmin from "../../../hooks/useAdmin";
 import useAppContext from "../../../hooks/useAppContext";
+import useFetch from "../../../hooks/useFetch";
 
 const Users = () => {
   const { isAdmin } = useAppContext();
 
+  const { data } = useFetch("profile/", isAdmin);
+
+  console.log("data", data);
+
   // custom hook for admin check
   useAdmin();
+
+  console.log("isAdmin", isAdmin);
 
   const heading = [
     "#",
@@ -36,7 +43,7 @@ const Users = () => {
       {isAdmin ? (
         <>
           <Panel />
-          <DataTable heading={heading} body={body} />
+          <DataTable heading={heading} body={data} />
         </>
       ) : (
         <h1>This is a protected page please login</h1>

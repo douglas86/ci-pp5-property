@@ -32,6 +32,8 @@ const Registration = () => {
     formState: { errors },
   } = useForm();
 
+  console.log("watch", watch());
+
   useEffect(() => {
     // change the header of the modal
     dispatch({ type: "CHANGE HEADER", payload: "Registration Form" });
@@ -40,7 +42,7 @@ const Registration = () => {
     // change the url needed for the submitted button
     dispatch({
       type: "FORM SUBMIT URL",
-      payload: "/auth/registration/",
+      payload: "auth/registration/",
     });
   }, [dispatch]);
 

@@ -33,7 +33,6 @@ class IsAuthenticated(BasePermission):
             user = self.model.objects.get(id=user_id)
             request.user = user
 
-            # if user is authenticated return user data
             if user:
                 return True
             else:

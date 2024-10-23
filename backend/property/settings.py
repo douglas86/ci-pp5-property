@@ -15,6 +15,9 @@ import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 load_dotenv()
 
@@ -30,6 +33,10 @@ SECRET_KEY = os.environ.get('DJANGO_SETTINGS_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+CLOUDINARY_STORAGE = {
+    'CLOUDINARY_URL': os.environ.get("CLOUDINARY_URL"),
+}
 
 if os.getenv('ENV') == 'production':
     SESSION_COOKIE_SECURE = True
@@ -59,6 +66,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'dj_rest_auth.registration',
     'dj_rest_auth',
+    'cloudinary',
 
     'authentication',
     'Profile',
@@ -244,6 +252,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

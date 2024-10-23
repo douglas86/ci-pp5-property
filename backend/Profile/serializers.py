@@ -1,5 +1,8 @@
 from adrf.serializers import Serializer
 from rest_framework import serializers
+from cloudinary.utils import cloudinary_url
+
+from authentication.models import Authentication
 
 
 class ProfileSerializer(Serializer):
@@ -11,12 +14,21 @@ class ProfileSerializer(Serializer):
     user = serializers.ReadOnlyField(source='user.username')
     user_id = serializers.ReadOnlyField(source='user.id')
     profile_picture = serializers.SerializerMethodField()
-    address = serializers.ReadOnlyField(source='user.address')
-    area_code = serializers.ReadOnlyField(source='user.area_code')
-    rent = serializers.ReadOnlyField(source='user.rent')
+    address = serializers.SerializerMethodField()
+    area_code = serializers.SerializerMethodField()
+    rent = serializers.SerializerMethodField()
     role = serializers.SerializerMethodField()
     created_at = serializers.ReadOnlyField()
     updated_at = serializers.ReadOnlyField()
+
+    def get_address(self, obj):
+        return obj.address
+
+    def get_area_code(self, obj):
+        return obj.area_code
+
+    def get_rent(self, obj):
+        return obj.rent
 
     def get_id(self, obj):
         return obj.user.id
@@ -28,7 +40,9 @@ class ProfileSerializer(Serializer):
         :return:
         """
 
-        return obj.profile_picture.url
+        if obj.profile_picture:
+            return obj.profile_picture.url
+        return None
 
     def get_role(self, obj):
         """
