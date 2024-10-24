@@ -5,7 +5,7 @@ import Panel from "../../organism/Admin/Panel";
 import useAdmin from "../../../hooks/useAdmin";
 import useAppContext from "../../../hooks/useAppContext";
 import useFetch from "../../../hooks/useFetch";
-import DescriptiveContent from "../../molecule/DescriptiveContent";
+import UsersCard from "../../organism/UsersCard";
 
 const Users = () => {
   const { isAdmin } = useAppContext();
@@ -15,13 +15,12 @@ const Users = () => {
   // custom hook for admin check
   useAdmin();
 
-  console.log("data", data);
-
   return (
     <>
       {isAdmin ? (
         <>
           <Panel />
+          <UsersCard data={data} />
         </>
       ) : (
         <h1>This is a protected page please login</h1>
