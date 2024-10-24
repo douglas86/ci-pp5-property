@@ -4,12 +4,14 @@ import Logout from "../components/organism/Forms/Logout";
 import Registration from "../components/organism/Forms/Registration";
 import ChangePassword from "../components/organism/Forms/ChangePassword";
 
+import UsersDetails from "../components/organism/Forms/UsersDetails";
+
 /**
  * Helper function to deside on what form to display
  * @param formToUse
  * @returns {JSX.Element}
  */
-export const whichAuthForm = (formToUse) => {
+export const loadForm = (formToUse) => {
   switch (formToUse) {
     case "CHANGE PASSWORD":
       return <ChangePassword />;
@@ -17,6 +19,8 @@ export const whichAuthForm = (formToUse) => {
       return <Registration />;
     case "LOGOUT":
       return <Logout />;
+    case "USERS DETAILS":
+      return <UsersDetails />;
     default:
       return <Login />;
   }

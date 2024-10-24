@@ -16,6 +16,7 @@ const initialState = {
     url: "",
     whichForm: "",
     loading: false,
+    view: {},
   },
   userReducers: {
     user: null,

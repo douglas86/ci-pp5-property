@@ -1,8 +1,11 @@
 import { Card, Col, Container, Row } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import { button } from "../atom";
+import useAppContext from "../../hooks/useAppContext";
 
 const UsersCard = ({ data }) => {
+  const { dispatch } = useAppContext();
+
   console.log("data", data);
 
   const titleCase = (str) => {
@@ -19,16 +22,16 @@ const UsersCard = ({ data }) => {
     <Container>
       <Row>
         {data
-          ? data.map(({ id, user, profile_picture, role }) => (
-              <Col key={id} md={4}>
+          ? data.map((items) => (
+              <Col key={items.id} md={4}>
                 <Card className="mb-4 custom-border shadow-lg">
                   <Card.Body>
                     <Card.Title className="mb-0">
-                      Username: {titleCase(user)}
+                      Username: {titleCase(items.user)}
                     </Card.Title>
                     <div className="d-flex align-items-center">
                       <Image
-                        src={profile_picture}
+                        src={items.profile_picture}
                         roundedCircle
                         width={50}
                         height={50}
@@ -36,13 +39,31 @@ const UsersCard = ({ data }) => {
                       />
                       <div>
                         <blockquote className="blockquote mb-0">
-                          <p>Permission: {titleCase(role)}</p>
+                          <p>Permission: {titleCase(items.role)}</p>
                         </blockquote>
                       </div>
                     </div>
                     <div className="d-flex flex-md-wrap justify-content-around gap-2 mt-3">
                       {button(
-                        () => console.log * "View clicked",
+                        () => {
+                          // change modal header
+                          dispatch({
+                            type: "CHANGE HEADER",
+                            payload: `You are viewing ${titleCase(items.user)}'s details`,
+                          });
+                          // once clicked show modal
+                          dispatch({
+                            type: "CHANGE MODAL STATE",
+                            payload: true,
+                          });
+                          // load USERS DETAILS form
+                          dispatch({
+                            type: "WHICH FORM TO USE",
+                            payload: "USERS DETAILS",
+                          });
+                          // pushed data to view an object in form state
+                          dispatch({ type: "FORM DETAILS", payload: items });
+                        },
                         "View",
                         "outline-info",
                       )}
