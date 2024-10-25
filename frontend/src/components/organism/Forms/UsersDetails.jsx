@@ -64,7 +64,12 @@ const UsersDetails = () => {
         "outline-success",
       )}
       {button(
-        () => console.log("Delete user"),
+        () => {
+          // once clicked show modal
+          dispatch({ type: "CHANGE MODAL STATE", payload: true });
+          // load DELETE FORM
+          dispatch({ type: "WHICH FORM TO USE", payload: "USERS DELETE" });
+        },
         "Delete User",
         "outline-danger",
       )}
