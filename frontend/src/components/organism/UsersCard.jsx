@@ -75,7 +75,20 @@ const UsersCard = ({ data }) => {
                         "outline-success",
                       )}
                       {button(
-                        () => console.log("Delete Clicked"),
+                        () => {
+                          // once clicked show modal
+                          dispatch({
+                            type: "CHANGE MODAL STATE",
+                            payload: true,
+                          });
+                          // load DELETE FORM
+                          dispatch({
+                            type: "WHICH FORM TO USE",
+                            payload: "USERS DELETE",
+                          });
+                          // pushed data to view on an object in form state
+                          dispatch({ type: "FORM DETAILS", payload: items });
+                        },
                         "Delete",
                         "outline-danger",
                       )}

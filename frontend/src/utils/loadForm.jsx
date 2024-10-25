@@ -6,6 +6,7 @@ import ChangePassword from "../components/organism/Forms/ChangePassword";
 
 import UsersDetails from "../components/organism/Forms/UsersDetails";
 import UsersUpdate from "../components/organism/Forms/UsersUpdate";
+import UsersDelete from "../components/organism/Forms/UsersDelete";
 
 /**
  * Helper function to deside on what form to display
@@ -24,6 +25,8 @@ export const loadForm = (formToUse) => {
       return <UsersDetails />;
     case "USERS UPDATE":
       return <UsersUpdate />;
+    case "USERS DELETE":
+      return <UsersDelete />;
     default:
       return <Login />;
   }

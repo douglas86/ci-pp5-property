@@ -32,8 +32,6 @@ const Registration = () => {
     formState: { errors },
   } = useForm();
 
-  console.log("watch", watch());
-
   useEffect(() => {
     // change the header of the modal
     dispatch({ type: "CHANGE HEADER", payload: "Registration Form" });
