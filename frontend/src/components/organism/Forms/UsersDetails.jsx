@@ -49,17 +49,12 @@ const UsersDetails = () => {
       {/*update and delete buttons*/}
       {button(
         () => {
-          // change modal header
-          dispatch({
-            type: "CHANGE HEADER",
-            payload: `You are about to update ${titleCase(user)}'s details`,
-          });
           // once clicked show modal
           dispatch({
             type: "CHANGE MODAL STATE",
             payload: true,
           });
-          // load USERS DETAILS form
+          // load USERS UPDATE form
           dispatch({
             type: "WHICH FORM TO USE",
             payload: "USERS UPDATE",

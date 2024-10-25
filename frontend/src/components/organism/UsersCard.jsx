@@ -58,11 +58,6 @@ const UsersCard = ({ data }) => {
                       )}
                       {button(
                         () => {
-                          // change modal header
-                          dispatch({
-                            type: "CHANGE HEADER",
-                            payload: `You are about to update ${titleCase(items.user)}'s details`,
-                          });
                           // once clicked show modal
                           dispatch({
                             type: "CHANGE MODAL STATE",
