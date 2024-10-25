@@ -1,10 +1,10 @@
 // 3rd parties
 import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Form from "react-bootstrap/Form";
-import Image from "react-bootstrap/Image";
 
 // atomic design
+import MapToFormUpdate from "../../molecule/MapToFormUpdate";
 import { button, spinner } from "../../atom";
 
 // custom hooks
@@ -25,7 +25,6 @@ const UsersUpdate = () => {
   const {
     register,
     handleSubmit,
-    watch,
     control,
     formState: { errors },
   } = useForm({
@@ -39,6 +38,7 @@ const UsersUpdate = () => {
     },
   });
 
+  // update dispatch on component mount
   useEffect(() => {
     // change the header of the modal
     dispatch({
@@ -53,97 +53,58 @@ const UsersUpdate = () => {
 
   const onSubmit = (data) => console.log("data", data);
 
-  console.log("view", view);
+  // array used for MapToFormUpdate Molecule
+  const arr = [
+    {
+      id: 1,
+      name: "username",
+      type: "text",
+      formValidation: { required: "This field is required" },
+    },
+    {
+      id: 2,
+      name: "area_code",
+      type: "text",
+      formValidation: { required: "This field is required" },
+    },
+    {
+      id: 3,
+      name: "address",
+      type: "text",
+      formValidation: { required: "This field is required" },
+    },
+    {
+      id: 4,
+      name: "rent",
+      type: "text",
+      formValidation: { required: "This field is required" },
+    },
+    {
+      id: 5,
+      name: "profile_picture",
+      type: "file",
+      autoFocus: true,
+    },
+  ];
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       {loading ? spinner() : null}
-      <Form.Group className="mb-3" controlId={user}>
-        <Form.Label column={true}>Username</Form.Label>
-        <Controller
-          name="username"
+
+      {/*molecule for input fields on form*/}
+      {arr.map(({ id, name, type, formValidation }) => (
+        <MapToFormUpdate
+          key={id}
+          name={name}
+          type={type}
+          formValidation={formValidation}
           control={control}
-          render={({ field }) => (
-            <Form.Control
-              type="text"
-              {...register("username", { required: true })}
-              autoFocus={true}
-              name="username"
-              {...field}
-            />
-          )}
+          errors={errors}
+          register={register}
         />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId={area_code}>
-        <Form.Label column={true}>Area Code</Form.Label>
-        <Controller
-          name="Postal code"
-          control={control}
-          render={({ field }) => (
-            <Form.Control
-              type="text"
-              {...register("area_code", { required: true })}
-              autoFocus={true}
-              name="area_code"
-              placeholder="Unknown"
-              {...field}
-            />
-          )}
-        />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId={address}>
-        <Form.Label column={true}>Address</Form.Label>
-        <Controller
-          name="Address"
-          control={control}
-          render={({ field }) => (
-            <Form.Control
-              type="text"
-              {...register("address", { required: true })}
-              autoFocus={true}
-              name="address"
-              placeholder="Unknown"
-              {...field}
-            />
-          )}
-        />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId={rent}>
-        <Form.Label column={true}>Rent - £/month</Form.Label>
-        <Controller
-          name="rent"
-          control={control}
-          render={({ field }) => (
-            <Form.Control
-              type="text"
-              {...register("rent", { required: true })}
-              autoFocus={true}
-              name="rent"
-              placeholder="Unknown"
-              {...field}
-            />
-          )}
-        />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId={profile_picture}>
-        <Form.Label column={true}>Profile Picture</Form.Label>
-        {profile_picture && (
-          <Image src={profile_picture} width={50} height={50} roundedCircle />
-        )}
-        <Controller
-          name="profile_picture"
-          control={control}
-          render={({ field }) => (
-            <Form.Control
-              type="file"
-              onChange={(e) => field.onChange(e.target.files[0])}
-              autoFocus={true}
-              name="profile_picture"
-              placeholder="Unknown"
-            />
-          )}
-        />
-      </Form.Group>
+      ))}
+
+      {/*cancel and update buttons*/}
       <div className={styles.btn}>
         {button(
           () => dispatch({ type: "CHANGE MODAL STATE", payload: false }),
