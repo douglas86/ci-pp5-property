@@ -57,7 +57,25 @@ const UsersCard = ({ data }) => {
                         "outline-info",
                       )}
                       {button(
-                        () => console.log("Update Clicked"),
+                        () => {
+                          // change modal header
+                          dispatch({
+                            type: "CHANGE HEADER",
+                            payload: `You are about to update ${titleCase(items.user)}'s details`,
+                          });
+                          // once clicked show modal
+                          dispatch({
+                            type: "CHANGE MODAL STATE",
+                            payload: true,
+                          });
+                          // load USERS DETAILS form
+                          dispatch({
+                            type: "WHICH FORM TO USE",
+                            payload: "USERS UPDATE",
+                          });
+                          // pushed data to view an object in form state
+                          dispatch({ type: "FORM DETAILS", payload: items });
+                        },
                         "Update",
                         "outline-success",
                       )}

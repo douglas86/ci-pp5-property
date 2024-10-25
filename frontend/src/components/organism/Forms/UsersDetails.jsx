@@ -12,7 +12,7 @@ import { titleCase } from "../../../utils";
 
 const UsersDetails = () => {
   // state store
-  const { forms } = useAppContext();
+  const { dispatch, forms } = useAppContext();
   const { view } = forms;
 
   // destructure view from state store
@@ -48,7 +48,23 @@ const UsersDetails = () => {
       </Card.Body>
       {/*update and delete buttons*/}
       {button(
-        () => console.log("Update user"),
+        () => {
+          // change modal header
+          dispatch({
+            type: "CHANGE HEADER",
+            payload: `You are about to update ${titleCase(user)}'s details`,
+          });
+          // once clicked show modal
+          dispatch({
+            type: "CHANGE MODAL STATE",
+            payload: true,
+          });
+          // load USERS DETAILS form
+          dispatch({
+            type: "WHICH FORM TO USE",
+            payload: "USERS UPDATE",
+          });
+        },
         "Update User",
         "outline-success",
       )}
