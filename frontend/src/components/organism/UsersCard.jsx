@@ -1,22 +1,11 @@
 import { Card, Col, Container, Row } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import { button } from "../atom";
+import { titleCase } from "../../utils";
 import useAppContext from "../../hooks/useAppContext";
 
 const UsersCard = ({ data }) => {
   const { dispatch } = useAppContext();
-
-  console.log("data", data);
-
-  const titleCase = (str) => {
-    return str
-      .toLowerCase()
-      .split(" ")
-      .map((word) => {
-        return word.charAt(0).toUpperCase() + word.slice(1);
-      })
-      .join(" ");
-  };
 
   return (
     <Container>
