@@ -57,6 +57,10 @@ class ProfileDeleteView(ViewSet):
         profile = self.modal.objects.get(user_id=pk)
         user = User.objects.get(pk=pk)
 
+        print('pk', pk)
+        print('profile', profile)
+        print('user', user)
+
         try:
             if user.is_superuser:
                 return Response({'message': 'You cannot delete an admin user', 'status': status.HTTP_200_OK})
