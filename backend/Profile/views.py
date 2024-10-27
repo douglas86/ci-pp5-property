@@ -8,6 +8,7 @@ from authentication.models import Authentication
 
 from Profile.serializers import ProfileSerializer
 from authentication.authentication import IsSuperUser
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -35,6 +36,36 @@ class MyProfileView(ViewSet):
                             status=status.HTTP_200_OK)
         else:
             return Response({'message': 'You are Forbidden from access this content'}, status=status.HTTP_403_FORBIDDEN)
+
+class ProfileDeleteView(ViewSet):
+    """
+    Delete profile by id
+    """
+
+    modal = Authentication
+    serializer_class = ProfileSerializer
+    permission_classes = [IsSuperUser]
+
+    message = "You have successfully deleted this user"
+    error_message = "Something went wrong, please try again"
+
+    def destroy(self, request, pk=None):
+        """
+        Destroy user
+        """
+
+        profile = self.modal.objects.get(user_id=pk)
+        user = User.objects.get(pk=pk)
+
+        try:
+            if user.is_superuser:
+                return Response({'message': 'You cannot delete an admin user', 'status': status.HTTP_200_OK})
+            else:
+                profile.delete()
+                user.delete()
+                return Response({'message': self.message, 'status': status.HTTP_200_OK})
+        except profile.DoesNotExist:
+            return Response({'message': self.error_message, 'status': status.HTTP_400_BAD_REQUEST})
 
 
 class ProfileByIdView(ViewSet):
