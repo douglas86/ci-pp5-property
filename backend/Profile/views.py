@@ -6,7 +6,7 @@ from rest_framework import status
 from authentication.authentication import IsAuthenticated
 from authentication.models import Authentication
 
-from Profile.serializers import ProfileSerializer
+from Profile.serializers import ProfileSerializer, ProfileUpdateSerializer
 from authentication.authentication import IsSuperUser
 from django.contrib.auth.models import User
 
@@ -37,6 +37,7 @@ class MyProfileView(ViewSet):
         else:
             return Response({'message': 'You are Forbidden from access this content'}, status=status.HTTP_403_FORBIDDEN)
 
+
 class ProfileDeleteView(ViewSet):
     """
     Delete profile by id
@@ -57,10 +58,6 @@ class ProfileDeleteView(ViewSet):
         profile = self.modal.objects.get(user_id=pk)
         user = User.objects.get(pk=pk)
 
-        print('pk', pk)
-        print('profile', profile)
-        print('user', user)
-
         try:
             if user.is_superuser:
                 return Response({'message': 'You cannot delete an admin user', 'status': status.HTTP_200_OK})
@@ -72,33 +69,29 @@ class ProfileDeleteView(ViewSet):
             return Response({'message': self.error_message, 'status': status.HTTP_400_BAD_REQUEST})
 
 
-class ProfileByIdView(ViewSet):
+class ProfileUpdateView(ViewSet):
     """
-    Get profile by id
+    Update profile by id
     """
 
-    model = Authentication
-    serializer_class = ProfileSerializer
+    modal = Authentication
+    serializer_class = ProfileUpdateSerializer
+    permission_classes = [IsSuperUser]
 
-    def retrieve(self, request, pk=None):
+    message = "You have successfully updated this user"
+    error_message = "Something went wrong, please try again"
 
-        is_authenticated = JWTAuthenticationFromCookie().authenticate(request)
+    def update(self, request, pk=None):
+        profile = self.modal.objects.get(id=pk)
+        serializer = self.serializer_class(instance=profile, data=request.data, context={'request': request},
+                                           partial=True)
 
-        if is_authenticated:
-
-            profile = self.model.objects.filter(user_id=pk)
-
-            if not profile:
-                return Response({'message': 'Profile not found'}, status=status.HTTP_404_NOT_FOUND)
-
-            serializer = self.serializer_class(instance=profile, many=True, context={'request': request})
-
-            return Response({'message': 'Data successfully received', 'data': serializer.data},
-                            status=status.HTTP_200_OK)
-
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': self.message, 'status': status.HTTP_200_OK})
         else:
-            return Response({'message': 'You do not have permission to access this profile.'},
-                            status=status.HTTP_403_FORBIDDEN)
+            return Response({'message': self.error_message, 'status': status.HTTP_400_BAD_REQUEST})
+
 
 class ProfileView(ViewSet):
     """
@@ -112,4 +105,5 @@ class ProfileView(ViewSet):
     def retrieve(self, request):
         profile = self.model.objects.all()
         serializer = self.serializer_class(instance=profile, many=True, context={'request': request})
-        return Response({'message': 'Data fetched successfully', 'data': serializer.data, 'status': 200}, status=status.HTTP_200_OK)
+        return Response({'message': 'Data fetched successfully', 'data': serializer.data, 'status': 200},
+                        status=status.HTTP_200_OK)

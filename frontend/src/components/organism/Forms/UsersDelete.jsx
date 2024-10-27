@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 
 // atomic design
-import { button } from "../../atom";
+import { button, spinner } from "../../atom";
 
 // custom hooks and utils
 import useAppContext from "../../../hooks/useAppContext";
@@ -21,7 +21,7 @@ import styles from "../../../styles/components/organism/Forms.module.css";
 const UserDelete = () => {
   // state store
   const { dispatch, forms } = useAppContext();
-  const { view } = forms;
+  const { loading, view } = forms;
   const { role, user, user_id } = view;
 
   // change modal state on component mount
@@ -37,6 +37,9 @@ const UserDelete = () => {
 
   return (
     <Form onSubmit={(e) => onDelete(e, `profile/delete/${user_id}/`, dispatch)}>
+      {/*showing loading symbol on server request*/}
+      {loading ? spinner() : null}
+
       {/*logic to check if user is admin*/}
       <Form.Label column={true}>
         {role === "admin"
