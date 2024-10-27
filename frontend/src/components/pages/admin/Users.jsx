@@ -6,6 +6,7 @@ import useAdmin from "../../../hooks/useAdmin";
 import useAppContext from "../../../hooks/useAppContext";
 import useFetch from "../../../hooks/useFetch";
 import UsersCard from "../../organism/UsersCard";
+import ProtectedAccess from "../../molecule/ProtectedAccess";
 
 const Users = () => {
   const { isAdmin } = useAppContext();
@@ -23,7 +24,7 @@ const Users = () => {
           <UsersCard data={data} />
         </>
       ) : (
-        <h1>This is a protected page please login</h1>
+        <ProtectedAccess message="This is a protected page" />
       )}
     </>
   );

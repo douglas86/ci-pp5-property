@@ -66,13 +66,15 @@ class ProfileByIdView(ViewSet):
                             status=status.HTTP_403_FORBIDDEN)
 
 class ProfileView(ViewSet):
+    """
+    View all profiles only is you are the admin
+    """
 
     model = Authentication
     serializer_class = ProfileSerializer
     permission_classes = [IsSuperUser]
 
-    def retrieve(self, request, pk=None):
+    def retrieve(self, request):
         profile = self.model.objects.all()
         serializer = self.serializer_class(instance=profile, many=True, context={'request': request})
-        print("profile", serializer.data)
         return Response({'message': 'Data fetched successfully', 'data': serializer.data, 'status': 200}, status=status.HTTP_200_OK)

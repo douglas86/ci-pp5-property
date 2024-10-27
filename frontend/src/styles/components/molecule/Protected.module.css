@@ -1,0 +1,10 @@
+.image {
+  height: 15rem;
+}
+
+/*tablet or larger devices*/
+@media screen and (min-width: 768px) {
+  .image {
+    height: 30rem;
+  }
+}
