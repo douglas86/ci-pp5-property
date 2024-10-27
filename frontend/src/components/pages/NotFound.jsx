@@ -1,7 +1,12 @@
+import ProtectedAccess from "../molecule/ProtectedAccess";
+
 const NotFound = () => {
   return (
     <div>
-      <h1>Page not found</h1>
+      <ProtectedAccess
+        message="The Page that you are looking for does not exist?"
+        restricted={false}
+      />
     </div>
   );
 };
