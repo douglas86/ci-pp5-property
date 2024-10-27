@@ -58,9 +58,17 @@ class ProfileSerializer(Serializer):
 
 
 class ProfileUpdateSerializer(serializers.ModelSerializer):
+
+    profile_picture = serializers.SerializerMethodField()
+
     class Meta:
         model = Authentication
-        fields = '__all__'
+        fields = ['profile_picture', 'address', 'area_code', 'rent', 'role']
+
+    def get_profile_picture(self, obj):
+        if obj.profile_picture:
+            return obj.profile_picture.name.split('/')[-1]
+        return None
 
     def update(self, instance, validated_data):
         for attr, value in validated_data.items():
