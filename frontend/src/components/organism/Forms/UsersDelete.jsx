@@ -1,15 +1,23 @@
+// 3rd party
 import { useEffect } from "react";
-import useAppContext from "../../../hooks/useAppContext";
-import Form from "react-bootstrap/Form";
-import { titleCase } from "../../../utils";
-import { Button } from "react-bootstrap";
-import { server } from "../../../utils";
+import { Button, Form } from "react-bootstrap";
 
-import styles from "../../../styles/components/organism/Forms.module.css";
+// atomic design
 import { button } from "../../atom";
-import axios from "axios";
-import Cookies from "js-cookie";
 
+// custom hooks and utils
+import useAppContext from "../../../hooks/useAppContext";
+import { titleCase } from "../../../utils";
+import onDelete from "../../../utils/onDelete";
+
+// styling
+import styles from "../../../styles/components/organism/Forms.module.css";
+
+/**
+ * Delete a users form
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const UserDelete = () => {
   // state store
   const { dispatch, forms } = useAppContext();
@@ -27,35 +35,9 @@ const UserDelete = () => {
     dispatch({ type: "CHANGE BTN", payload: "Delete" });
   }, [dispatch, user_id, user]);
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    await axios
-      .delete(`${server}/profile/delete/${user_id}/`, {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("auth-token")}`,
-          "X-Refresh-Token": Cookies.get("refresh-token"),
-        },
-      })
-      .then((res) => {
-        console.log("res", res);
-
-        // save data to success forms state in state store
-        dispatch({ type: "FORM SUCCESS", payload: res });
-        // close modal when data is correct from server
-        dispatch({ type: "CHANGE MODAL STATE", payload: false });
-      })
-      .catch((err) => {
-        console.log("err", err);
-
-        // passing error messages to the state store,
-        // these error messages get returned to the user on the current form when the modal is showing
-        dispatch({ type: "FORM ERRORS", payload: err.response.data });
-      });
-  };
-
   return (
-    <Form onSubmit={(e) => onSubmit(e)}>
+    <Form onSubmit={(e) => onDelete(e, `profile/delete/${user_id}/`, dispatch)}>
+      {/*logic to check if user is admin*/}
       <Form.Label column={true}>
         {role === "admin"
           ? "But, wait he has superpowers he is an admin? Sorry, he cant be deleted?"
@@ -69,6 +51,8 @@ const UserDelete = () => {
           "Cancel",
           "secondary",
         )}
+
+        {/*disable the delete button if the user is admin*/}
         <Button variant="danger" type="submit" disabled={role === "admin"}>
           Delete
         </Button>

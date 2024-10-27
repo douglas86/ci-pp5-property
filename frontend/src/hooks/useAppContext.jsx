@@ -26,6 +26,7 @@ const useAppContext = () => {
     isUser: state.userReducers.user
       ? state.userReducers.user.role === "user"
       : null,
+    refreshData: state.formsReducers.refreshData,
     modal: state.modalReducers,
   };
 };

@@ -31,6 +31,9 @@ export const formsReducers = (state, action) => {
     // used for viewing details about a person, property, etc.
     case "FORM DETAILS":
       return { ...state, view: payload };
+    // refresh data by use of a flag
+    case "FORM REFRESH FLAG":
+      return { ...state, refreshData: payload };
     // reset the form state of all its data
     case "RESET FORM":
       return {

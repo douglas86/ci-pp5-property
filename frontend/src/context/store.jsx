@@ -17,6 +17,7 @@ const initialState = {
     whichForm: "",
     loading: false,
     view: {},
+    refreshData: false,
   },
   userReducers: {
     user: null,

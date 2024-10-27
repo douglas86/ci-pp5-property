@@ -5,10 +5,13 @@ import { useEffect, useState } from "react";
 
 // utils
 import { server } from "../utils";
+import useAppContext from "./useAppContext";
 
 const useFetch = (url, flag = true) => {
   const [data, setData] = useState({});
   const [error, setError] = useState(null);
+
+  const { refreshData } = useAppContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +26,7 @@ const useFetch = (url, flag = true) => {
       }
     };
 
-    if (flag) {
+    if (flag || refreshData) {
       fetchData()
         .then((res) => {
           const { data } = res;
@@ -33,7 +36,7 @@ const useFetch = (url, flag = true) => {
           setError(err);
         });
     }
-  }, [flag, url]);
+  }, [flag, url, refreshData]);
 
   return {
     data: data.data,
