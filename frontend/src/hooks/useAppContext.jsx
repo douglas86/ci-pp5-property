@@ -22,10 +22,10 @@ const useAppContext = () => {
     userError: state.userReducers.err,
     isAdmin: state.userReducers.user
       ? state.userReducers.user.role === "admin"
-      : false,
+      : null,
     isUser: state.userReducers.user
       ? state.userReducers.user.role === "user"
-      : false,
+      : null,
     modal: state.modalReducers,
   };
 };
