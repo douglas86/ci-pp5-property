@@ -13,6 +13,29 @@ const MapToFormUpdate = (props) => {
   const { err, view } = forms;
   const { profile_picture } = view;
 
+  const getBase64 = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+
+      reader.readAsDataURL(file);
+
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+    });
+  };
+
+  const handleImage = async (event, field) => {
+    let file = event.target.files[0];
+
+    if (file) {
+      const base64String = await getBase64(file);
+      field.onChange(base64String);
+    }
+    console.log("file", file);
+    console.log("event", event);
+  };
+
   return (
     <>
       {type === "file" ? (
@@ -26,7 +49,7 @@ const MapToFormUpdate = (props) => {
             render={({ field }) => (
               <Form.Control
                 type="file"
-                onChange={(e) => field.onChange(e.target.files[0])}
+                onChange={(e) => handleImage(e, field)}
                 autoFocus={true}
                 name={name}
               />
