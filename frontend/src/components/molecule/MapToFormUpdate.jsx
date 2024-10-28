@@ -32,8 +32,6 @@ const MapToFormUpdate = (props) => {
       const base64String = await getBase64(file);
       field.onChange(base64String);
     }
-    console.log("file", file);
-    console.log("event", event);
   };
 
   return (

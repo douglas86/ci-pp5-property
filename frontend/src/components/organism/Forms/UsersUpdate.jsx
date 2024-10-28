@@ -29,7 +29,6 @@ const UsersUpdate = () => {
     register,
     handleSubmit,
     control,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -51,11 +50,12 @@ const UsersUpdate = () => {
     });
     // change the submit button text on modal
     dispatch({ type: "CHANGE BTN", payload: "Update User" });
-    // change the url needed for the submitted button
-    // TODO: this endpoint has not been created yet
   }, [dispatch, user]);
 
   const onSubmit = (data) => {
+    // show loading spinner
+    dispatch({ type: "FORM LOADING", payload: true });
+
     const putData = async () => {
       try {
         return axios.put(`${server}/profile/update/${id}/`, data, {
@@ -71,14 +71,23 @@ const UsersUpdate = () => {
 
     putData()
       .then((res) => {
-        console.log("res", res);
+        // hide loading spinner on server response
+        dispatch({ type: "FORM LOADING", payload: false });
+        // save data response to state store
+        dispatch({ type: "FORM SUCCESS", payload: res.data });
+        // hide modal
+        dispatch({ type: "CHANGE MODAL STATE", payload: false });
+        // refresh data when server is successful
+        dispatch({ type: "FORM REFRESH FLAG", payload: true });
+        // display alert message
+        dispatch({ type: "SUCCESSFUL MESSAGE", payload: res.data.message });
       })
       .catch((err) => {
-        console.log("err", err);
+        // passing error messages to the state store,
+        // these error messages get returned to the user on the current form when the modal is showing
+        dispatch({ type: "FORM ERRORS", payload: err.response.data });
       });
   };
-
-  console.log("watch", watch());
 
   // array used for MapToFormUpdate Molecule
   const arr = [
