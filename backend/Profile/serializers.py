@@ -1,5 +1,8 @@
 import base64
+import binascii
+
 import cloudinary
+from django.core.checks import database
 
 from django.core.files.base import ContentFile
 
@@ -63,56 +66,62 @@ class ProfileSerializer(Serializer):
 
 
 class ProfileUpdateSerializer(serializers.ModelSerializer):
+    """
+    Serializer to update profile model
+    """
+
     profile_picture = serializers.CharField(required=False)
 
     class Meta:
         model = Authentication
         fields = ['profile_picture', 'address', 'area_code', 'rent', 'role']
 
-    # def get_profile_picture(self, obj):
-    #     print('obj', obj)
-    #     if obj.profile_picture:
-    #         return obj.profile_picture.name.split('/')[-1]
-    #     return None
-
+    # check if image is base64 string
     def is_base64(self, data):
+        # take data:image out of base64 string
         if data.startswith('data:image'):
             data = data.split(',')[1]
 
         try:
+            # decode data after striped base64
             decoded_data = base64.b64decode(data, validate=True)
             encoded_data = base64.b64encode(decoded_data).decode('utf-8')
             return encoded_data == data.strip()
-            # if isinstance(data, str) and base64.b64encode(base64.b64decode(data)).decode('utf-8') == data:
-            #     return True
-            # return False
-        except Exception:
+        # catch errors specific to improper base64 encoded, such as malformed data
+        except binascii.Error:
+            return False
+        # catch error handle cases like incorrect padding or other formatting issues in the input string
+        except ValueError:
             return False
 
+    # update method for profile model
     def update(self, instance, validated_data):
+        # fetch profile picture from validated data
         profile_picture_data = validated_data.get('profile_picture', None)
 
-        print('profile_picture_data', profile_picture_data)
-        print('validated_data', validated_data)
-
+        # check if profile_picture_data is a base64 string
         if profile_picture_data and self.is_base64(profile_picture_data):
-            format, imgstr = profile_picture_data.split(';base64,')
-            ext = format.split(',')[-1]
-            decoded_image = base64.b64decode(imgstr)
+            # split base64 from profile_picture string
+            # returns formatted and image string after split
+            formated, image_string = profile_picture_data.split(';base64,')
+            ext = formated.split(',')[-1]
+            # decoding image
+            decoded_image = base64.b64decode(image_string)
 
+            # upload image to cloudinary when image is decoded
             upload_result = cloudinary.uploader.upload(
                 ContentFile(decoded_image, name=f'profile_picture.{ext}'),
                 folder="profile_picture",
             )
 
+            # fetch url of image from cloudinary
             instance.profile_picture = upload_result['url']
-            print("True")
-        else:
-            print("False")
 
+        # iterate over items from validated data
         for attr, value in validated_data.items():
             if attr != 'profile_picture':
                 setattr(instance, attr, value)
 
+        # save data to database
         instance.save()
         return instance
