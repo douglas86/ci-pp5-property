@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from asgiref.sync import sync_to_async
 
+from authentication.authentication import IsSuperUser
 from properties.serializer import PropertySerializer
 
 
@@ -15,13 +16,14 @@ class CreatePropertyView(APIView):
     """
 
     serializer_class = PropertySerializer
+    permission_classes = [IsSuperUser]
 
     async def post(self, request):
         """
         Creates a new property asynchronously
         """
 
-        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer = self.serializer_class(data=request.data['data'], context={'request': request})
 
         if serializer.is_valid():
             property_instance = await sync_to_async(serializer.save)()

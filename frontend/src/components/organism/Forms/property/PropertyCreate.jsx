@@ -7,13 +7,12 @@ import { useForm } from "react-hook-form";
 import MapToFormUpdate from "../../../molecule/MapToFormUpdate";
 import { button, spinner } from "../../../atom";
 
-// custom hooks
+// custom hooks and utils
 import useAppContext from "../../../../hooks/useAppContext";
+import { onSubmit } from "../../../../utils";
 
 // styling
 import styles from "../../../../styles/components/organism/Forms.module.css";
-import axios from "axios";
-import { server } from "../../../../utils";
 
 /**
  * This form is used for creating a new property
@@ -38,28 +37,6 @@ const PropertyCreate = () => {
     // change modal header
     dispatch({ type: "CHANGE HEADER", payload: "Create a new Property" });
   }, [dispatch]);
-
-  // send data to endpoint when ready
-  // TODO: Once endpoint is setup then I can create the logic for this
-  const onSubmit = (data) => {
-    console.log("data", data);
-
-    const postData = async () => {
-      try {
-        return await axios.post(`${server}/properties/create/`, data);
-      } catch (error) {
-        return error;
-      }
-    };
-
-    postData()
-      .then((res) => {
-        console.log("res", res);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  };
 
   // array used for MapToFormUpdate molecule
   let arr = [
@@ -113,7 +90,11 @@ const PropertyCreate = () => {
   ];
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      onSubmit={handleSubmit((data) =>
+        onSubmit(data, "properties/create/", dispatch, false),
+      )}
+    >
       {/*show loading symbol based on server response*/}
       {loading ? spinner() : null}
 

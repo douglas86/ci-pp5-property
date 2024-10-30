@@ -10,9 +10,11 @@ import { server } from "./apiSettings";
  * @param data
  * @param url
  * @param dispatch
+ * @param auth - this flag is used for if you are using this helper as an authentication form or not
+ *  passing in false for not using as authentication helper
  * @returns {Promise<void>}
  */
-export const onSubmit = async (data, url, dispatch) => {
+export const onSubmit = async (data, url, dispatch, auth = true) => {
   // display loading symbol on server request
   dispatch({ type: "FORM LOADING", payload: true });
 
@@ -28,7 +30,7 @@ export const onSubmit = async (data, url, dispatch) => {
     .post(`${server}/${url}`, formData, {
       headers: {
         Authorization: `Bearer ${Cookies.get("auth-token")}`,
-        "X-Refresh-Token": Cookies.get("refresh-token"),
+        "X-Refresh-Token": refresh,
       },
     })
     .then((res) => {
@@ -38,7 +40,7 @@ export const onSubmit = async (data, url, dispatch) => {
       // save data to success forms state in state store
       dispatch({ type: "FORM SUCCESS", payload: res });
       // save users data to the users state in state store
-      dispatch({ type: "USER DATA", payload: res.data.user });
+      auth && dispatch({ type: "USER DATA", payload: res.data.user });
       // close modal when data is correct from server
       dispatch({ type: "CHANGE MODAL STATE", payload: false });
 
@@ -60,7 +62,7 @@ export const onSubmit = async (data, url, dispatch) => {
 
       // Everything else
       //   When the Logout and Login have not been successfully this will occur
-      if (results.message) {
+      if (auth && results.message) {
         dispatch({ type: "SUCCESSFUL MESSAGE", payload: results.message });
         Cookies.remove("refresh-token");
         Cookies.remove("auth-token");
