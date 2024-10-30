@@ -23,6 +23,7 @@ export const formsReducers = (state, action) => {
       return { ...state, url: payload };
     // load the form that you want displayed in modal
     case "WHICH FORM TO USE":
+      // the name of the payload is taken from loadForm in util directory
       return { ...state, whichForm: payload };
     // when data is being sent to server spinner appears
     //       spinner disappears on server response

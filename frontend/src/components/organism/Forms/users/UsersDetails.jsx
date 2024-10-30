@@ -2,13 +2,13 @@ import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/Image";
 
 // atomic design
-import DisplayTimeAgo from "../../molecule/DisplayTimeAgo";
-import formatDate from "../../molecule/FormatDate";
-import { button } from "../../atom";
+import DisplayTimeAgo from "../../../molecule/DisplayTimeAgo";
+import formatDate from "../../../molecule/FormatDate";
+import { button } from "../../../atom";
 
 // custom hooks and utils
-import useAppContext from "../../../hooks/useAppContext";
-import { titleCase } from "../../../utils";
+import useAppContext from "../../../../hooks/useAppContext";
+import { titleCase } from "../../../../utils";
 
 const UsersDetails = () => {
   // state store

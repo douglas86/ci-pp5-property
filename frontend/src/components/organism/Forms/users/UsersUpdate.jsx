@@ -4,16 +4,16 @@ import { useForm } from "react-hook-form";
 import Form from "react-bootstrap/Form";
 
 // atomic design
-import MapToFormUpdate from "../../molecule/MapToFormUpdate";
-import { button, spinner } from "../../atom";
+import MapToFormUpdate from "../../../molecule/MapToFormUpdate";
+import { button, spinner } from "../../../atom";
 
 // custom hooks
-import useAppContext from "../../../hooks/useAppContext";
+import useAppContext from "../../../../hooks/useAppContext";
 
 // styling
-import styles from "../../../styles/components/organism/Forms.module.css";
+import styles from "../../../../styles/components/organism/Forms.module.css";
 import axios from "axios";
-import { server } from "../../../utils";
+import { server } from "../../../../utils";
 import Cookies from "js-cookie";
 
 const UsersUpdate = () => {
@@ -48,8 +48,6 @@ const UsersUpdate = () => {
       type: "CHANGE HEADER",
       payload: `You are about to update ${user}'s details`,
     });
-    // change the submit button text on modal
-    dispatch({ type: "CHANGE BTN", payload: "Update User" });
   }, [dispatch, user]);
 
   const onSubmit = (data) => {

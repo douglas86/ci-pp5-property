@@ -4,15 +4,15 @@ import { useForm } from "react-hook-form";
 import Form from "react-bootstrap/Form";
 
 // atomic design
-import MapToForm from "../../molecule/MapToForm";
-import { button, spinner } from "../../atom";
+import MapToForm from "../../../molecule/MapToForm";
+import { button, spinner } from "../../../atom";
 
 // utils and custom hooks
-import { onSubmit } from "../../../utils";
-import useAppContext from "../../../hooks/useAppContext";
+import { onSubmit } from "../../../../utils";
+import useAppContext from "../../../../hooks/useAppContext";
 
 // styling
-import styles from "../../../styles/components/organism/Forms.module.css";
+import styles from "../../../../styles/components/organism/Forms.module.css";
 
 /**
  * Login Form this is currently for being displayed in the modal

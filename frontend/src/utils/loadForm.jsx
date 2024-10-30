@@ -1,12 +1,13 @@
 // atomic design
-import Login from "../components/organism/Forms/Login";
-import Logout from "../components/organism/Forms/Logout";
-import Registration from "../components/organism/Forms/Registration";
-import ChangePassword from "../components/organism/Forms/ChangePassword";
+import Login from "../components/organism/Forms/auth/Login";
+import Logout from "../components/organism/Forms/auth/Logout";
+import Registration from "../components/organism/Forms/auth/Registration";
+import ChangePassword from "../components/organism/Forms/auth/ChangePassword";
 
-import UsersDetails from "../components/organism/Forms/UsersDetails";
-import UsersUpdate from "../components/organism/Forms/UsersUpdate";
-import UsersDelete from "../components/organism/Forms/UsersDelete";
+import UsersDetails from "../components/organism/Forms/users/UsersDetails";
+import UsersUpdate from "../components/organism/Forms/users/UsersUpdate";
+import UsersDelete from "../components/organism/Forms/users/UsersDelete";
+import PropertyCreate from "../components/organism/Forms/property/PropertyCreate";
 
 /**
  * Helper function to deside on what form to display
@@ -27,6 +28,8 @@ export const loadForm = (formToUse) => {
       return <UsersUpdate />;
     case "USERS DELETE":
       return <UsersDelete />;
+    case "CREATE PROPERTY":
+      return <PropertyCreate />;
     default:
       return <Login />;
   }

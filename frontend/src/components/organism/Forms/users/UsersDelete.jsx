@@ -3,15 +3,15 @@ import { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 
 // atomic design
-import { button, spinner } from "../../atom";
+import { button, spinner } from "../../../atom";
 
 // custom hooks and utils
-import useAppContext from "../../../hooks/useAppContext";
-import { titleCase } from "../../../utils";
-import onDelete from "../../../utils/onDelete";
+import useAppContext from "../../../../hooks/useAppContext";
+import { titleCase } from "../../../../utils";
+import onDelete from "../../../../utils/onDelete";
 
 // styling
-import styles from "../../../styles/components/organism/Forms.module.css";
+import styles from "../../../../styles/components/organism/Forms.module.css";
 
 /**
  * Delete a users form
