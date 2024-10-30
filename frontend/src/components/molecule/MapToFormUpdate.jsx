@@ -11,7 +11,8 @@ const MapToFormUpdate = (props) => {
   // state store
   const { forms } = useAppContext();
   const { err, view } = forms;
-  const { profile_picture } = view;
+  // rename profile_picture to image
+  const { profile_picture: image } = view;
 
   const getBase64 = (file) => {
     return new Promise((resolve) => {
@@ -40,7 +41,9 @@ const MapToFormUpdate = (props) => {
         // if not, an image run this
         <Form.Group className="mb-3" controlId={name}>
           <Form.Label column={true}>{name}</Form.Label>
-          <Image src={profile_picture} width={50} height={50} rounded={true} />
+          {image ? (
+            <Image src={image} width={50} height={50} rounded={true} />
+          ) : null}
           <Controller
             name={name}
             control={control}
