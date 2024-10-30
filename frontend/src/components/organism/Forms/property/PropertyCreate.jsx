@@ -12,6 +12,8 @@ import useAppContext from "../../../../hooks/useAppContext";
 
 // styling
 import styles from "../../../../styles/components/organism/Forms.module.css";
+import axios from "axios";
+import { server } from "../../../../utils";
 
 /**
  * This form is used for creating a new property
@@ -41,13 +43,29 @@ const PropertyCreate = () => {
   // TODO: Once endpoint is setup then I can create the logic for this
   const onSubmit = (data) => {
     console.log("data", data);
+
+    const postData = async () => {
+      try {
+        return await axios.post(`${server}/properties/create/`, data);
+      } catch (error) {
+        return error;
+      }
+    };
+
+    postData()
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   };
 
   // array used for MapToFormUpdate molecule
   let arr = [
     {
       id: 1,
-      name: "price per month",
+      name: "price",
       type: "number",
       placeholder: "price per month",
       formValidation: {
@@ -67,7 +85,7 @@ const PropertyCreate = () => {
     },
     {
       id: 3,
-      name: "place",
+      name: "address",
       type: "text",
       placeholder: "Where the property is located",
       formValidation: {
