@@ -1,64 +1,51 @@
+// 3rd party
 import { useState } from "react";
-import { Carousel } from "react-bootstrap";
+import { Carousel, Image } from "react-bootstrap";
 
-import first from "../../assets/images/carousel/one.jpg";
-import second from "../../assets/images/carousel/two.jpg";
-import third from "../../assets/images/carousel/three.jpg";
+// atomic design
+import { labeled, message, spinner } from "../atom";
 
+// custom hooks and assets
+import useFetch from "../../hooks/useFetch";
+import picture from "../../assets/images/default_carousel_image.png";
+
+// styling
 import styles from "../../styles/components/organism/Carousel.module.css";
-import Image from "react-bootstrap/Image";
-import { labeled, message } from "../atom";
 
-const CarouselContent = ({ data }) => {
+const CarouselContent = () => {
+  const { data } = useFetch("");
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
 
-  const arr = [
-    {
-      id: 1,
-      image: first,
-      label: "£1200 per month",
-      paragraph: "2 bedroom flat for sale",
-      place: "Palmer House, Fulham W6",
-    },
-    {
-      id: 2,
-      image: second,
-      label: "£1000 per month",
-      paragraph: "1 bedroom apartment for sale",
-      place: "The Welsh Reservoir, Hendon NW9",
-    },
-    {
-      id: 3,
-      image: third,
-      label: "£1600 per month",
-      paragraph: "1 bedroom penthouse for sale",
-      place: "Egerton Road, Twickenham TW2",
-    },
-  ];
-
   return (
     <div className={styles.carouselContainer}>
       <Carousel activeIndex={index} onSelect={handleSelect}>
-        {arr.map(({ id, image, label, paragraph, place }) => (
-          <Carousel.Item key={id}>
-            <div className={styles.imageContainer}></div>
-            <Image
-              src={`${image}`}
-              alt={label}
-              className={styles.image}
-              rounded
-            />
-            <Carousel.Caption className={styles.carouselCaption}>
-              {labeled(label)}
-              {message(paragraph)}
-              {message(place)}
-            </Carousel.Caption>
-          </Carousel.Item>
-        ))}
+        {data ? (
+          data.length > 0 ? (
+            data.map(({ id, image, price, description, address }) => (
+              <Carousel.Item key={id}>
+                <Image src={image} className={styles.image} />
+                <Carousel.Caption className={styles.carouselCaption}>
+                  {labeled(`£${price} per month`)}
+                  {message(description)}
+                  {message(address)}
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))
+          ) : (
+            <Carousel.Item key="1">
+              <Image key={index} src={`${picture}`} className={styles.image} />
+              <Carousel.Caption className={styles.carouselCaption}>
+                {labeled("There is no Properties to display yet?")}
+              </Carousel.Caption>
+            </Carousel.Item>
+          )
+        ) : (
+          spinner()
+        )}
       </Carousel>
     </div>
   );
