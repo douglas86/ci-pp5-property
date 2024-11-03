@@ -36,6 +36,8 @@ const PropertyCreate = () => {
   useEffect(() => {
     // change modal header
     dispatch({ type: "CHANGE HEADER", payload: "Create a new Property" });
+    // reset a view object in forms state store
+    dispatch({ type: "RESET FORM VIEW", payload: {} });
   }, [dispatch]);
 
   // array used for MapToFormController molecule
