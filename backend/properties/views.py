@@ -62,6 +62,27 @@ class ReadPropertyView(APIView):
             {'message': 'You have successfully read a property', 'data': serializer.data, 'status': status.HTTP_200_OK})
 
 
+class FilterPropertyView(APIView):
+    """
+    Filter a property asynchronously by area_code
+    """
+
+    serializer_class = PropertySerializer
+    model = Property
+
+    async def get(self, request):
+        area_code = request.query_params.get('area_code', None)
+
+        if area_code:
+            properties = await sync_to_async(lambda: list(self.model.objects.filter(area_code__icontains=area_code)))()
+        else:
+            properties = await sync_to_async(lambda: list(self.model.objects.all()))()
+
+        serializer = self.serializer_class(properties, many=True, context={'request': request})
+
+        return Response({'message': 'You have successfully filter property data', 'data': serializer.data, 'status': status.HTTP_200_OK})
+
+
 class UpdatePropertyView(APIView):
     """
     Update a property asynchronously
