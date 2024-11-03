@@ -5,6 +5,9 @@ import Form from "react-bootstrap/Form";
 import { button, spinner } from "../../../atom";
 import MapToFormController from "../../../molecule/MapToFormController";
 import styles from "../../../../styles/components/organism/Forms.module.css";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { server } from "../../../../utils";
 
 const PropertyUpdate = () => {
   // state store
@@ -38,7 +41,41 @@ const PropertyUpdate = () => {
     });
   }, [dispatch, address]);
 
-  const onSubmit = (data) => console.log("data", data);
+  const onSubmit = (data) => {
+    dispatch({ type: "FORM LOADING", payload: true });
+
+    const putData = async () => {
+      try {
+        return axios.put(`${server}/properties/update/${id}/`, data, {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("auth-token")}`,
+            "X-Refresh-Token": Cookies.get("refresh-token"),
+          },
+        });
+      } catch (e) {
+        return e;
+      }
+    };
+
+    putData()
+      .then((res) => {
+        // hide loading spinner on server response
+        dispatch({ type: "FORM LOADING", payload: false });
+        // save data response to state store
+        dispatch({ type: "FORM SUCCESS", payload: res.data });
+        // hide modal
+        dispatch({ type: "CHANGE MODAL STATE", payload: false });
+        // refresh data when server is successful
+        dispatch({ type: "FORM REFRESH FLAG", payload: true });
+        // display alert message
+        dispatch({ type: "SUCCESSFUL MESSAGE", payload: res.data.message });
+      })
+      .catch((err) => {
+        // passing error messages to the state store,
+        // these error messages get returned to the user on the current form when the modal is showing
+        dispatch({ type: "FORM ERRORS", payload: err.response.data });
+      });
+  };
 
   // array used for MapToFormController molecule
   let arr = [

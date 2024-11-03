@@ -62,6 +62,34 @@ class ReadPropertyView(APIView):
             {'message': 'You have successfully read a property', 'data': serializer.data, 'status': status.HTTP_200_OK})
 
 
+class UpdatePropertyView(APIView):
+    """
+    Update a property asynchronously
+    """
+
+    model = Property
+    serializer_class = PropertySerializer
+    permission_classes = [IsSuperUser]
+
+    async def put(self, request, pk=None):
+        """
+        Updates a property asynchronously
+        """
+
+        try:
+            properties = await sync_to_async(lambda: self.model.objects.get(id=pk))()
+            serializer = self.serializer_class(instance=properties, data=request.data, context={'request': request}, partial=True)
+
+            if serializer.is_valid():
+                property_instance = await sync_to_async(serializer.save)()
+                response_data = self.serializer_class(property_instance).data
+                return Response({'message': 'You have successfully updated a property', 'data': response_data, 'status': status.HTTP_200_OK})
+            return Response({'message': 'Something went wrong with updating a property', 'data': serializer.errors, 'status': status.HTTP_400_BAD_REQUEST})
+
+        except self.model.DoesNotExist:
+            return Response({'message': 'The property does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+
 class DeletePropertyView(APIView):
     """
     Delete a property asynchronously
