@@ -10,13 +10,16 @@ import useAppContext from "../../hooks/useAppContext";
 
 // styling
 import styles from "../../styles/components/organism/Card.module.css";
+import { useState } from "react";
 
 const PropertyCard = () => {
   // state store
   const { dispatch } = useAppContext();
 
+  const [refresh, setRefresh] = useState(true);
+
   // fetch data
-  const { data } = useFetch("properties/read/");
+  const { data } = useFetch("properties/read/", refresh);
 
   return (
     <div className={styles.card}>

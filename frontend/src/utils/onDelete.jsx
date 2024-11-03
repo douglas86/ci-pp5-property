@@ -29,6 +29,8 @@ const onDelete = (e, url, dispatch) => {
       dispatch({ type: "CHANGE MODAL STATE", payload: false });
       // refresh data on successful delete
       dispatch({ type: "FORM REFRESH FLAG", payload: true });
+      // show a successful message
+      dispatch({ type: "SUCCESSFUL MESSAGE", payload: res.data.message });
     })
     .catch((err) => {
       // passing error messages to the state store,

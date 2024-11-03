@@ -67,6 +67,14 @@ export const onSubmit = async (data, url, dispatch, auth = true) => {
         Cookies.remove("refresh-token");
         Cookies.remove("auth-token");
       }
+
+      // when auth set to false
+      if (!auth) {
+        // display alert message
+        dispatch({ type: "SUCCESSFUL MESSAGE", payload: results.message });
+        // refresh data when successful response from server
+        dispatch({ type: "FORM REFRESH FLAG", payload: true });
+      }
     })
     .catch((err) => {
       // passing error messages to the state store,
