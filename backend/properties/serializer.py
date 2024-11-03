@@ -17,7 +17,7 @@ class PropertySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Property
-        fields = ['price', 'description', 'address', 'area_code', 'image']
+        fields = ['id', 'price', 'description', 'address', 'area_code', 'image']
 
         # check if image is base64 string
     def is_base64(self, data):
