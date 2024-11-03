@@ -1,9 +1,15 @@
+// 3rd party
 import { Card, Image } from "react-bootstrap";
-import useFetch from "../../hooks/useFetch";
+
+// atomic design
 import { button, spinner } from "../atom";
 
-import styles from "../../styles/components/organism/Card.module.css";
+// custom hooks
+import useFetch from "../../hooks/useFetch";
 import useAppContext from "../../hooks/useAppContext";
+
+// styling
+import styles from "../../styles/components/organism/Card.module.css";
 
 const PropertyCard = () => {
   // state store
@@ -11,8 +17,6 @@ const PropertyCard = () => {
 
   // fetch data
   const { data } = useFetch("properties/read/");
-
-  console.log("data", data);
 
   return (
     <div className={styles.card}>

@@ -9,6 +9,7 @@ import UsersUpdate from "../components/organism/Forms/users/UsersUpdate";
 import UsersDelete from "../components/organism/Forms/users/UsersDelete";
 import PropertyCreate from "../components/organism/Forms/property/PropertyCreate";
 import PropertyDetails from "../components/organism/Forms/property/PropertyDetails";
+import PropertyDelete from "../components/organism/Forms/property/PropertyDelete";
 
 /**
  * Helper function to deside on what form to display
@@ -36,6 +37,8 @@ export const loadForm = (formToUse) => {
       return <PropertyCreate />;
     case "READ PROPERTY":
       return <PropertyDetails />;
+    case "DELETE PROPERTY":
+      return <PropertyDelete />;
     // login form
     default:
       return <Login />;

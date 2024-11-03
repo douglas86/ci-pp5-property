@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from asgiref.sync import sync_to_async
 
-from authentication.authentication import IsSuperUser, IsAuthenticated
+from authentication.authentication import IsSuperUser
 from properties.models import Property
 from properties.serializer import PropertySerializer
 
@@ -32,7 +32,7 @@ class CreatePropertyView(APIView):
             return Response({
                 'message': 'You have successfully created a property',
                 'data': response_data,
-                'status':status.HTTP_201_CREATED
+                'status': status.HTTP_201_CREATED
             })
         return Response({
             'message': 'Something went wrong with creating a property',
@@ -48,7 +48,7 @@ class ReadPropertyView(APIView):
 
     model = Property
     serializer_class = PropertySerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsSuperUser]
 
     async def get(self, request):
         """
@@ -58,4 +58,30 @@ class ReadPropertyView(APIView):
         properties = await sync_to_async(lambda: list(self.model.objects.all()))()
         serializer = self.serializer_class(properties, many=True, context={'request': request})
 
-        return Response({'message': 'You have successfully read a property', 'data': serializer.data, 'status':status.HTTP_200_OK})
+        return Response(
+            {'message': 'You have successfully read a property', 'data': serializer.data, 'status': status.HTTP_200_OK})
+
+
+class DeletePropertyView(APIView):
+    """
+    Delete a property asynchronously
+    """
+
+    model = Property
+    serializer_class = PropertySerializer
+    permission_classes = [IsSuperUser]
+
+    async def delete(self, request, pk=None):
+        """
+        Deletes a property asynchronously
+        """
+
+        try:
+            property_instance = await sync_to_async(lambda: self.model.objects.get(pk=pk))()
+
+            await sync_to_async(property_instance.delete)()
+
+            return Response({'message': 'You have successfully deleted the property', 'status': status.HTTP_200_OK})
+
+        except self.model.DoesNotExist:
+            return Response({'message': 'The property does not exist', 'status': status.HTTP_400_BAD_REQUEST})
