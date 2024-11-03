@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from asgiref.sync import sync_to_async
 
-from authentication.authentication import IsSuperUser
+from authentication.authentication import IsSuperUser, IsAuthenticated
+from properties.models import Property
 from properties.serializer import PropertySerializer
 
 
@@ -38,3 +39,23 @@ class CreatePropertyView(APIView):
             'data': serializer.errors,
             'status': status.HTTP_400_BAD_REQUEST
         })
+
+
+class ReadPropertyView(APIView):
+    """
+    Read a property asynchronously
+    """
+
+    model = Property
+    serializer_class = PropertySerializer
+    permission_classes = [IsAuthenticated]
+
+    async def get(self, request):
+        """
+        Gets a property asynchronously
+        """
+
+        properties = await sync_to_async(lambda: list(self.model.objects.all()))()
+        serializer = self.serializer_class(properties, many=True, context={'request': request})
+
+        return Response({'message': 'You have successfully read a property', 'data': serializer.data, 'status':status.HTTP_200_OK})

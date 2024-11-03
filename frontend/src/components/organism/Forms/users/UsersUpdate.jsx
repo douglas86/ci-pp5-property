@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Form from "react-bootstrap/Form";
 
 // atomic design
-import MapToFormUpdate from "../../../molecule/MapToFormUpdate";
+import MapToFormController from "../../../molecule/MapToFormController";
 import { button, spinner } from "../../../atom";
 
 // custom hooks
@@ -87,7 +87,7 @@ const UsersUpdate = () => {
       });
   };
 
-  // array used for MapToFormUpdate Molecule
+  // array used for MapToFormController Molecule
   const arr = [
     {
       id: 1,
@@ -135,7 +135,7 @@ const UsersUpdate = () => {
 
       {/*molecule for input fields on form*/}
       {arr.map(({ id, name, type, formValidation }) => (
-        <MapToFormUpdate
+        <MapToFormController
           key={id}
           name={name}
           type={type}

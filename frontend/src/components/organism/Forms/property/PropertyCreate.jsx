@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 
 // atomic design
-import MapToFormUpdate from "../../../molecule/MapToFormUpdate";
+import MapToFormController from "../../../molecule/MapToFormController";
 import { button, spinner } from "../../../atom";
 
 // custom hooks and utils
@@ -38,7 +38,7 @@ const PropertyCreate = () => {
     dispatch({ type: "CHANGE HEADER", payload: "Create a new Property" });
   }, [dispatch]);
 
-  // array used for MapToFormUpdate molecule
+  // array used for MapToFormController molecule
   let arr = [
     {
       id: 1,
@@ -100,7 +100,7 @@ const PropertyCreate = () => {
 
       {/*molecule for input fields on form*/}
       {arr.map(({ id, name, type, formValidation }) => (
-        <MapToFormUpdate
+        <MapToFormController
           key={id}
           name={name}
           type={type}

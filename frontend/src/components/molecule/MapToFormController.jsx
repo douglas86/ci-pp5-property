@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import useAppContext from "../../hooks/useAppContext";
 import Image from "react-bootstrap/Image";
 
-const MapToFormUpdate = (props) => {
+const MapToFormController = (props) => {
   // props
   const { name, type, formValidation } = props;
   const { control, errors, register } = props;
@@ -87,4 +87,4 @@ const MapToFormUpdate = (props) => {
   );
 };
 
-export default MapToFormUpdate;
+export default MapToFormController;

@@ -1,6 +1,8 @@
 import Panel from "../../organism/Admin/Panel";
 import useAdmin from "../../../hooks/useAdmin";
 import useAppContext from "../../../hooks/useAppContext";
+import PropertyCard from "../../organism/PropertyCard";
+import ProtectedAccess from "../../molecule/ProtectedAccess";
 
 const Property = () => {
   const { isAdmin } = useAppContext();
@@ -9,7 +11,16 @@ const Property = () => {
   useAdmin();
 
   return (
-    <>{isAdmin ? <Panel /> : <h1>This is a protected page please login</h1>}</>
+    <>
+      {isAdmin ? (
+        <>
+          <Panel />
+          <PropertyCard />
+        </>
+      ) : (
+        <ProtectedAccess message="This is a protected page" />
+      )}
+    </>
   );
 };
 
