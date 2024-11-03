@@ -63,25 +63,6 @@ class PropertySerializer(serializers.ModelSerializer):
             validated_data['image'] = self.handle_image_upload(image_data)
         return Property.objects.create(**validated_data)
 
-    # def create(self, validated_data):
-    #
-    #     image_data = validated_data.get('image', None)
-    #
-    #     if image_data and self.is_base64(image_data):
-    #         formatted, image_string = image_data.split(';base64,')
-    #         ext = formatted.split(',')[-1]
-    #         decoded_image = base64.b64decode(image_string)
-    #
-    #         upload_result = cloudinary.uploader.upload(
-    #             ContentFile(decoded_image, name=f'image.{ext}'),
-    #             folder="property",
-    #         )
-    #
-    #         validated_data['image'] = upload_result['url']
-    #
-    #     property_instance = Property.objects.create(**validated_data)
-    #
-    #     return property_instance
 
     def update(self, instance, validated_data):
         """
@@ -90,6 +71,10 @@ class PropertySerializer(serializers.ModelSerializer):
 
         image_data = validated_data.pop("image", None)
 
-        if image_data:
+        # check if the image is valid and base64 string
+        if image_data and self.is_base64(image_data):
             validated_data['image'] = self.handle_image_upload(image_data)
+        # if image not base64 string don't update image
+        else:
+            validated_data['image'] = instance.image
         return super().update(instance, validated_data)
