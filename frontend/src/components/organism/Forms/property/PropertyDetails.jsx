@@ -7,7 +7,7 @@ import { button } from "../../../atom";
 
 const PropertyDetails = () => {
   // state store
-  const { dispatch, forms } = useAppContext();
+  const { dispatch, forms, isAdmin } = useAppContext();
   const { view } = forms;
 
   // destructure view from state store
@@ -40,26 +40,37 @@ const PropertyDetails = () => {
           </Card.Text>
         </div>
       </Card.Body>
-      {/*update and delete buttons*/}
-      {button(
-        () => {
-          // once clicked show modal
-          dispatch({ type: "CHANGE MODAL STATE", payload: true });
-          // load DELETE FORM
-          dispatch({ type: "WHICH FORM TO USE", payload: "UPDATE PROPERTY" });
-        },
-        "Update Property",
-        "outline-success",
-      )}
-      {button(
-        () => {
-          // once clicked show modal
-          dispatch({ type: "CHANGE MODAL STATE", payload: true });
-          // load DELETE FORM
-          dispatch({ type: "WHICH FORM TO USE", payload: "DELETE PROPERTY" });
-        },
-        "Delete Property",
-        "outline-danger",
+
+      {isAdmin && (
+        <>
+          {/*update and delete buttons*/}
+          {button(
+            () => {
+              // once clicked show modal
+              dispatch({ type: "CHANGE MODAL STATE", payload: true });
+              // load DELETE FORM
+              dispatch({
+                type: "WHICH FORM TO USE",
+                payload: "UPDATE PROPERTY",
+              });
+            },
+            "Update Property",
+            "outline-success",
+          )}
+          {button(
+            () => {
+              // once clicked show modal
+              dispatch({ type: "CHANGE MODAL STATE", payload: true });
+              // load DELETE FORM
+              dispatch({
+                type: "WHICH FORM TO USE",
+                payload: "DELETE PROPERTY",
+              });
+            },
+            "Delete Property",
+            "outline-danger",
+          )}
+        </>
       )}
     </Card>
   );

@@ -30,8 +30,6 @@ const PropertyUpdate = () => {
     },
   });
 
-  console.log("view", view);
-
   // load on component mount
   useEffect(() => {
     // change modal header
