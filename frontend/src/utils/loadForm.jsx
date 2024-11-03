@@ -8,6 +8,7 @@ import UsersDetails from "../components/organism/Forms/users/UsersDetails";
 import UsersUpdate from "../components/organism/Forms/users/UsersUpdate";
 import UsersDelete from "../components/organism/Forms/users/UsersDelete";
 import PropertyCreate from "../components/organism/Forms/property/PropertyCreate";
+import PropertyDetails from "../components/organism/Forms/property/PropertyDetails";
 
 /**
  * Helper function to deside on what form to display
@@ -16,20 +17,26 @@ import PropertyCreate from "../components/organism/Forms/property/PropertyCreate
  */
 export const loadForm = (formToUse) => {
   switch (formToUse) {
+    // auth forms
     case "CHANGE PASSWORD":
       return <ChangePassword />;
     case "REGISTRATION":
       return <Registration />;
     case "LOGOUT":
       return <Logout />;
+    // users forms
     case "USERS DETAILS":
       return <UsersDetails />;
     case "USERS UPDATE":
       return <UsersUpdate />;
     case "USERS DELETE":
       return <UsersDelete />;
+    // property forms
     case "CREATE PROPERTY":
       return <PropertyCreate />;
+    case "READ PROPERTY":
+      return <PropertyDetails />;
+    // login form
     default:
       return <Login />;
   }
