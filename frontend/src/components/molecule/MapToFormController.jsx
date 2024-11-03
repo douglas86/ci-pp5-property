@@ -12,7 +12,9 @@ const MapToFormController = (props) => {
   const { forms } = useAppContext();
   const { err, view } = forms;
   // rename profile_picture to image
-  const { profile_picture: image } = view;
+  const { profile_picture, image } = view;
+
+  const img = profile_picture === undefined ? image : profile_picture;
 
   const getBase64 = (file) => {
     return new Promise((resolve) => {
@@ -41,8 +43,8 @@ const MapToFormController = (props) => {
         // if not, an image run this
         <Form.Group className="mb-3" controlId={name}>
           <Form.Label column={true}>{name}</Form.Label>
-          {image ? (
-            <Image src={image} width={50} height={50} rounded={true} />
+          {img ? (
+            <Image src={img} width={50} height={50} rounded={true} />
           ) : null}
           <Controller
             name={name}

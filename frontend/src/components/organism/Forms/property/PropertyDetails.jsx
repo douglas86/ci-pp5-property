@@ -43,7 +43,10 @@ const PropertyDetails = () => {
       {/*update and delete buttons*/}
       {button(
         () => {
-          console.log("You clicked the update button");
+          // once clicked show modal
+          dispatch({ type: "CHANGE MODAL STATE", payload: true });
+          // load DELETE FORM
+          dispatch({ type: "WHICH FORM TO USE", payload: "UPDATE PROPERTY" });
         },
         "Update Property",
         "outline-success",
