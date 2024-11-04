@@ -6,7 +6,7 @@ import Image from "react-bootstrap/Image";
 const MapToFormController = (props) => {
   // props
   const { name, type, formValidation } = props;
-  const { control, errors, register } = props;
+  const { control, errors, register, disabled = false } = props;
 
   // state store
   const { forms } = useAppContext();
@@ -72,6 +72,7 @@ const MapToFormController = (props) => {
                 {...register(name, formValidation)}
                 autoFocus={true}
                 name={name}
+                disabled={disabled}
               />
             )}
           />

@@ -6,11 +6,11 @@
  */
 export const formsReducers = (state, action) => {
   const { type, payload } = action;
+  const { name, value } = payload || {};
 
   switch (type) {
     // data from input tags on form
     case "FORM INPUT DATA":
-      const { name, value } = payload;
       return { ...state, data: { ...state.data, [name]: value } };
     // if an error occurs from server
     case "FORM ERRORS":
@@ -35,6 +35,8 @@ export const formsReducers = (state, action) => {
     // resets the view object in the forms state store
     case "RESET FORM VIEW":
       return { ...state, view: payload };
+    case "UPDATE FORM VIEW":
+      return { ...state, view: { ...state.view, [name]: value } };
     // refresh data by use of a flag
     case "FORM REFRESH FLAG":
       return { ...state, refreshData: payload };

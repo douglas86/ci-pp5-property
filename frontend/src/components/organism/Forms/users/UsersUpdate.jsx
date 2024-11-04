@@ -15,6 +15,7 @@ import styles from "../../../../styles/components/organism/Forms.module.css";
 import axios from "axios";
 import { server } from "../../../../utils";
 import Cookies from "js-cookie";
+import useFetch from "../../../../hooks/useFetch";
 
 const UsersUpdate = () => {
   // state store
@@ -29,6 +30,7 @@ const UsersUpdate = () => {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -40,6 +42,10 @@ const UsersUpdate = () => {
       role,
     },
   });
+
+  // filtered data from server based on area_code
+  const areaCode = watch("area_code");
+  const { data } = useFetch(`properties/filter?area_code=${areaCode}`);
 
   // update dispatch on component mount
   useEffect(() => {
@@ -97,34 +103,36 @@ const UsersUpdate = () => {
     },
     {
       id: 2,
-      name: "area_code",
-      type: "text",
-      formValidation: { required: "This field is required" },
-    },
-    {
-      id: 3,
-      name: "address",
-      type: "text",
-      formValidation: { required: "This field is required" },
-    },
-    {
-      id: 4,
-      name: "rent",
-      type: "number",
-      formValidation: {
-        required: "This field is required",
-        valueAsNumber: true,
-        min: { value: 0, message: "Rent must be a positive number" },
-        validate: {
-          isNumber: (value) => !isNaN(value) || "Rent must b a number",
-        },
-      },
-    },
-    {
-      id: 5,
       name: "profile_picture",
       type: "file",
       autoFocus: true,
+    },
+    {
+      id: 3,
+      name: "area_code",
+      type: "text",
+      formValidation: {
+        required: "This field is required",
+        validate: (value) => {
+          // 1. Check if 'data' is an array and if it's empty
+          if (Array.isArray(data) && data.length > 0 && value !== "None") {
+            return "You have not selected anything from the db";
+          }
+          // 2. Check if 'value' is a string, and it should be "None" if not in database
+          if (typeof value === "string" && value !== "None") {
+            return "The value must be None if not in database";
+          }
+          // 3. check if 'value' is in the database array
+          const isInDatabase = data.some(
+            (obj) => obj["area_code"]?.toLowerCase() === value.toLowerCase(),
+          );
+          if (!isInDatabase && value !== "None") {
+            return "You must select a value from the database";
+          }
+          // If all validations pass, return true (valid input)
+          return true;
+        },
+      },
     },
   ];
 
