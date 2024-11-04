@@ -31,6 +31,7 @@ const UsersUpdate = () => {
     handleSubmit,
     control,
     watch,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -47,6 +48,8 @@ const UsersUpdate = () => {
   const areaCode = watch("area_code");
   const { data } = useFetch(`properties/filter?area_code=${areaCode}`);
 
+  console.log("data", data);
+
   // update dispatch on component mount
   useEffect(() => {
     // change the header of the modal
@@ -60,9 +63,16 @@ const UsersUpdate = () => {
     // show loading spinner
     dispatch({ type: "FORM LOADING", payload: true });
 
+    // check if area_code is None then reset values in db
+    // if area_code not null send data to server
+    const formData =
+      data.area_code === "None"
+        ? { area_code: "None", address: "None", rent: 0 }
+        : data;
+
     const putData = async () => {
       try {
-        return axios.put(`${server}/profile/update/${id}/`, data, {
+        return axios.put(`${server}/profile/update/${id}/`, formData, {
           headers: {
             Authorization: `Bearer ${Cookies.get("auth-token")}`,
             "X-Refresh-Token": Cookies.get("refresh-token"),
@@ -115,19 +125,15 @@ const UsersUpdate = () => {
         required: "This field is required",
         validate: (value) => {
           // 1. Check if 'data' is an array and if it's empty
-          if (Array.isArray(data) && data.length > 0 && value !== "None") {
+          if (!Array.isArray(data) && data.length > 0) {
             return "You have not selected anything from the db";
           }
-          // 2. Check if 'value' is a string, and it should be "None" if not in database
-          if (typeof value === "string" && value !== "None") {
-            return "The value must be None if not in database";
-          }
-          // 3. check if 'value' is in the database array
+          // 2. Check if 'value' is in the database array
           const isInDatabase = data.some(
             (obj) => obj["area_code"]?.toLowerCase() === value.toLowerCase(),
           );
           if (!isInDatabase && value !== "None") {
-            return "You must select a value from the database";
+            return "You must select a value from the database or it must be None";
           }
           // If all validations pass, return true (valid input)
           return true;
@@ -135,6 +141,12 @@ const UsersUpdate = () => {
       },
     },
   ];
+
+  const handleValues = (area_code, address, price) => {
+    setValue("area_code", area_code);
+    setValue("address", address);
+    setValue("rent", price);
+  };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -153,6 +165,18 @@ const UsersUpdate = () => {
           register={register}
         />
       ))}
+
+      {data
+        ? data.map(({ id, area_code, address, price }) => (
+            <div key={id}>
+              {button(
+                () => handleValues(area_code, address, price),
+                area_code,
+                "light",
+              )}
+            </div>
+          ))
+        : null}
 
       {/*cancel and update buttons*/}
       <div className={styles.btn}>
