@@ -40,18 +40,18 @@ const AlertBox = () => {
         // display a success message on status 200
         status === 200 ? (
           <div className={styles.alert}>
-            <Alert variant="success">{message(msg)}</Alert>
+            <Alert variant="success">{msg}</Alert>
           </div>
         ) : // display an error message on status 400
         status === 400 ? (
           <div className={styles.alert}>
-            <Alert variant="danger">{message(msg)}</Alert>
+            <Alert variant="danger">{msg}</Alert>
           </div>
         ) : (
           // if there is no status code passed, a warning message gets displayed
           <div className={styles.alert}>
             <Alert variant="warning">
-              {message("You have entered the incorrect status code")}
+              You have entered the incorrect status code
             </Alert>
           </div>
         )
