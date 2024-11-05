@@ -1,15 +1,27 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
-import Image from "react-bootstrap/Image";
-import { button } from "../atom";
-import { titleCase } from "../../utils";
-import useAppContext from "../../hooks/useAppContext";
+// 3rd party
+import { Card, Col, Container, Row, Image } from "react-bootstrap";
 
+// atomic design
+import { button } from "../atom";
+
+// custom hooks and utils
+import useAppContext from "../../hooks/useAppContext";
+import { titleCase } from "../../utils";
+
+/**
+ * Displaying of users information in card format
+ * @param data
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const UsersCard = ({ data }) => {
+  // state store
   const { dispatch } = useAppContext();
 
   return (
     <Container>
       <Row>
+        {/*display data when it exists another wise show spinner*/}
         {data
           ? data.map((items) => (
               <Col key={items.id} md={4}>
@@ -32,7 +44,9 @@ const UsersCard = ({ data }) => {
                         </blockquote>
                       </div>
                     </div>
+                    {/*view, update and delete buttons on the cards*/}
                     <div className="d-flex flex-md-wrap justify-content-around gap-2 mt-3">
+                      {/*View button*/}
                       {button(
                         () => {
                           // change modal header
@@ -56,6 +70,7 @@ const UsersCard = ({ data }) => {
                         "View",
                         "outline-info",
                       )}
+                      {/*Update button*/}
                       {button(
                         () => {
                           // once clicked show modal
@@ -74,6 +89,7 @@ const UsersCard = ({ data }) => {
                         "Update",
                         "outline-success",
                       )}
+                      {/*Delete button*/}
                       {button(
                         () => {
                           // once clicked show modal

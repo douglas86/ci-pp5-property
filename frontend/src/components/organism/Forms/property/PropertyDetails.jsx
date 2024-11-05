@@ -1,10 +1,19 @@
-import useAppContext from "../../../../hooks/useAppContext";
+// 3rd party
+import { Card, Image } from "react-bootstrap";
+
+// atomic design
 import DisplayTimeAgo from "../../../molecule/DisplayTimeAgo";
-import Card from "react-bootstrap/Card";
-import Image from "react-bootstrap/Image";
 import formatDate from "../../../molecule/FormatDate";
 import { button } from "../../../atom";
 
+// custom hooks
+import useAppContext from "../../../../hooks/useAppContext";
+
+/**
+ * Shows the details of the property
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const PropertyDetails = () => {
   // state store
   const { dispatch, forms, isAdmin } = useAppContext();
@@ -41,6 +50,7 @@ const PropertyDetails = () => {
         </div>
       </Card.Body>
 
+      {/*only show update delete button if you are the admin*/}
       {isAdmin && (
         <>
           {/*update and delete buttons*/}

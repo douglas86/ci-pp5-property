@@ -1,3 +1,8 @@
+/**
+ * Helper function used to title a string
+ * @param str
+ * @returns {string}
+ */
 export const titleCase = (str) => {
   return str
     .toLowerCase()

@@ -32,7 +32,6 @@ const PropertyCreate = () => {
     formState: { errors },
   } = useForm();
 
-  // load on component mount
   useEffect(() => {
     // change modal header
     dispatch({ type: "CHANGE HEADER", payload: "Create a new Property" });
@@ -97,7 +96,7 @@ const PropertyCreate = () => {
         onSubmit(data, "properties/create/", dispatch, false),
       )}
     >
-      {/*show loading symbol based on server response*/}
+      {/*show/hide spinner on server response*/}
       {loading ? spinner() : null}
 
       {/*molecule for input fields on form*/}

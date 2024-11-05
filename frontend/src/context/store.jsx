@@ -45,6 +45,7 @@ const init = (initialState) => {
 export const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(rootReducers, initialState, init);
 
+  // using useMemo to prevent unnecessary re-renders
   const contextValue = useMemo(() => {
     return { state, dispatch };
   }, [state, dispatch]);

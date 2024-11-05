@@ -16,7 +16,7 @@ import Avatar3 from "../../assets/images/avatars/Avatar3.png";
  * @constructor
  */
 const Cards = () => {
-  // array to be mapped to cards
+  // array used for MapToCards molecule
   const cardInformation = [
     {
       id: 1,
@@ -44,6 +44,7 @@ const Cards = () => {
   return (
     <Container>
       <Row>
+        {/*mapping molecule*/}
         {cardInformation.map(({ id, quote, name, description, image }) => (
           <Col key={id} md={4}>
             <MapToCards

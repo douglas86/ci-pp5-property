@@ -3,9 +3,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
-// utils
-import { server } from "../utils";
+// custom hooks and utils
 import useAppContext from "./useAppContext";
+import { server } from "../utils";
 
 /**
  * Custom hook used to fetch data from server
@@ -14,6 +14,7 @@ import useAppContext from "./useAppContext";
  * @returns {{data, message, error: unknown}}
  */
 const useFetch = (url, flag = true) => {
+  // keep track of data and errors
   const [data, setData] = useState({});
   const [error, setError] = useState(null);
 
@@ -21,6 +22,7 @@ const useFetch = (url, flag = true) => {
   const { dispatch, refreshData } = useAppContext();
 
   useEffect(() => {
+    // asynchronously fetch data
     const fetchData = async () => {
       try {
         return await axios.get(`${server}/${url}`, {
@@ -33,7 +35,7 @@ const useFetch = (url, flag = true) => {
       }
     };
 
-    // fetch data on flag true or refreshData true
+    // fetch data on parameter flag or use refreshData flag from state store
     if (flag || refreshData) {
       fetchData()
         .then((res) => {
@@ -51,9 +53,9 @@ const useFetch = (url, flag = true) => {
   }, [flag, url, refreshData]);
 
   return {
-    data: data.data,
-    message: data.message,
-    error,
+    data: data.data, // returns data from server
+    message: data.message, // returns messages from server
+    error, // returns errors from server
   };
 };
 

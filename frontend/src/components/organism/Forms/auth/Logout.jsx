@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 // atomic design
 import { button } from "../../../atom";
 
-// utils and custom hooks
+// custom hooks and utils
 import useAppContext from "../../../../hooks/useAppContext";
 import { onSubmit } from "../../../../utils";
 
@@ -44,6 +44,7 @@ const Logout = () => {
         </Form.Label>
       </Form.Group>
 
+      {/*cancel and submit buttons*/}
       <div className={styles.btn}>
         {button(
           () => dispatch({ type: "CHANGE MODAL STATE", payload: false }),

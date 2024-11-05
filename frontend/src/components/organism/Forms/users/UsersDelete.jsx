@@ -7,8 +7,7 @@ import { button, spinner } from "../../../atom";
 
 // custom hooks and utils
 import useAppContext from "../../../../hooks/useAppContext";
-import { titleCase } from "../../../../utils";
-import onDelete from "../../../../utils/onDelete";
+import { titleCase, onDelete } from "../../../../utils";
 
 // styling
 import styles from "../../../../styles/components/organism/Forms.module.css";
@@ -24,20 +23,17 @@ const UserDelete = () => {
   const { loading, view } = forms;
   const { role, user, user_id } = view;
 
-  // change modal state on component mount
   useEffect(() => {
     // change the header of the modal
     dispatch({
       type: "CHANGE HEADER",
       payload: `Delete ${titleCase(user)} from existance`,
     });
-    // change the submit button text on modal
-    dispatch({ type: "CHANGE BTN", payload: "Delete" });
   }, [dispatch, user_id, user]);
 
   return (
     <Form onSubmit={(e) => onDelete(e, `profile/delete/${user_id}/`, dispatch)}>
-      {/*showing loading symbol on server request*/}
+      {/*show/hide spinner on server response*/}
       {loading ? spinner() : null}
 
       {/*logic to check if user is admin*/}

@@ -8,6 +8,13 @@ import NotFound from "../../assets/images/not_found.png";
 // styling
 import styles from "../../styles/components/molecule/Protected.module.css";
 
+/**
+ * When you try to access a page without the correct permissions, this molecule shows
+ * @param message
+ * @param restricted
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ProtectedAccess = ({ message, restricted = true }) => {
   return (
     <>

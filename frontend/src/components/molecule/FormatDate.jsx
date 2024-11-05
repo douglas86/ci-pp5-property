@@ -1,3 +1,8 @@
+/**
+ * convert date to correct format when returned
+ * @param date
+ * @returns {string}
+ */
 const formatDate = (date) => {
   return new Date(date).toLocaleDateString("en-GB", {
     year: "numeric",

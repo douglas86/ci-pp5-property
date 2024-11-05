@@ -2,9 +2,6 @@
 import { useEffect } from "react";
 import { Alert } from "react-bootstrap";
 
-// atomic structure
-import { message } from "../atom";
-
 // custom hooks
 import useAppContext from "../../hooks/useAppContext";
 
@@ -16,10 +13,11 @@ import styles from "../../styles/components/molecule/AlertBox.module.css";
  * status comes from state store
  *  200 - this is to say that the message is successful
  *  400 - this is to say that the message was unsuccessful
- *  If you enter anything else that those codes it will show a warning message
+ *  if no status code is supplied a warning message will show
  * @constructor
  */
 const AlertBox = () => {
+  // state store
   const { alert, dispatch } = useAppContext();
   const { status, msg } = alert;
 

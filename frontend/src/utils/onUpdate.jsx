@@ -1,24 +1,24 @@
-// 3rd party
+// 3rd parties
 import axios from "axios";
-import { server } from "./apiSettings";
 import Cookies from "js-cookie";
 
+// utils
+import { server } from "./apiSettings";
+
 /**
- * helper function used to delete data from server
- * @param e
+ * Helper function used to update data to server
+ * @param data
  * @param url
  * @param dispatch
  */
-export const onDelete = (e, url, dispatch) => {
+export const onUpdate = (data, url, dispatch) => {
   // display loading symbol on server request
   dispatch({ type: "FORM LOADING", payload: true });
 
-  // async function for submission
-  const onSubmit = async (event) => {
-    event.preventDefault();
-
+  // async function for updating
+  const putData = async () => {
     try {
-      return await axios.delete(`${server}/${url}`, {
+      return axios.put(`${server}/${url}`, data, {
         headers: {
           Authorization: `Bearer ${Cookies.get("auth-token")}`,
           "X-Refresh-Token": Cookies.get("refresh-token"),
@@ -29,15 +29,17 @@ export const onDelete = (e, url, dispatch) => {
     }
   };
 
-  onSubmit(e)
+  putData()
     .then((res) => {
-      // save data to success forms state in state store
-      dispatch({ type: "FORM SUCCESS", payload: res });
-      // close modal when data is correct from server
+      // hide loading spinner on server response
+      dispatch({ type: "FORM LOADING", payload: false });
+      // save data response to state store
+      dispatch({ type: "FORM SUCCESS", payload: res.data });
+      // hide modal
       dispatch({ type: "CHANGE MODAL STATE", payload: false });
-      // refresh data on successful delete
+      // refresh data when server is successful
       dispatch({ type: "FORM REFRESH FLAG", payload: true });
-      // show a successful message
+      // display alert message
       dispatch({ type: "SUCCESSFUL MESSAGE", payload: res.data.message });
     })
     .catch((err) => {

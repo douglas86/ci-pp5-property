@@ -3,19 +3,28 @@ import Form from "react-bootstrap/Form";
 import useAppContext from "../../hooks/useAppContext";
 import Image from "react-bootstrap/Image";
 
+/**
+ * From controller used from React hook form
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const MapToFormController = (props) => {
   // props
-  const { name, type, formValidation } = props;
+  const { name, type, formValidation, placeholder } = props;
   const { control, errors, register, disabled = false } = props;
 
   // state store
   const { forms } = useAppContext();
   const { err, view } = forms;
-  // rename profile_picture to image
+
+  // fetches images from a view object in state store
   const { profile_picture, image } = view;
 
+  // switch between profile_picture or image depending on if profile_picture is undefined
   const img = profile_picture === undefined ? image : profile_picture;
 
+  // convert to base64 string
   const getBase64 = (file) => {
     return new Promise((resolve) => {
       const reader = new FileReader();
@@ -28,6 +37,7 @@ const MapToFormController = (props) => {
     });
   };
 
+  // image handler
   const handleImage = async (event, field) => {
     let file = event.target.files[0];
 
@@ -40,7 +50,7 @@ const MapToFormController = (props) => {
   return (
     <>
       {type === "file" ? (
-        // if not, an image run this
+        // if image this is run
         <Form.Group className="mb-3" controlId={name}>
           <Form.Label column={true}>{name}</Form.Label>
           {img ? (
@@ -53,6 +63,7 @@ const MapToFormController = (props) => {
               <Form.Control
                 type="file"
                 onChange={(e) => handleImage(e, field)}
+                placeholder={placeholder}
                 autoFocus={true}
                 name={name}
               />
@@ -60,7 +71,7 @@ const MapToFormController = (props) => {
           />
         </Form.Group>
       ) : (
-        // if image run this
+        // if not, an image run this
         <Form.Group className="mb-3" controlId={name}>
           <Form.Label column={true}>{name}</Form.Label>
           <Controller
@@ -70,6 +81,7 @@ const MapToFormController = (props) => {
               <Form.Control
                 type={type}
                 {...register(name, formValidation)}
+                placeholder={placeholder}
                 autoFocus={true}
                 name={name}
                 disabled={disabled}

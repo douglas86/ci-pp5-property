@@ -2,7 +2,7 @@
   height: 15rem;
 }
 
-/*tablet or larger devices*/
+/*media queries*/
 @media screen and (min-width: 768px) {
   .image {
     height: 30rem;

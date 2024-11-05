@@ -38,6 +38,7 @@
   font-weight: 450;
 }
 
+/*media queries*/
 @media screen and (max-width: 400px) {
   .h3 {
     font-size: 0.5rem;

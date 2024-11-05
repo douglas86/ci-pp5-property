@@ -1,12 +1,25 @@
+// 3rd party
 import { useNavigate } from "react-router-dom";
 
+// atomic design
 import { button } from "../../atom";
 
-import styles from "../../../styles/components/organism/Admin.module.css";
+// custom hooks
 import useAppContext from "../../../hooks/useAppContext";
 
+// styling
+import styles from "../../../styles/components/organism/Admin.module.css";
+
+/**
+ * Used on Admin pages to show the top button panel
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Panel = () => {
+  // state store
   const { dispatch } = useAppContext();
+
+  // navigation
   const navigate = useNavigate();
 
   return (

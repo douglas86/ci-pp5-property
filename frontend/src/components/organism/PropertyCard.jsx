@@ -10,19 +10,22 @@ import useAppContext from "../../hooks/useAppContext";
 
 // styling
 import styles from "../../styles/components/organism/Card.module.css";
-import { useState } from "react";
 
+/**
+ * Displaying of Property in Card format
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const PropertyCard = () => {
   // state store
   const { dispatch } = useAppContext();
 
-  const [refresh, setRefresh] = useState(true);
-
   // fetch data
-  const { data } = useFetch("properties/read/", refresh);
+  const { data } = useFetch("properties/read/");
 
   return (
     <div className={styles.card}>
+      {/*display data when it exists*/}
       {data
         ? data.map((items) => (
             <Card key={items.id} style={{ width: "18rem" }}>
@@ -37,6 +40,7 @@ const PropertyCard = () => {
                 <Card.Text>{items.description}</Card.Text>
                 <Card.Text>{items.address}</Card.Text>
                 <Card.Text>Price: £{items.price}</Card.Text>
+                {/*view button to display property data in modal*/}
                 <div className="d-flex flex-md-wrap justify-content-around gap-2 mt-3">
                   {button(
                     () => {

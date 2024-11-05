@@ -7,9 +7,9 @@ import Form from "react-bootstrap/Form";
 import MapToForm from "../../../molecule/MapToForm";
 import { button, spinner } from "../../../atom";
 
-// utils and custom hooks
-import { onSubmit } from "../../../../utils";
+// custom hooks and utils
 import useAppContext from "../../../../hooks/useAppContext";
+import { onSubmit } from "../../../../utils";
 
 // styling
 import styles from "../../../../styles/components/organism/Forms.module.css";
@@ -31,7 +31,6 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  // change modal header on component mounting
   useEffect(() => {
     // change the header of the modal
     dispatch({ type: "CHANGE HEADER", payload: "Login Form" });

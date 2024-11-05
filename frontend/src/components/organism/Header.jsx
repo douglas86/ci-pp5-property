@@ -6,7 +6,7 @@ import { Navbar, Nav, Button, Container } from "react-bootstrap";
 import FormModal from "./FormModal";
 import { logo, button } from "../atom";
 
-// utils and hooks
+// custom hooks and utils
 import useAppContext from "../../hooks/useAppContext";
 import { router } from "../../utils";
 

@@ -1,5 +1,5 @@
-import Card from "react-bootstrap/Card";
-import Image from "react-bootstrap/Image";
+// 3rd parties
+import { Card, Image } from "react-bootstrap";
 
 // atomic design
 import DisplayTimeAgo from "../../../molecule/DisplayTimeAgo";
@@ -10,6 +10,11 @@ import { button } from "../../../atom";
 import useAppContext from "../../../../hooks/useAppContext";
 import { titleCase } from "../../../../utils";
 
+/**
+ * Form to display the user's information from a database
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const UsersDetails = () => {
   // state store
   const { dispatch, forms } = useAppContext();
@@ -46,6 +51,7 @@ const UsersDetails = () => {
           </Card.Text>
         </div>
       </Card.Body>
+
       {/*update and delete buttons*/}
       {button(
         () => {

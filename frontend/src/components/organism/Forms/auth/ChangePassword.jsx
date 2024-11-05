@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import MapToForm from "../../../molecule/MapToForm";
 import { button, spinner } from "../../../atom";
 
-// utils and custom hooks
+// custom hooks and utils
 import useAppContext from "../../../../hooks/useAppContext";
 import { onSubmit } from "../../../../utils";
 
@@ -44,7 +44,7 @@ const ChangePassword = () => {
   const handleRegister = () =>
     dispatch({ type: "WHICH FORM TO USE", payload: "REGISTRATION" });
 
-  // password checking
+  // check for commonly used passwords
   const commonPasswords = ["123456", "password", "12345678", "qwerty"];
 
   // array for MapToForm molecule

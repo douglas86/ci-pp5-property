@@ -1,5 +1,11 @@
+// atomic design
 import ProtectedAccess from "../molecule/ProtectedAccess";
 
+/**
+ * If all other pages fails this is shown
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const NotFound = () => {
   return (
     <div>

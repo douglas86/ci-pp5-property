@@ -12,6 +12,7 @@
   width: 50%;
 }
 
+/*media queries*/
 @media screen and (max-width: 1024px) {
   .content {
     display: block;

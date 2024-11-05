@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import MapToForm from "../../../molecule/MapToForm";
 import { button, spinner } from "../../../atom";
 
-// utils and custom hooks
+// custom hooks and utils
 import useAppContext from "../../../../hooks/useAppContext";
 import { onSubmit } from "../../../../utils";
 
@@ -35,16 +35,9 @@ const Registration = () => {
   useEffect(() => {
     // change the header of the modal
     dispatch({ type: "CHANGE HEADER", payload: "Registration Form" });
-    // change the submit button text on modal
-    dispatch({ type: "CHANGE BTN", payload: "Registration" });
-    // change the url needed for the submitted button
-    dispatch({
-      type: "FORM SUBMIT URL",
-      payload: "auth/registration/",
-    });
   }, [dispatch]);
 
-  // Login user form will load
+  // function to change to log in form
   const handleLogin = () =>
     dispatch({ type: "WHICH FORM TO USE", payload: "" });
 
@@ -113,12 +106,15 @@ const Registration = () => {
         onSubmit(data, "auth/registration/", dispatch),
       )}
     >
+      {/*show/hide spinner on server response*/}
       {loading ? spinner() : null}
 
+      {/*show a login form on button click*/}
       <div className={styles.btn}>
         {button(handleLogin, "Login Here?", "primary")}
       </div>
 
+      {/*displaying of Form Control input elements and error messages*/}
       {arr.map(({ id, name, type, placeholder, formValidation }) => (
         <MapToForm
           key={id}

@@ -7,16 +7,19 @@ import Form from "react-bootstrap/Form";
 import MapToFormController from "../../../molecule/MapToFormController";
 import { button, spinner } from "../../../atom";
 
-// custom hooks
+// custom hooks and utils
 import useAppContext from "../../../../hooks/useAppContext";
+import useFetch from "../../../../hooks/useFetch";
+import { onUpdate } from "../../../../utils";
 
 // styling
 import styles from "../../../../styles/components/organism/Forms.module.css";
-import axios from "axios";
-import { server } from "../../../../utils";
-import Cookies from "js-cookie";
-import useFetch from "../../../../hooks/useFetch";
 
+/**
+ * Updating the users information in the database form
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const UsersUpdate = () => {
   // state store
   const { dispatch, forms } = useAppContext();
@@ -48,9 +51,6 @@ const UsersUpdate = () => {
   const areaCode = watch("area_code");
   const { data } = useFetch(`properties/filter?area_code=${areaCode}`);
 
-  console.log("data", data);
-
-  // update dispatch on component mount
   useEffect(() => {
     // change the header of the modal
     dispatch({
@@ -58,50 +58,6 @@ const UsersUpdate = () => {
       payload: `You are about to update ${user}'s details`,
     });
   }, [dispatch, user]);
-
-  const onSubmit = (data) => {
-    // show loading spinner
-    dispatch({ type: "FORM LOADING", payload: true });
-
-    // check if area_code is None then reset values in db
-    // if area_code not null send data to server
-    const formData =
-      data.area_code === "None"
-        ? { area_code: "None", address: "None", rent: 0 }
-        : data;
-
-    const putData = async () => {
-      try {
-        return axios.put(`${server}/profile/update/${id}/`, formData, {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("auth-token")}`,
-            "X-Refresh-Token": Cookies.get("refresh-token"),
-          },
-        });
-      } catch (e) {
-        return e;
-      }
-    };
-
-    putData()
-      .then((res) => {
-        // hide loading spinner on server response
-        dispatch({ type: "FORM LOADING", payload: false });
-        // save data response to state store
-        dispatch({ type: "FORM SUCCESS", payload: res.data });
-        // hide modal
-        dispatch({ type: "CHANGE MODAL STATE", payload: false });
-        // refresh data when server is successful
-        dispatch({ type: "FORM REFRESH FLAG", payload: true });
-        // display alert message
-        dispatch({ type: "SUCCESSFUL MESSAGE", payload: res.data.message });
-      })
-      .catch((err) => {
-        // passing error messages to the state store,
-        // these error messages get returned to the user on the current form when the modal is showing
-        dispatch({ type: "FORM ERRORS", payload: err.response.data });
-      });
-  };
 
   // array used for MapToFormController Molecule
   const arr = [
@@ -128,7 +84,7 @@ const UsersUpdate = () => {
           if (!Array.isArray(data) && data.length > 0) {
             return "You have not selected anything from the db";
           }
-          // 2. Check if 'value' is in the database array
+          // 2. Check if 'value' is in the database array or is not equal to None
           const isInDatabase = data.some(
             (obj) => obj["area_code"]?.toLowerCase() === value.toLowerCase(),
           );
@@ -142,10 +98,21 @@ const UsersUpdate = () => {
     },
   ];
 
+  // setValues of area_code, address and prices to correct value on click
   const handleValues = (area_code, address, price) => {
     setValue("area_code", area_code);
     setValue("address", address);
     setValue("rent", price);
+  };
+
+  // update users data on submit
+  const onSubmit = (data) => {
+    const formData =
+      data.area_code === "None"
+        ? { area_code: "None", address: "None", rent: 0 }
+        : data;
+
+    onUpdate(formData, `profile/update/${id}/`, dispatch);
   };
 
   return (
@@ -166,12 +133,13 @@ const UsersUpdate = () => {
         />
       ))}
 
+      {/*display area_codes on correct data*/}
       {data
         ? data.map(({ id, area_code, address, price }) => (
             <div key={id}>
               {button(
                 () => handleValues(area_code, address, price),
-                area_code,
+                `${area_code} - address: ${address}`,
                 "light",
               )}
             </div>
