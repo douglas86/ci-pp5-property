@@ -12,7 +12,11 @@
     "react:push": "cd frontend && heroku container:push web --app ci-pp5-property-v2-react --arg Dockerfile",
     "react:release": "cd frontend && heroku container:release web --app ci-pp5-property-v2-react",
     "react:run": "heroku container:login && npm run react:push && npm run react:release",
-    "heroku": "npm run django:run & npm run react:run"
+    "heroku": "npm run django:run & npm run react:run",
+    "du": "docker-compose up",
+    "dd": "docker-compose down",
+    "django": "docker-compose exec backend bash",
+    "react": "docker-compose exec frontend bash"
   },
   "keywords": [],
   "author": "",

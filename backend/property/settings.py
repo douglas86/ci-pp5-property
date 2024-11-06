@@ -18,6 +18,7 @@ from datetime import timedelta
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from django.core.management.utils import get_random_secret_key
 
 load_dotenv()
 
@@ -29,10 +30,10 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SETTINGS_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SETTINGS_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False if os.environ.get('ENV') == 'production' else True
 
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get("CLOUDINARY_URL"),

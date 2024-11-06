@@ -18,7 +18,7 @@ const useAdmin = () => {
     } else {
       dispatch({ type: "CHANGE MODAL STATE", payload: false });
     }
-  }, [dispatch, isAdmin]);
+  }, [dispatch, isAdmin, isUser]);
 };
 
 export default useAdmin;
