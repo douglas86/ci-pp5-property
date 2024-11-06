@@ -501,6 +501,113 @@ Django logs
 
 #### [Database manipulation](#deployment)
 
+Description
+
+- This section deals with manipulating your heroku or local database
+- Without using the command line
+
+Requirements for Database Manipulation
+
+- Install [dbeaver](https://dbeaver.io/download/)
+
+Installation instructions
+
+- once installed, open up the app from where it is installed
+- it should look like the image below
+
+![dbeaver.png](frontend/src/assets/docs/deployment/database/dbeaver.png)
+
+- to start a new database connection
+- click the add-icon in the far left-hand corner
+
+![add.png](frontend/src/assets/docs/deployment/database/add.png)
+
+- you should see a menu like this popup
+
+![database connection.png](frontend/src/assets/docs/deployment/database/database%20connection.png)
+
+- select the database that you want
+- for this project, I chose to use PostgresSQL
+- so click on that Image
+
+![PostgresSQL.png](frontend/src/assets/docs/deployment/database/PostgresSQL.png)
+
+- once selected, click next
+- that will bring you to a screen were you can create all your settings
+
+![settings.png](frontend/src/assets/docs/deployment/database/settings.png)
+
+Connect to Heroku Postgres Database
+
+- for this demonstration, I will be using the following connection string
+- postgres://u3fon4jhlo790r:pdebdc4cf93dfcb1378061529a7a8f8254fc462179a31aaa184d8e80aeebd1546@cd27da2sn4hj7h.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d114t1oa0pt1n4
+- in the Server section, click the radio button that says, "URL"
+- in the connection string copy from the letter after the "@" symbol
+- and paste it in the URL: section
+- it should look like this
+- jdbc:postgresql://cd27da2sn4hj7h.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d114t1oa0pt1n4
+
+![url.png](frontend/src/assets/docs/deployment/database/url.png)
+
+- remember to enter the username and password
+- make sure the Authentication dropdown list says, "Database Native"
+- the username is the string before the colons being this ":" u3fon4jhlo790r
+- the password is the string after the colons and before the "@" symbol
+- pdebdc4cf93dfcb1378061529a7a8f8254fc462179a31aaa184d8e80aeebd1546
+- once done, click on Test connection
+- it might ask you to download software first
+- if the drivers that you need are unavailable
+- once drivers are installed, it should show a successful message
+
+![successful connection.png](frontend/src/assets/docs/deployment/database/successful%20connection.png)
+
+- once the connection has been successful, click on finish
+- to finish the setup
+- you should see it in the left-hand panel
+
+![finish.png](frontend/src/assets/docs/deployment/database/finish.png)
+
+Note: this database has been deleted so the connection string is not valid
+
+- click on the postgres database that was just created to load the data from the db
+- for simplicity’s sake, you can rename the connection
+- so that you know what it is for
+- right-click on the connection
+- when the dropdown list pops up click on the one that says, "Rename"
+- towards the bottom of the list
+- type in the correct name for the connection
+
+Connect to Local database
+
+- to connect to the local database
+- we will be using this connection string
+- jdbc:postgresql://localhost:5432/database
+- click on the radio button that says, "URL"
+- paste this entire link in the URL section
+
+![local settings.png](frontend/src/assets/docs/deployment/database/local%20settings.png)
+
+- remember to enter the username and password
+- make sure the Authentication dropdown list says, "Database Native"
+- the username is user
+- the password is password
+- these credentials are taken from the docker-compose file
+
+![docker compose.png](frontend/src/assets/docs/deployment/database/docker%20compose.png)
+
+- then you can click on Test connection
+
+![successful connection.png](frontend/src/assets/docs/deployment/database/successful%20connection.png)
+
+- once done, you can then click on finish
+- for simplicity’s sake, you can rename the connection
+- so that you know what it is for
+- right-click on the connection
+- when the dropdown list pops up, click on the one that says, "Rename"
+- towards the bottom of the list
+- type in the correct name for the connection
+- in my case, I used localhost
+
 #### [Environment Variables](#deployment)
 
 ---
