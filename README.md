@@ -359,8 +359,9 @@ https://github.com/douglas86/ci-pp5-property.git
 
 - once it has been cloned
 - create a .env file inside the backend directory: this is where Django is developed
-- for local development, you only need one environment variable
+- for local development, you only need one [environment variable](#environment-variables)
 - CLOUDINARY_URL: this key is used to store and retrieve images from cloudinary
+- see [environment variable](#environment-variables) section
 - before you start the docker container, make sure to have docker desktop up and running
 - once Docker desktop is running open up a terminal on the IDE that you are wanting to use
 - I have created a node script to make running docker containers easier for you
@@ -457,8 +458,9 @@ Installation Instructions
 
 - the database will automatically add the environment variables to your config vars
 - then scroll down to Config Vars clicking on Reveal config vars
-- you need to have three environment variables as the database is added for you
+- you need to have three [environment variables](#environment-variables) as the database is added for you
 - ENV, CLOUDINARY_URL, DJANGO_SETTING_KEY
+- see [environment variables](#environment-variables) section
 
 Getting ready for heroku
 
@@ -609,6 +611,49 @@ Connect to Local database
 - in my case, I used localhost
 
 #### [Environment Variables](#deployment)
+
+DJANGO_SETTING_KEY environment variable
+
+- During local development, there is no need to use a secret key
+- as it will automatically get generated for you
+- But when you are running Django in the cloud
+- Then you need a secret key
+- To generate a secret key, go into the backend docker container
+- I have created a Node.js script for that, just by running the following command
+
+```
+npm run django
+```
+
+- once in the container, run the following command to generate a new key
+
+```
+python manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+
+- save that newly generated key for Heroku or whatever services you need
+- once you have saved the key then exit out of the container by running exit
+
+```
+exit
+```
+
+CLOUDINARY_URL environment variable
+
+- go to your [cloudinary account](https://cloudinary.com/) and login
+- on the far right, there are icons click on the one that says, "Programmable Media."
+- on the right there is a blue button that says, "API environment variable"
+- copy that api key replacing api key and secret key with the correct variables
+- place this key in the .env file on your local machine for Django
+- this environment variable is also used for heroku
+- you can now go back to deployment setup
+
+ENV environment variable
+
+- create an environment for telling heroku that you are in production
+- in the key section type: ENV
+- in the value section type: production
+- this environment variable is only used for heroku
 
 ---
 
