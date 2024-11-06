@@ -50,7 +50,7 @@ const useFetch = (url, flag = true) => {
           dispatch({ type: "FORM REFRESH FLAG", payload: false });
         });
     }
-  }, [flag, url, refreshData]);
+  }, [flag, url, refreshData, dispatch]);
 
   return {
     data: data.data, // returns data from server
