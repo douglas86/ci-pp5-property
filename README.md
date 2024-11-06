@@ -23,9 +23,9 @@ This forms part of my final Project for Code Institute
   - [Atomic Design Methodology](#atomic-design-methodology)
   - [Daphne Implementation for async/await with Django Rest Framework](#daphne-implementation-for-asyncawait-with-django-rest-framework)
 - [Deployment](#deployment)
+  - [Setting up for Local development](#setting-up-for-local-development)
   - [Setting up on Heroku](#setting-up-on-heroku)
-  - [Forking the GitHub Repository](#forking-the-github-repository)
-  - [Making a Local Clone](#making-a-local-clone)
+  - [Database manipulation](#database-manipulation)
   - [Environment Variables](#environment-variables)
 - [Testing](#testing)
   - [Manual Testing](#manual-testing)
@@ -322,294 +322,338 @@ Why Did I choose Daphne for this Project?
 ### [Deployment](#table-of-content)
 
 Index
+- [Setting up for Local development](#setting-up-for-local-development)
 - [Setting up on Heroku](#setting-up-on-heroku)
-- [Forking the GitHub Repository](#forking-the-github-repository)
-- [Making a Local Clone](#making-a-local-clone)
+- [Database manipulation](#database-manipulation)
 - [Environment Variables](#environment-variables)
 
-- Make sure to install [Docker Desktop](https://www.docker.com/)
-- If you need additional assistance to install docker desktop
-- click [here](https://www.youtube.com/watch?v=31ieHmcTUOk&list=PL4cUxeGkcC9hxjeEtdHFNYMtCpjNBm3h7) for YouTube video tutorials on getting setup
+#### [Setting up for Local development](#deployment)
+
+Requirements for setting up locally
+
+- [Docker Desktop](https://docs.docker.com/get-started/get-docker/?_gl=1)
+- [Node version 22.11](https://nodejs.org/en/download/package-manager)
+
+Installation instructions
+
+- Make sure that Docker Desktop is up and running before you start these instructions
+- If you need additional assistance to get docker up and running
+- Have a look at this [Docker Crash course](https://www.youtube.com/watch?v=31ieHmcTUOk&list=PL4cUxeGkcC9hxjeEtdHFNYMtCpjNBm3h7)
+
+clone repository
+
+- locate the directory where you want to install this project
+- you can clone this repo either by ssh or http
+
+ssh
+
+```
+git@github.com:douglas86/ci-pp5-property.git
+```
+
+http
+
+```
+https://github.com/douglas86/ci-pp5-property.git
+```
+
+- once it has been cloned
+- create a .env file inside the backend directory: this is where Django is developed
+- for local development, you only need one [environment variable](#environment-variables)
+- CLOUDINARY_URL: this key is used to store and retrieve images from cloudinary
+- see [environment variable](#environment-variables) section
+- before you start the docker container, make sure to have docker desktop up and running
+- once Docker desktop is running open up a terminal on the IDE that you are wanting to use
+- I have created a node script to make running docker containers easier for you
+- run the command npm run du
+- this is just running docker-compose up
+
+```
+npm run du
+```
+
+- when running this command, it also runs the database migrations on the container
+- if you are wanting to tear down docker, there is a script for that two
+- run npm run dd
+
+```
+npm run dd
+```
+
+- that is to tear down docker container running docker-compose down
+- if you go to your browser
+- and type in localhost:3000 for React
+- and in another tab type localhost:8000 for Django
+- you will see the apps running
 
 #### [Setting up on Heroku](#deployment)
 
+Requirements for setting up on Heroku
+
+- Make sure that you have this project running [Locally](#setting-up-for-local-development) first
+- Make sure that [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) is installed on your system
+
+Installation Instructions
+
+- Login to [Heroku Dashboard](https://id.heroku.com/login)
+- Once on the heroku dashboard
+- we then need to create two apps
+- one for React and the other for Django
+- click on the New button on the right-hand side
+
+![new button.png](frontend/src/assets/docs/deployment/heroku/new%20button.png)
+
+- Click on Create new app in the popup window
+- it will take you to a screen where you can add app name and region
+
+![create new app.png](frontend/src/assets/docs/deployment/heroku/create%20new%20app.png)
+
+##### Create React App
+
+- click create app
+- make a note of the app name
+- in this case, it is called ci-pp5-property-react
+- go to your local environment and place that name in the package.json file
+- this package.json file does not sit in any directories
+- replacing the name in the react:push and react:release scripts
+- we will come to that again later
+
+![react scripts.png](frontend/src/assets/docs/deployment/heroku/react%20scripts.png)
+
+##### Create Django App
+
+- Go back to your dashboard to create the Django app
+- following the same process as before with create a new app
+
+![create django app.png](frontend/src/assets/docs/deployment/heroku/create%20django%20app.png)
+
+- click on create new app that will take you to the app dashboard
+- make sure to take note of the app name
+- in this case, it is called ci-pp5-property-django
+- go to the package.json file this file is not in any directory
+- there are three scripts that you need to change with this name
+- django:migrate, django:release and django:push scripts need to change
+
+![django scripts.png](frontend/src/assets/docs/deployment/heroku/django%20scripts.png)
+
+- then go back to the heroku dashboard in your web browser
+- locate the resource tab at the top
+  
+- ![resources tab.png](frontend/src/assets/docs/deployment/heroku/resources%20tab.png)
+
+- in the Add-ons search bar, find the Heroku Postgres database
+- click on the one that says, "Heroku Postgres"
+
+![Heroku Postgres.png](frontend/src/assets/docs/deployment/heroku/Heroku%20Postgres.png)
+
+- this will present you with the screen for the database
+
+![database screen.png](frontend/src/assets/docs/deployment/heroku/database%20screen.png)
+
+- make sure to select Essential 0 as it is the least expensive
+- then you can click on Submit Order Form button at the bottom
+- once the database has finished, you should see the save as the image below
+
+![database successful.png](frontend/src/assets/docs/deployment/heroku/database%20successful.png)
+
+- the database will automatically add the environment variables to your config vars
+- then scroll down to Config Vars clicking on Reveal config vars
+- you need to have three [environment variables](#environment-variables) as the database is added for you
+- ENV, CLOUDINARY_URL, DJANGO_SETTING_KEY
+- see [environment variables](#environment-variables) section
+
+Getting ready for heroku
+
+- The next stage is deploying to heroku
+- open up two tabs
+- the one tab is for React heroku app, the other is for django heroku app
+- on the React heroku app go to logs by clicking on more than click on view logs
+
+![view logs.png](frontend/src/assets/docs/deployment/heroku/view%20logs.png)
+
+- do the same thing with django heroku app
+
+![view logs.png](frontend/src/assets/docs/deployment/heroku/view%20logs.png)
+
+- it will bring you to the log screen
+
+![logs screen.png](frontend/src/assets/docs/deployment/heroku/logs%20screen.png)
+
+- then go back to the terminal to make sure that you are not in the frontend or backend directory
+- I have made a script that will make it easier for you to deploy to heroku
+- on the command line type: npm run heroku
+
+```
+npm run heroku
+```
+
+- sometimes it is possible that you see and error saying, "Memory quote exceeded"
+- that just seems to be a warning as the app still works
+
+React logs
+
+![react app.png](frontend/src/assets/docs/deployment/heroku/react%20app.png)
+
+Django logs
+
+![django app.png](frontend/src/assets/docs/deployment/heroku/django%20app.png)
+
+- once it has finished, you can click on open app for both of the heroku apps
+- you should see a finished project
+
+#### [Database manipulation](#deployment)
+
 Description
 
-- When creating your app on Heroku, I created two separate apps from one repository
-- Reason for that, it will be easier to manage as I can keep the code separate from one another
+- This section deals with manipulating your heroku or local database
+- Without using the command line
 
+Requirements for Database Manipulation
 
-React setup
+- Install [dbeaver](https://dbeaver.io/download/)
 
-- Head on over to the [Heroku Dashboard](https://dashboard.heroku.com/apps) to Log in
-- Once you are Logged in, start by Creating the React app first
-- by clicking on the New button on the right-hand side
-- Then click on Create new app
-- Enter the new apps name, I called mine ci-pp5-property-v2-react bear in mind that app names are unique in Heroku
-- Enter the Region were you want it deployed, clicking on the region that is closest to you
-- You only have two options either the United States or Europe
-- Click on Create app the app will then be created
-- You only need to create one environment variable for React
-- Head on over to the settings tab
-- Scroll down until you see config vars
-- click reveal config vars
-- type in the key value pair that you want
-- for the key type: REACT_APP_NODE_ENV
-- for the value type: production
-- This environment variable is used for React to determine what environment they are on
-- when in production, it will use the heroku api for server requests
-- when in development, it will use the local api for server requests
-- That is all we need to do for the React Heroku app as the rest will be done on the command line
+Installation instructions
 
-API setup
+- once installed, open up the app from where it is installed
+- it should look like the image below
 
-- Now we need to create the second app the API
-- Go back to the Heroku Dashboard and click on the New button on the right-hand side
-- Then click on Create new app
-- Enter the new apps name I called this one ci-pp5-property-v2-api bear in mind that app names are unique in Heroku
-- Enter the Region were you want it deployed to click on the region that is closest to you
-- You only have two options either the United States or Europe
-- Click on Create app the app will then be created
-- The next steps for the api will be the environment variables
-- Once created, locate the tab that says, "Settings"
-- Scroll down until you see config Vars as we need to create the environment variables
-- Click the button that says reveal config vars
-- There are two columns, the first is the key and the other the value
-- You need to create five environment variables
-- CLOUDINARY_URL, DATABASE_URL, DISABLE_COLLECTSTATIC, DJANGO_SETTINGS_KEY, ENV
-- scroll down to the [environment section](#environment-variables) to see how to set that up
-- once down come back here
+![dbeaver.png](frontend/src/assets/docs/deployment/database/dbeaver.png)
 
+- to start a new database connection
+- click the add-icon in the far left-hand corner
 
-Setting up locally and getting ready for React and Heroku deployment
+![add.png](frontend/src/assets/docs/deployment/database/add.png)
 
-- This Project assumes that you have heroku cli installed on your system already 
-- The next stage is getting setup on heroku using the command line
-- We will begin by setting up the React app first
-- In the web browser for the React app that was created open up heroku logs
-- So that we can see what is happening when commands are pushed
-- To do that, click on the app name in the dashboard
-- On the far right there will be a button that says, "More"
-- In the popup menu, click on View logs
-- when view logs are loaded, we need to go back to our IDE
-- Getting the app ready for production
-- open up a terminal in the IDE that you are using
-- cd into the frontend directory
+- you should see a menu like this popup
 
-```
-cd frontend
-```
+![database connection.png](frontend/src/assets/docs/deployment/database/database%20connection.png)
 
-- Then log into the heroku container
+- select the database that you want
+- for this project, I chose to use PostgresSQL
+- so click on that Image
 
-```
-heroku container:login
-```
+![PostgresSQL.png](frontend/src/assets/docs/deployment/database/PostgresSQL.png)
 
-- Once login we can push and release the code needed
-- By using two separate commands
-- We first push to Heroku
+- once selected, click next
+- that will bring you to a screen were you can create all your settings
 
-```
-heroku container:push web --app ci-pp5-property-v2-react --arg Dockerfile
-```
+![settings.png](frontend/src/assets/docs/deployment/database/settings.png)
 
-- the words after --app flag is the heroku apps name
-- the flag --arg is used to say that there is an argument coming
-- once you have pushed the code, then we need to use the release command
+Connect to Heroku Postgres Database
 
-```
-heroku container:release web --app ci-pp5-property-v2-react
-```
+- for this demonstration, I will be using the following connection string
+- postgres://u3fon4jhlo790r:pdebdc4cf93dfcb1378061529a7a8f8254fc462179a31aaa184d8e80aeebd1546@cd27da2sn4hj7h.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d114t1oa0pt1n4
+- in the Server section, click the radio button that says, "URL"
+- in the connection string copy from the letter after the "@" symbol
+- and paste it in the URL: section
+- it should look like this
+- jdbc:postgresql://cd27da2sn4hj7h.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d114t1oa0pt1n4
 
-- once that command has finished, then the React app is ready for production
-- the next step is getting the API up and running
+![url.png](frontend/src/assets/docs/deployment/database/url.png)
 
+- remember to enter the username and password
+- make sure the Authentication dropdown list says, "Database Native"
+- the username is the string before the colons being this ":" u3fon4jhlo790r
+- the password is the string after the colons and before the "@" symbol
+- pdebdc4cf93dfcb1378061529a7a8f8254fc462179a31aaa184d8e80aeebd1546
+- once done, click on Test connection
+- it might ask you to download software first
+- if the drivers that you need are unavailable
+- once drivers are installed, it should show a successful message
 
-- In the heroku dashboard, go to the app that was created for Heroku API
-- go to the Resources section as I created Postgres DB as an add-on to this project
-- In the resources section type Postgres in the search bar
-- When you start to type, the addons will appear
-- Type postgres, click that to add it to your project
-- A window pops up asking you to Submit order Form
-- and it tells you the price
-- once you click on the "Submit order Form" button
-- Postgres gets added and the database environment variable
-- get added to your project automatically
-- open up the view logs for this heroku app
-- the same way it was done to React
-- now that the database is up and running, we can start getting our app ready for production
-- go to the terminal in your IDE
-- cd into the backend directory
-- if you are still sitting in the frontend directory
-- cd out-of-that first with this command
+![successful connection.png](frontend/src/assets/docs/deployment/database/successful%20connection.png)
 
-```
-cd ..
-```
+- once the connection has been successful, click on finish
+- to finish the setup
+- you should see it in the left-hand panel
 
-- when you are in the home directory, then we can change the directory into the backend directory
+![finish.png](frontend/src/assets/docs/deployment/database/finish.png)
 
-```
-cd backend
-```
+Note: this database has been deleted so the connection string is not valid
 
-- Now we can push, release and migrate the database
-- first, the code needs to be pushed to the database
+- click on the postgres database that was just created to load the data from the db
+- for simplicity’s sake, you can rename the connection
+- so that you know what it is for
+- right-click on the connection
+- when the dropdown list pops up click on the one that says, "Rename"
+- towards the bottom of the list
+- type in the correct name for the connection
 
-```
-heroku container:push web --app ci-pp5-property-v2-api --arg Dockerfile
-```
+Connect to Local database
 
-- the words after --app flag is the heroku apps name
-- the flag --arg is used to say that there is an argument coming
-- once you have pushed the code, then we need to use the release command 
-- once the code has been pushed, then we can migrate the database
+- to connect to the local database
+- we will be using this connection string
+- jdbc:postgresql://localhost:5432/database
+- click on the radio button that says, "URL"
+- paste this entire link in the URL section
 
-```
-heroku run python manage.py migrate --app ci-pp5-property-v2-api
-```
+![local settings.png](frontend/src/assets/docs/deployment/database/local%20settings.png)
 
-- when the migration is done, we can then use the release command for final production
+- remember to enter the username and password
+- make sure the Authentication dropdown list says, "Database Native"
+- the username is user
+- the password is password
+- these credentials are taken from the docker-compose file
 
-```
-heroku container:release web --app ci-pp5-property-v2-api
-```
+![docker compose.png](frontend/src/assets/docs/deployment/database/docker%20compose.png)
 
-- Then you can go back to your web browser to the Heroku logs for this app
-- give it a few minutes to update
-- once finished, you can click the Open app button on the right-hand side
-- Which will open the app in a new browser tab and load the app as JSON data
+- then you can click on Test connection
 
-Note: build packs might not be necessary as I am using docker containers
+![successful connection.png](frontend/src/assets/docs/deployment/database/successful%20connection.png)
 
-#### [Forking the GitHub Repository](#deployment)
-
-- Locate this [repository](https://github.com/douglas86/ci-pp5-property)
-- make sure that you are on the tab that says, "Code"
-- when on that tab, locate the tab that says, "Fork"
-- Click on the Fork tab
-- Once it has been forked
-- You need to clone it to your [local machine](#making-a-local-clone)
-
-#### [Making a Local Clone](#deployment)
-
-- Making a local clone of this repo can either be done by ssh or http
-- make sure that ssh is set up correctly on your PC before using it
-- to ssh use the following command
-
-```
-git clone git@github.com:douglas86/ci-pp5-property.git
-```
-
-- to use http use the following command
-
-```
-git clone https://github.com/douglas86/ci-pp5-property.git
-```
-
-- create an .env file inside the backend directory
-- scroll down to the [environment variables](#environment-variables) section of this document
-- once the local environment variables have been created
-- cd out of the backend directory as this project you can get up and running
-- with docker containers
-- make sure that you have docker setup and running on your system
-- if you need help getting docker setup, follow this [YouTube tutorial](https://www.youtube.com/watch?v=31ieHmcTUOk&list=PL4cUxeGkcC9hxjeEtdHFNYMtCpjNBm3h7)
-- once it has been set up, make sure that the docker desktop app is running
-- I have created a docker-compose command that will help in running docker every time that you need it
-- npm run docker command will get docker up and running
-
-```
-npm run docker
-```
-
-- if you want to tear docker down, I have created a script for that to
-
-```
-npm run docker:down
-```
-
-- once docker is up and running, you will need to migrate the local database
-- to migrate the database change directory to the backend directory
-
-```
-cd backend
-```
-
-- then migrate using the following command
-
-```
-python manage.py makemigrations
-```
-
-- then migrate
-
-```
-python manage.py migrate
-```
-
-- once done, you should be able to go to the web browser
-- and start the apps
-- To start React, go to localhost:3000 on your web browser
-- To start Django React, go to localhost:8000 on your web browser
-
-Note: sometimes the docker containers need to be restarted when using Django Rest
-Note: it does not happen all the times just sometimes
+- once done, you can then click on finish
+- for simplicity’s sake, you can rename the connection
+- so that you know what it is for
+- right-click on the connection
+- when the dropdown list pops up, click on the one that says, "Rename"
+- towards the bottom of the list
+- type in the correct name for the connection
+- in my case, I used localhost
 
 #### [Environment Variables](#deployment)
 
-![env.png](frontend/src/assets/docs/env.png)
-
-- create the necessary environment variables
-
 DJANGO_SETTING_KEY environment variable
 
-- django secret keys should never be committed to GitHub
-- so if you need one, follow the following link
-- [generate a new secret key](https://www.makeuseof.com/django-secret-key-generate-new/#:~:text=You%20can%20accidentally%20make%20your,are%20still%20learning%20about%20GitHub.)
-- this gets added to the .env file in your backend directory for local development
-- and get added to heroku
+- During local development, there is no need to use a secret key
+- as it will automatically get generated for you
+- But when you are running Django in the cloud
+- Then you need a secret key
+- To generate a secret key, go into the backend docker container
+- I have created a Node.js script for that, just by running the following command
 
-CLOUDINARY_URL environment variables
+```
+npm run django
+```
 
-- Login to your [cloudinary account](https://cloudinary.com/users/login)
-- Locate your Profile image, which you should see at the bottom of the tab on the left
-- Once on your profile page, go to your API Keys section
-- At the top of that page copy the one that says, API environment variable
-- place the API Key and API Secret in the correct places in the key parameters
-- this key can now be placed in Heroku or for local development
-- on the Heroku dashboard, there are two columns the key and the value
-- place CLOUDINARY_URL in the key section
-- and your api key in the value section
-- on the local development in the .env file
-- create the following object:
-- placing CLOUDINARY_URL as the key
-- and the api key for cloudinary as the value
-- add this to the .env file in your backend directory
+- once in the container, run the following command to generate a new key
 
-DISABLE_COLLECTSTATIC
+```
+python manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
 
-- This variable needs to be set to 1
-- Not sure if it is necessary at all
-- but I have a template used for displaying the favicon icon
-- during local development
-- but it is there for incase
+- save that newly generated key for Heroku or whatever services you need
+- once you have saved the key then exit out of the container by running exit
 
-DATABASE_URL environment variable
+```
+exit
+```
 
-- I have added an addon postgres database with heroku
-- This normally gets created automatically with Postgres addon
-- but if you don't want the heroku addon, you can add your own env to the config vars
-- there is no reason to use this locally as I am using docker containers
-- all that gets built when docker builds
+CLOUDINARY_URL environment variable
+
+- go to your [cloudinary account](https://cloudinary.com/) and login
+- on the far right, there are icons click on the one that says, "Programmable Media."
+- on the right there is a blue button that says, "API environment variable"
+- copy that api key replacing api key and secret key with the correct variables
+- place this key in the .env file on your local machine for Django
+- this environment variable is also used for heroku
+- you can now go back to deployment setup
 
 ENV environment variable
 
-- this environment variable is only used on Heroku
-- it is not necessary to use it locally
-- the purpose of this variable is to tell the app when the app is in production
-- in heroku, the key will be ENV
-- and the value will be production
+- create an environment for telling heroku that you are in production
+- in the key section type: ENV
+- in the value section type: production
+- this environment variable is only used for heroku
 
 ---
 
