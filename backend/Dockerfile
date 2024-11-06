@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     build-essential \
     libjpeg-dev \
-    zlib1g-dev
+    zlib1g-dev \
+    netcat-openbsd
 
 #Set work directory
 WORKDIR /app

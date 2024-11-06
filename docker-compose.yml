@@ -5,7 +5,7 @@ services:
     env_file:
       - backend/.env
     container_name: django-backend
-    command: python manage.py runserver 0.0.0.0:8000
+    entrypoint: ["./entrypoint.sh", "python", "manage.py", "runserver", "0.0.0.0:8000"]
     ports:
       - "8000:8000"
     depends_on:
@@ -40,6 +40,10 @@ services:
       - 5432
     ports:
       - "5432:5432"
-
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d database"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 volumes:
   postgres_data:
