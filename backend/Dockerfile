@@ -2,7 +2,7 @@
 #Use official Python image as a base
 FROM python:3.12
 
-ENV PYTHONUNBUFFERED = 1
+ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update && apt-get install -y \
     libpq-dev \
@@ -26,8 +26,6 @@ EXPOSE 8000
 
 #Expose the port Django will run on
 ENV PORT=8000
-#Expose variable for using print statments in docker
-ENV PYTHONUNBUFFERED=1
 
 #Run Django Server
 CMD ["sh", "-c", "python -u -m daphne property.asgi:application --port $PORT --bind 0.0.0.0"]
