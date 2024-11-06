@@ -23,7 +23,7 @@ This forms part of my final Project for Code Institute
   - [Atomic Design Methodology](#atomic-design-methodology)
   - [Daphne Implementation for async/await with Django Rest Framework](#daphne-implementation-for-asyncawait-with-django-rest-framework)
 - [Deployment](#deployment)
-  - [Setting up locally](#setting-up-locally)
+  - [Setting up for Local development](#setting-up-for-local-development)
   - [Setting up on Heroku](#setting-up-on-heroku)
   - [Database manipulation](#database-manipulation)
   - [Environment Variables](#environment-variables)
@@ -322,12 +322,68 @@ Why Did I choose Daphne for this Project?
 ### [Deployment](#table-of-content)
 
 Index
-- [Setting up locally](#setting-up-locally)
+- [Setting up for Local development](#setting-up-for-local-development)
 - [Setting up on Heroku](#setting-up-on-heroku)
 - [Database manipulation](#database-manipulation)
 - [Environment Variables](#environment-variables)
 
-#### [Setting up locally](#deployment)
+#### [Setting up for Local development](#deployment)
+
+Requirements for setting up locally
+
+- [Docker Desktop](https://docs.docker.com/get-started/get-docker/?_gl=1)
+- [Node version 22.11](https://nodejs.org/en/download/package-manager)
+
+Installation instructions
+
+- Make sure that Docker Desktop is up and running before you start these instructions
+- If you need additional assistance, get docker up and running
+- Have a look at the [Docker Crash course](https://www.youtube.com/watch?v=31ieHmcTUOk&list=PL4cUxeGkcC9hxjeEtdHFNYMtCpjNBm3h7)
+
+clone repository
+
+- locate the directory where you want to install this project
+- you can clone this repo either by ssh or http
+
+ssh
+
+```
+git@github.com:douglas86/ci-pp5-property.git
+```
+
+http
+
+```
+https://github.com/douglas86/ci-pp5-property.git
+```
+
+- once it has been cloned
+- create a .env file inside the backend directory: this is where Django is developed
+- for local development, you only need one environment variable
+- CLOUDINARY_URL: this key is used to store and retrieve images from cloudinary
+- before you start the docker container, make sure to have docker desktop up and running
+- once Docker desktop is running open up a terminal on the IDE that you are wanting to use
+- I have created a node script to make running docker containers easier for you
+- run the command npm run du
+- this is just running docker-compose up
+
+```
+npm run du
+```
+
+- when running this command, it also runs the database migrations on the container
+- if you are wanting to tear down docker, there is a script for that two
+- run npm run dd
+
+```
+npm run dd
+```
+
+- that is to tear down docker container running docker-compose down
+- if you go to your browser
+- and type in localhost:3000 for React
+- and in another tab type localhost:8000 for Django
+- you will see the apps running
 
 #### [Setting up on Heroku](#deployment)
 
