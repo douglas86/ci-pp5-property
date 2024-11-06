@@ -4,55 +4,50 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 // atomic design
-import MapToForm from "../../molecule/MapToForm";
-import { button, spinner } from "../../atom";
+import MapToForm from "../../../molecule/MapToForm";
+import { button, spinner } from "../../../atom";
 
-// utils and custom hooks
-import useAppContext from "../../../hooks/useAppContext";
-import { onSubmit } from "../../../utils";
+// custom hooks and utils
+import useAppContext from "../../../../hooks/useAppContext";
+import { onSubmit } from "../../../../utils";
 
 // styling
-import styles from "../../../styles/components/organism/Forms.module.css";
+import styles from "../../../../styles/components/organism/Forms.module.css";
 
 /**
- * Registration Form currently being used for displaying in the modal
+ * Change a Password form this is being displayed inside the modal
  * @returns {JSX.Element}
  * @constructor
  */
-const Registration = () => {
+const ChangePassword = () => {
   // state store
   const { dispatch, forms } = useAppContext();
-  const { loading } = forms;
+  const { loading, err } = forms;
 
-  // React hook forms functions
+  // React hook form functions
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   useEffect(() => {
     // change the header of the modal
-    dispatch({ type: "CHANGE HEADER", payload: "Registration Form" });
-    // change the submit button text on modal
-    dispatch({ type: "CHANGE BTN", payload: "Registration" });
-    // change the url needed for the submitted button
-    dispatch({
-      type: "FORM SUBMIT URL",
-      payload: "/auth/registration/",
-    });
+    dispatch({ type: "CHANGE HEADER", payload: "Change Password Form" });
   }, [dispatch]);
 
-  // Login user form will load
+  // load login form
   const handleLogin = () =>
     dispatch({ type: "WHICH FORM TO USE", payload: "" });
 
-  // password checking
-  const passwordMatch = watch("password1");
+  // load register form
+  const handleRegister = () =>
+    dispatch({ type: "WHICH FORM TO USE", payload: "REGISTRATION" });
+
+  // check for commonly used passwords
   const commonPasswords = ["123456", "password", "12345678", "qwerty"];
 
-  // array used for MapToForm molecule
+  // array for MapToForm molecule
   const arr = [
     {
       id: 1,
@@ -63,29 +58,14 @@ const Registration = () => {
     },
     {
       id: 2,
-      name: "password1",
+      name: "old_password",
       type: "password",
       placeholder: "Your Password",
-      formValidation: {
-        required: "This field is required",
-        minLength: {
-          value: 8,
-          message:
-            "This password is too short. It must contain at least 8 characters",
-        },
-        validate: {
-          // validation to check if password is not too common
-          // and for checking if password is not all numeric
-          common: (value) =>
-            !commonPasswords.includes(value) || "This password is too common",
-          numeric: (value) =>
-            !/^\d+$/.test(value) || "This password is entirely numeric",
-        },
-      },
+      formValidation: { required: "This field is required" },
     },
     {
       id: 3,
-      name: "password2",
+      name: "new_password",
       type: "password",
       placeholder: "Re-type Password",
       formValidation: {
@@ -96,8 +76,7 @@ const Registration = () => {
             "This password is too short. It must contain at least 8 characters",
         },
         validate: {
-          // validates if passwords match, common passwords and password is not all numeric
-          match: (value) => value === passwordMatch || "Passwords do not match",
+          // Validation to check that password is not too common or all numeric
           common: (value) =>
             !commonPasswords.includes(value) || "This password is too common",
           numeric: (value) =>
@@ -110,15 +89,19 @@ const Registration = () => {
   return (
     <Form
       onSubmit={handleSubmit((data) =>
-        onSubmit(data, "auth/registration/", dispatch),
+        onSubmit(data, "auth/change_password/", dispatch),
       )}
     >
+      {/*Display spinner when waiting for server response*/}
       {loading ? spinner() : null}
 
+      {/*Buttons to link back to Register and Login Form*/}
       <div className={styles.btn}>
+        {button(handleRegister, "Click here to Register?", "secondary")}
         {button(handleLogin, "Login Here?", "primary")}
       </div>
 
+      {/*displaying of Form Control input elements and error messages*/}
       {arr.map(({ id, name, type, placeholder, formValidation }) => (
         <MapToForm
           key={id}
@@ -131,17 +114,20 @@ const Registration = () => {
         />
       ))}
 
-      {/*close modal or login buttons*/}
+      {/*Cancel and Submit buttons*/}
       <div className={styles.btn}>
         {button(
           () => dispatch({ type: "CHANGE MODAL STATE", payload: false }),
           "Cancel",
           "secondary",
         )}
-        {button("submit", "Register", "warning")}
+        {button("submit", "Change Password", "warning")}
       </div>
+
+      {/*display an error message only if they occur*/}
+      {err["message"] && <p className="text-danger">{err["message"]}</p>}
     </Form>
   );
 };
 
-export default Registration;
+export default ChangePassword;

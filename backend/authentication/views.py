@@ -1,8 +1,10 @@
+from asgiref.sync import sync_to_async
 from django.contrib.auth.models import User
 from adrf.viewsets import ViewSet
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import Authentication
@@ -17,20 +19,21 @@ class LogoutView(APIView):
 
     message = "You have successfully logged out."
 
-    def post(self, request):
-        return self.logout(request)
+    async def get(self, request):
+        """
+        Logout user asynchronously
+        """
 
-    def logout(self, request):
         refresh_token = request.headers.get('X-Refresh-Token')
 
         if not refresh_token:
-            return Response({'detail': 'Refresh token was not provided.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Refresh token was not provided.', 'status': status.HTTP_400_BAD_REQUEST})
 
         try:
-            token = RefreshToken(refresh_token)
+            token = await sync_to_async(lambda: RefreshToken(refresh_token))()
             token.blacklist()
-        except Exception as e:
-            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        except TokenError:
+            return Response({'message': 'Token was invalid.', 'status': status.HTTP_400_BAD_REQUEST})
 
         return Response({'message': self.message, 'status': status.HTTP_200_OK})
 

@@ -13,6 +13,8 @@ class AuthSerializers(Serializer):
     user = serializers.ReadOnlyField(source='user.username')
     user_id = serializers.ReadOnlyField(source='user.id')
     profile_picture = serializers.SerializerMethodField()
+    address = serializers.ReadOnlyField(source='user.address', default=None)
+    rent = serializers.ReadOnlyField(source='user.rent')
     role = serializers.SerializerMethodField()
     created_at = serializers.ReadOnlyField()
     updated_at = serializers.ReadOnlyField()

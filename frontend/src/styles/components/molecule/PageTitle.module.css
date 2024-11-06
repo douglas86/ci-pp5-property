@@ -21,6 +21,7 @@
   font-size: 1.3rem;
 }
 
+/*media queries*/
 @media screen and (max-width: 350px) {
   .pageTitle {
     padding: 0;

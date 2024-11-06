@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 
 // utils and custom hooks
 import useAppContext from "../../hooks/useAppContext";
-import { whichAuthForm } from "../../utils/whichAuthForm";
+import { loadForm } from "../../utils";
 
 /**
  * Modal that is being used to handle forms
@@ -27,8 +27,8 @@ const FormModal = () => {
         <Modal.Title>{header}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/*chooses which form needs to be displayed from the state store*/}
-        {whichAuthForm(whichForm)}
+        {/*loads form from state store*/}
+        {loadForm(whichForm)}
 
         {/*displaying of non-field error messages*/}
         {err["non_field_errors"] && (

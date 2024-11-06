@@ -8,8 +8,10 @@ export const userReducers = (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    // saves user data to state store
     case "USER DATA":
       return { ...state, user: payload };
+    // when struggling to fetch users' data
     case "ERROR FETCH USER DATA":
       return { ...state, err: payload };
     default:

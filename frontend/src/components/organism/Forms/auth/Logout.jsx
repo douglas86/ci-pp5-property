@@ -4,14 +4,14 @@ import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 
 // atomic design
-import { button } from "../../atom";
+import { button } from "../../../atom";
 
-// utils and custom hooks
-import useAppContext from "../../../hooks/useAppContext";
-import { onSubmit } from "../../../utils";
+// custom hooks and utils
+import useAppContext from "../../../../hooks/useAppContext";
+import { onSubmit } from "../../../../utils";
 
 // styling
-import styles from "../../../styles/components/organism/Forms.module.css";
+import styles from "../../../../styles/components/organism/Forms.module.css";
 
 /**
  * Logout form currently being used for displaying in the Modal
@@ -44,6 +44,7 @@ const Logout = () => {
         </Form.Label>
       </Form.Group>
 
+      {/*cancel and submit buttons*/}
       <div className={styles.btn}>
         {button(
           () => dispatch({ type: "CHANGE MODAL STATE", payload: false }),

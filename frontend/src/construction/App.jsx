@@ -4,7 +4,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 // atomic design
 import Layout from "../components/templates/Layout";
 
-// utils and custom hooks
+// custom hooks and utils
 import useTokens from "../hooks/useTokens";
 import { router } from "../utils/index";
 
@@ -24,7 +24,9 @@ const App = () => {
 
   return (
     <div className={styles.app}>
+      {/*layout template for header and footer*/}
       <Layout>
+        {/*routing for app*/}
         <BrowserRouter>
           <Routes>
             {router.map(({ id, path, page }) => (
