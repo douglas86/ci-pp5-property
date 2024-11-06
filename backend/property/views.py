@@ -2,9 +2,10 @@ from adrf.views import APIView
 from asgiref.sync import sync_to_async
 from rest_framework import status
 from rest_framework.response import Response
-
 from properties.models import Property
 from properties.serializer import PropertySerializer
+
+import drf_yasg
 
 
 class HomeView(APIView):

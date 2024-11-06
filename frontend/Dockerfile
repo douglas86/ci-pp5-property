@@ -1,6 +1,6 @@
 #Dockerfile for React
 #Use official Node.js image as the base
-FROM node:22.9.0-slim
+FROM node:22.11.0-alpine3.20
 
 #Set working directory
 WORKDIR /app
