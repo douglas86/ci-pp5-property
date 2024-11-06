@@ -6,7 +6,7 @@ FROM node:22.9.0-slim
 WORKDIR /app
 
 #copy and install dependencies
-COPY package.json .
+COPY package.json package-lock.json ./
 
 RUN npm install
 
