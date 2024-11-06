@@ -337,8 +337,8 @@ Requirements for setting up locally
 Installation instructions
 
 - Make sure that Docker Desktop is up and running before you start these instructions
-- If you need additional assistance, get docker up and running
-- Have a look at the [Docker Crash course](https://www.youtube.com/watch?v=31ieHmcTUOk&list=PL4cUxeGkcC9hxjeEtdHFNYMtCpjNBm3h7)
+- If you need additional assistance to get docker up and running
+- Have a look at this [Docker Crash course](https://www.youtube.com/watch?v=31ieHmcTUOk&list=PL4cUxeGkcC9hxjeEtdHFNYMtCpjNBm3h7)
 
 clone repository
 
@@ -386,6 +386,118 @@ npm run dd
 - you will see the apps running
 
 #### [Setting up on Heroku](#deployment)
+
+Requirements for setting up on Heroku
+
+- Make sure that you have this project running [Locally](#setting-up-for-local-development) first
+- Make sure that [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) is installed on your system
+
+Installation Instructions
+
+- Login to [Heroku Dashboard](https://id.heroku.com/login)
+- Once on the heroku dashboard
+- we then need to create two apps
+- one for React and the other for Django
+- click on the New button on the right-hand side
+
+![new button.png](frontend/src/assets/docs/deployment/heroku/new%20button.png)
+
+- Click on Create new app in the popup window
+- it will take you to a screen where you can add app name and region
+
+![create new app.png](frontend/src/assets/docs/deployment/heroku/create%20new%20app.png)
+
+##### Create React App
+
+- click create app
+- make a note of the app name
+- in this case, it is called ci-pp5-property-react
+- go to your local environment and place that name in the package.json file
+- this package.json file does not sit in any directories
+- replacing the name in the react:push and react:release scripts
+- we will come to that again later
+
+![react scripts.png](frontend/src/assets/docs/deployment/heroku/react%20scripts.png)
+
+##### Create Django App
+
+- Go back to your dashboard to create the Django app
+- following the same process as before with create a new app
+
+![create django app.png](frontend/src/assets/docs/deployment/heroku/create%20django%20app.png)
+
+- click on create new app that will take you to the app dashboard
+- make sure to take note of the app name
+- in this case, it is called ci-pp5-property-django
+- go to the package.json file this file is not in any directory
+- there are three scripts that you need to change with this name
+- django:migrate, django:release and django:push scripts need to change
+
+![django scripts.png](frontend/src/assets/docs/deployment/heroku/django%20scripts.png)
+
+- then go back to the heroku dashboard in your web browser
+- locate the resource tab at the top
+  
+- ![resources tab.png](frontend/src/assets/docs/deployment/heroku/resources%20tab.png)
+
+- in the Add-ons search bar, find the Heroku Postgres database
+- click on the one that says, "Heroku Postgres"
+
+![Heroku Postgres.png](frontend/src/assets/docs/deployment/heroku/Heroku%20Postgres.png)
+
+- this will present you with the screen for the database
+
+![database screen.png](frontend/src/assets/docs/deployment/heroku/database%20screen.png)
+
+- make sure to select Essential 0 as it is the least expensive
+- then you can click on Submit Order Form button at the bottom
+- once the database has finished, you should see the save as the image below
+
+![database successful.png](frontend/src/assets/docs/deployment/heroku/database%20successful.png)
+
+- the database will automatically add the environment variables to your config vars
+- then scroll down to Config Vars clicking on Reveal config vars
+- you need to have three environment variables as the database is added for you
+- ENV, CLOUDINARY_URL, DJANGO_SETTING_KEY
+
+Getting ready for heroku
+
+- The next stage is deploying to heroku
+- open up two tabs
+- the one tab is for React heroku app, the other is for django heroku app
+- on the React heroku app go to logs by clicking on more than click on view logs
+
+![view logs.png](frontend/src/assets/docs/deployment/heroku/view%20logs.png)
+
+- do the same thing with django heroku app
+
+![view logs.png](frontend/src/assets/docs/deployment/heroku/view%20logs.png)
+
+- it will bring you to the log screen
+
+![logs screen.png](frontend/src/assets/docs/deployment/heroku/logs%20screen.png)
+
+- then go back to the terminal to make sure that you are not in the frontend or backend directory
+- I have made a script that will make it easier for you to deploy to heroku
+- on the command line type: npm run heroku
+
+```
+npm run heroku
+```
+
+- sometimes it is possible that you see and error saying, "Memory quote exceeded"
+- that just seems to be a warning as the app still works
+
+React logs
+
+![react app.png](frontend/src/assets/docs/deployment/heroku/react%20app.png)
+
+Django logs
+
+![django app.png](frontend/src/assets/docs/deployment/heroku/django%20app.png)
+
+- once it has finished, you can click on open app for both of the heroku apps
+- you should see a finished project
 
 #### [Database manipulation](#deployment)
 
