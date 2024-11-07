@@ -27,8 +27,6 @@ services:
       - /app/node_modules
     ports:
       - "3000:3000"
-    depends_on:
-      - backend
   db:
     image: postgres:16.4
     container_name: postgres-db
