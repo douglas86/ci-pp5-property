@@ -28,7 +28,7 @@ class ProfileSerializer(Serializer):
     updated_at = serializers.ReadOnlyField()
 
     def get_property(self, obj):
-        return obj.property
+        return obj.property.id
 
     def get_id(self, obj):
         return obj.user.id
@@ -66,7 +66,7 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Authentication
-        fields = ['profile_picture', 'address', 'area_code', 'rent', 'role']
+        fields = ['profile_picture', 'role', 'property']
 
     # check if image is base64 string
     def is_base64(self, data):
