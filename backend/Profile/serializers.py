@@ -22,21 +22,13 @@ class ProfileSerializer(Serializer):
     user = serializers.ReadOnlyField(source='user.username')
     user_id = serializers.ReadOnlyField(source='user.id')
     profile_picture = serializers.SerializerMethodField()
-    address = serializers.SerializerMethodField()
-    area_code = serializers.SerializerMethodField()
-    rent = serializers.SerializerMethodField()
     role = serializers.SerializerMethodField()
+    property = serializers.SerializerMethodField()
     created_at = serializers.ReadOnlyField()
     updated_at = serializers.ReadOnlyField()
 
-    def get_address(self, obj):
-        return obj.address
-
-    def get_area_code(self, obj):
-        return obj.area_code
-
-    def get_rent(self, obj):
-        return obj.rent
+    def get_property(self, obj):
+        return obj.property
 
     def get_id(self, obj):
         return obj.user.id
