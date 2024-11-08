@@ -59,6 +59,8 @@ const useTokens = () => {
       const { detail } = success.data;
 
       if (detail && detail === "Successfully logged out.") {
+        // navigate to landing page on logout
+        navigate("/");
         // remove tokens from cookie store
         Cookies.remove("refresh-token");
         Cookies.remove("auth-token");
@@ -66,8 +68,6 @@ const useTokens = () => {
         setFlag(false);
         // reset user data in state store
         dispatch({ type: "USER DATA", payload: null });
-        // navigate to landing page on logout
-        navigate("/");
       }
     }
   }, [dispatch, data, flag, header, success, navigate]);

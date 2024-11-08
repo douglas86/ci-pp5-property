@@ -41,6 +41,35 @@ class CreatePropertyView(APIView):
         })
 
 
+class PropertyByIDView(APIView):
+    """
+    Read property by ID.
+    """
+
+    model = Property
+    serializer_class = PropertySerializer
+
+    async def get(self, request, pk):
+        """
+        Fetch property by ID number asynchronously
+        """
+
+        try:
+            property_instance = await sync_to_async(lambda: self.model.objects.get(pk=pk))()
+            serializer = self.serializer_class(property_instance, context={'request': request})
+
+            return Response(
+                {
+                    'message': 'You have successfully fetched a property by ID number',
+                    'data': serializer.data,
+                    'status': status.HTTP_200_OK
+                })
+        except self.model.DoesNotExist:
+            return Response({
+                'message': 'Property with the given id was not found',
+                'status': status.HTTP_404_NOT_FOUND
+            })
+
 class ReadPropertyView(APIView):
     """
     Read a property asynchronously

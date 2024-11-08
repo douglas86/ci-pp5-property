@@ -4,11 +4,12 @@ import { Card, Image } from "react-bootstrap";
 // atomic design
 import DisplayTimeAgo from "../../../molecule/DisplayTimeAgo";
 import formatDate from "../../../molecule/FormatDate";
-import { button } from "../../../atom";
+import { button, spinner } from "../../../atom";
 
 // custom hooks and utils
 import useAppContext from "../../../../hooks/useAppContext";
 import { titleCase } from "../../../../utils";
+import useFetch from "../../../../hooks/useFetch";
 
 /**
  * Form to display the user's information from a database
@@ -21,8 +22,10 @@ const UsersDetails = () => {
   const { view } = forms;
 
   // destructure view from state store
-  const { user, area_code, rent, role, profile_picture, address } = view;
+  const { user, role, profile_picture, property } = view;
   const { created_at, updated_at } = view;
+
+  const { data } = useFetch(`properties/${property}`);
 
   // Calculated time ago
   const { created, updated } = DisplayTimeAgo(created_at, updated_at);
@@ -34,15 +37,27 @@ const UsersDetails = () => {
           <Image src={profile_picture} width={80} height={80} roundedCircle />
           {titleCase(user)}
         </Card.Title>
-        <Card.Subtitle>
-          Postcode: {area_code === "None" ? "Unknown" : area_code}
-        </Card.Subtitle>
+        {data ? (
+          <Card.Subtitle>
+            Postcode: {data.area_code === "None" ? "Unknown" : data.area_code}
+          </Card.Subtitle>
+        ) : (
+          spinner()
+        )}
         <div>
-          <Card.Text>Rent: £ {rent} per month</Card.Text>
+          {data ? (
+            <Card.Text>Rent: £ {data.price} per month</Card.Text>
+          ) : (
+            spinner()
+          )}
           <Card.Text>Permissions: {titleCase(role)}</Card.Text>
-          <Card.Text>
-            Address: {address === "None" ? "Unknown" : address}
-          </Card.Text>
+          {data ? (
+            <Card.Text>
+              Address: {data.address === "None" ? "Unknown" : data.address}
+            </Card.Text>
+          ) : (
+            spinner()
+          )}
           <Card.Text>
             Created: {created} on {formatDate(created_at)}
           </Card.Text>
