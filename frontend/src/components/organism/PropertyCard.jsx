@@ -37,9 +37,13 @@ const PropertyCard = () => {
               />
               <Card.Body>
                 <Card.Title>Post code: {items.area_code}</Card.Title>
+                <hr />
                 <Card.Text>{items.description}</Card.Text>
+                <hr />
                 <Card.Text>{items.address}</Card.Text>
-                <Card.Text>Price: £{items.price}</Card.Text>
+                <hr />
+                <Card.Text>Price: £{items.price} per month</Card.Text>
+                <hr />
                 {/*view button to display property data in modal*/}
                 <div className="d-flex flex-md-wrap justify-content-around gap-2 mt-3">
                   {button(

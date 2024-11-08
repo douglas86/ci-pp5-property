@@ -1,6 +1,7 @@
 // 3rd parties
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // custom hooks
 import useAppContext from "./useAppContext";
@@ -13,6 +14,9 @@ import useFetch from "./useFetch";
 const useTokens = () => {
   // flag for when to fetch profile data
   const [flag, setFlag] = useState(false);
+
+  // navigate to a url
+  const navigate = useNavigate();
 
   // check if auth and refresh tokens exist
   const auth = Cookies.get("auth-token");
@@ -55,13 +59,18 @@ const useTokens = () => {
       const { detail } = success.data;
 
       if (detail && detail === "Successfully logged out.") {
+        // remove tokens from cookie store
         Cookies.remove("refresh-token");
         Cookies.remove("auth-token");
+        // change a flag to false to stop gathering profile data
         setFlag(false);
+        // reset user data in state store
         dispatch({ type: "USER DATA", payload: null });
+        // navigate to landing page on logout
+        navigate("/");
       }
     }
-  }, [dispatch, data, flag, header, success]);
+  }, [dispatch, data, flag, header, success, navigate]);
 
   // fetch profile data if auth and refresh tokens exist in cookie store
   useEffect(() => {

@@ -5,7 +5,6 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Layout from "../components/templates/Layout";
 
 // custom hooks and utils
-import useTokens from "../hooks/useTokens";
 import { router } from "../utils/index";
 
 // styling
@@ -19,22 +18,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
  * @constructor
  */
 const App = () => {
-  // fetches Profile data from server if you are logged in
-  useTokens();
-
   return (
     <div className={styles.app}>
-      {/*layout template for header and footer*/}
-      <Layout>
-        {/*routing for app*/}
-        <BrowserRouter>
+      {/*routing for app*/}
+      <BrowserRouter>
+        {/*layout template for header and footer*/}
+        <Layout>
           <Routes>
             {router.map(({ id, path, page }) => (
               <Route key={id} path={path} element={page} />
             ))}
           </Routes>
-        </BrowserRouter>
-      </Layout>
+        </Layout>
+      </BrowserRouter>
     </div>
   );
 };
