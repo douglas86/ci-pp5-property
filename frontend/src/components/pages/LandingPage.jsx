@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 // atomic design
 import CarouselContent from "../organism/CarouselContent";
 import Cards from "../organism/Cards";
@@ -20,16 +22,16 @@ const LandingPage = () => {
   // state store
   const { isUser, isAdmin } = useAppContext();
 
+  const navigate = useNavigate();
+
   return (
     <div className={styles.container}>
       <PageTitle />
-      {isUser || isAdmin
-        ? button(
-            () => console.log("You clicked me!"),
-            "Search Properties",
-            "dark",
-          )
-        : title("Please Login to visit Properties?")}
+      <div className={styles.btn}>
+        {isUser || isAdmin
+          ? button(() => navigate("/properties"), "Search Properties", "dark")
+          : title("Please Login to visit Properties?")}
+      </div>
       <CarouselContent />
       <DescriptiveContent
         heading="Testimonials"

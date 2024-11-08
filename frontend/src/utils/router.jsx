@@ -11,6 +11,7 @@ import Property from "../components/pages/admin/Property";
 
 // not found page
 import NotFound from "../components/pages/NotFound";
+import VisitProperties from "../components/pages/user/VisitProperties";
 
 /**
  * Helper function used to store all url paths within this application
@@ -43,23 +44,29 @@ export const router = [
     path: "/user_dashboard",
     role: "user",
   },
-  // admin pages
   {
     id: 5,
+    page: <VisitProperties />,
+    path: "/properties",
+    role: "user",
+  },
+  // admin pages
+  {
+    id: 6,
     title: "Dashboard",
     page: <Users />,
     path: "/admin/users",
     role: "admin",
   },
   {
-    id: 6,
+    id: 7,
     page: <Property />,
     path: "admin/property",
     role: "admin",
   },
   // error and not found pages
   {
-    id: 7,
+    id: 8,
     page: <NotFound />,
     path: "*",
   },
