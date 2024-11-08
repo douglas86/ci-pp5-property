@@ -1,5 +1,6 @@
 import useAppContext from "../../../hooks/useAppContext";
 import ProtectedAccess from "../../molecule/ProtectedAccess";
+import PropertyCard from "../../organism/PropertyCard";
 
 const VisitProperties = () => {
   // state store
@@ -8,7 +9,7 @@ const VisitProperties = () => {
   return (
     <>
       {isUser || isAdmin ? (
-        <p>Visiting Properties</p>
+        <PropertyCard />
       ) : (
         <ProtectedAccess message="You are not authorized to visit this page." />
       )}

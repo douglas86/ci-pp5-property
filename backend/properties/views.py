@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from asgiref.sync import sync_to_async
 
-from authentication.authentication import IsSuperUser
+from authentication.authentication import IsSuperUser, IsAuthenticated
 from properties.models import Property
 from properties.serializer import PropertySerializer
 
@@ -48,7 +48,7 @@ class ReadPropertyView(APIView):
 
     model = Property
     serializer_class = PropertySerializer
-    permission_classes = [IsSuperUser]
+    permission_classes = [IsAuthenticated]
 
     async def get(self, request):
         """
