@@ -4,7 +4,7 @@ import { button } from "../atom";
 import useAppContext from "../../hooks/useAppContext";
 
 const DisplayUserCard = ({ data }) => {
-  const { dispatch } = useAppContext();
+  const { dispatch, isAdmin } = useAppContext();
 
   return (
     <>
@@ -54,43 +54,47 @@ const DisplayUserCard = ({ data }) => {
                 "View",
                 "outline-info",
               )}
-              {/*Update button*/}
-              {button(
-                () => {
-                  // once clicked show modal
-                  dispatch({
-                    type: "CHANGE MODAL STATE",
-                    payload: true,
-                  });
-                  // load USERS DETAILS form
-                  dispatch({
-                    type: "WHICH FORM TO USE",
-                    payload: "USERS UPDATE",
-                  });
-                  // pushed data to view an object in form state
-                  dispatch({ type: "FORM DETAILS", payload: data });
-                },
-                "Update",
-                "outline-success",
-              )}
-              {/*Delete button*/}
-              {button(
-                () => {
-                  // once clicked show modal
-                  dispatch({
-                    type: "CHANGE MODAL STATE",
-                    payload: true,
-                  });
-                  // load DELETE FORM
-                  dispatch({
-                    type: "WHICH FORM TO USE",
-                    payload: "USERS DELETE",
-                  });
-                  // pushed data to view on an object in form state
-                  dispatch({ type: "FORM DETAILS", payload: data });
-                },
-                "Delete",
-                "outline-danger",
+              {isAdmin && (
+                <>
+                  {/*Update button*/}
+                  {button(
+                    () => {
+                      // once clicked show modal
+                      dispatch({
+                        type: "CHANGE MODAL STATE",
+                        payload: true,
+                      });
+                      // load USERS DETAILS form
+                      dispatch({
+                        type: "WHICH FORM TO USE",
+                        payload: "USERS UPDATE",
+                      });
+                      // pushed data to view an object in form state
+                      dispatch({ type: "FORM DETAILS", payload: data });
+                    },
+                    "Update",
+                    "outline-success",
+                  )}
+                  {/*Delete button*/}
+                  {button(
+                    () => {
+                      // once clicked show modal
+                      dispatch({
+                        type: "CHANGE MODAL STATE",
+                        payload: true,
+                      });
+                      // load DELETE FORM
+                      dispatch({
+                        type: "WHICH FORM TO USE",
+                        payload: "USERS DELETE",
+                      });
+                      // pushed data to view on an object in form state
+                      dispatch({ type: "FORM DETAILS", payload: data });
+                    },
+                    "Delete",
+                    "outline-danger",
+                  )}
+                </>
               )}
             </div>
           </Card.Body>

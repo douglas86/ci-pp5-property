@@ -4,7 +4,7 @@ import { Card, Image } from "react-bootstrap";
 // atomic design
 import DisplayTimeAgo from "../../../molecule/DisplayTimeAgo";
 import formatDate from "../../../molecule/FormatDate";
-import { button, spinner } from "../../../atom";
+import { button } from "../../../atom";
 
 // custom hooks and utils
 import useAppContext from "../../../../hooks/useAppContext";
@@ -18,7 +18,7 @@ import useFetch from "../../../../hooks/useFetch";
  */
 const UsersDetails = () => {
   // state store
-  const { dispatch, forms } = useAppContext();
+  const { dispatch, forms, isAdmin } = useAppContext();
   const { view } = forms;
 
   // destructure view from state store
@@ -54,31 +54,35 @@ const UsersDetails = () => {
       </Card.Body>
 
       {/*update and delete buttons*/}
-      {button(
-        () => {
-          // once clicked show modal
-          dispatch({
-            type: "CHANGE MODAL STATE",
-            payload: true,
-          });
-          // load USERS UPDATE form
-          dispatch({
-            type: "WHICH FORM TO USE",
-            payload: "USERS UPDATE",
-          });
-        },
-        "Update User",
-        "outline-success",
-      )}
-      {button(
-        () => {
-          // once clicked show modal
-          dispatch({ type: "CHANGE MODAL STATE", payload: true });
-          // load DELETE FORM
-          dispatch({ type: "WHICH FORM TO USE", payload: "USERS DELETE" });
-        },
-        "Delete User",
-        "outline-danger",
+      {isAdmin && (
+        <>
+          {button(
+            () => {
+              // once clicked show modal
+              dispatch({
+                type: "CHANGE MODAL STATE",
+                payload: true,
+              });
+              // load USERS UPDATE form
+              dispatch({
+                type: "WHICH FORM TO USE",
+                payload: "USERS UPDATE",
+              });
+            },
+            "Update User",
+            "outline-success",
+          )}
+          {button(
+            () => {
+              // once clicked show modal
+              dispatch({ type: "CHANGE MODAL STATE", payload: true });
+              // load DELETE FORM
+              dispatch({ type: "WHICH FORM TO USE", payload: "USERS DELETE" });
+            },
+            "Delete User",
+            "outline-danger",
+          )}
+        </>
       )}
     </Card>
   );
