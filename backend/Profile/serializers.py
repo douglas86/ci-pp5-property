@@ -28,7 +28,11 @@ class ProfileSerializer(Serializer):
     updated_at = serializers.ReadOnlyField()
 
     def get_property(self, obj):
-        return obj.property.id
+        """
+        Returns the property by ID if it exists, otherwise returns user.property_id.
+        """
+
+        return obj.property.id if obj.property else None
 
     def get_id(self, obj):
         return obj.user.id

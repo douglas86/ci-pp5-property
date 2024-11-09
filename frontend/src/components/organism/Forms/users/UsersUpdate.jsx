@@ -106,10 +106,7 @@ const UsersUpdate = () => {
 
   // update users data on submit
   const onSubmit = (data) => {
-    const formData =
-      data.area_code === "None"
-        ? { area_code: "None", address: "None", rent: 0 }
-        : data;
+    const formData = data.area_code === "None" ? { property: null } : data;
 
     onUpdate(formData, `profile/update/${id}/`, dispatch);
   };
