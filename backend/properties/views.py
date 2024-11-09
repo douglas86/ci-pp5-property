@@ -84,7 +84,7 @@ class ReadPropertyView(APIView):
         Gets a property asynchronously
         """
 
-        properties = await sync_to_async(lambda: list(self.model.objects.all()))()
+        properties = await sync_to_async(lambda: list(self.model.objects.filter(is_sold=False)))()
         serializer = self.serializer_class(properties, many=True, context={'request': request})
 
         return Response(
