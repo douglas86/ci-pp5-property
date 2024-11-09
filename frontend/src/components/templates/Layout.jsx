@@ -3,6 +3,9 @@ import Header from "../organism/Header";
 import Footer from "../organism/Footer";
 import AlertBox from "../molecule/AlertBox";
 
+// custom hook
+import useTokens from "../../hooks/useTokens";
+
 // styling
 import styles from "../../styles/components/templates/Layout.module.css";
 
@@ -14,6 +17,9 @@ import styles from "../../styles/components/templates/Layout.module.css";
  * @constructor
  */
 const Layout = ({ children }) => {
+  // custom hooks to deal with token use
+  useTokens();
+
   return (
     <>
       <Header />

@@ -16,7 +16,7 @@
     "du": "docker-compose up",
     "dd": "docker-compose down",
     "django": "docker-compose exec backend bash",
-    "react": "docker-compose exec frontend bash"
+    "react": "docker-compose exec frontend sh"
   },
   "keywords": [],
   "author": "",

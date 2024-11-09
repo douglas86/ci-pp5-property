@@ -9,6 +9,7 @@ import { button } from "../../../atom";
 // custom hooks and utils
 import useAppContext from "../../../../hooks/useAppContext";
 import { titleCase } from "../../../../utils";
+import useFetch from "../../../../hooks/useFetch";
 
 /**
  * Form to display the user's information from a database
@@ -17,12 +18,14 @@ import { titleCase } from "../../../../utils";
  */
 const UsersDetails = () => {
   // state store
-  const { dispatch, forms } = useAppContext();
+  const { dispatch, forms, isAdmin } = useAppContext();
   const { view } = forms;
 
   // destructure view from state store
-  const { user, area_code, rent, role, profile_picture, address } = view;
+  const { user, role, profile_picture, property } = view;
   const { created_at, updated_at } = view;
+
+  const { data } = useFetch(`properties/${property}`, property !== null);
 
   // Calculated time ago
   const { created, updated } = DisplayTimeAgo(created_at, updated_at);
@@ -35,14 +38,12 @@ const UsersDetails = () => {
           {titleCase(user)}
         </Card.Title>
         <Card.Subtitle>
-          Postcode: {area_code === "None" ? "Unknown" : area_code}
+          Postcode: {data ? data.area_code : "Unknown"}
         </Card.Subtitle>
         <div>
-          <Card.Text>Rent: £ {rent} per month</Card.Text>
+          <Card.Text>Rent: £ {data ? data.price : 0} per month</Card.Text>
           <Card.Text>Permissions: {titleCase(role)}</Card.Text>
-          <Card.Text>
-            Address: {address === "None" ? "Unknown" : address}
-          </Card.Text>
+          <Card.Text>Address: {data ? data.address : "Unknown"}</Card.Text>
           <Card.Text>
             Created: {created} on {formatDate(created_at)}
           </Card.Text>
@@ -53,31 +54,35 @@ const UsersDetails = () => {
       </Card.Body>
 
       {/*update and delete buttons*/}
-      {button(
-        () => {
-          // once clicked show modal
-          dispatch({
-            type: "CHANGE MODAL STATE",
-            payload: true,
-          });
-          // load USERS UPDATE form
-          dispatch({
-            type: "WHICH FORM TO USE",
-            payload: "USERS UPDATE",
-          });
-        },
-        "Update User",
-        "outline-success",
-      )}
-      {button(
-        () => {
-          // once clicked show modal
-          dispatch({ type: "CHANGE MODAL STATE", payload: true });
-          // load DELETE FORM
-          dispatch({ type: "WHICH FORM TO USE", payload: "USERS DELETE" });
-        },
-        "Delete User",
-        "outline-danger",
+      {isAdmin && (
+        <>
+          {button(
+            () => {
+              // once clicked show modal
+              dispatch({
+                type: "CHANGE MODAL STATE",
+                payload: true,
+              });
+              // load USERS UPDATE form
+              dispatch({
+                type: "WHICH FORM TO USE",
+                payload: "USERS UPDATE",
+              });
+            },
+            "Update User",
+            "outline-success",
+          )}
+          {button(
+            () => {
+              // once clicked show modal
+              dispatch({ type: "CHANGE MODAL STATE", payload: true });
+              // load DELETE FORM
+              dispatch({ type: "WHICH FORM TO USE", payload: "USERS DELETE" });
+            },
+            "Delete User",
+            "outline-danger",
+          )}
+        </>
       )}
     </Card>
   );

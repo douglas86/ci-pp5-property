@@ -22,21 +22,17 @@ class ProfileSerializer(Serializer):
     user = serializers.ReadOnlyField(source='user.username')
     user_id = serializers.ReadOnlyField(source='user.id')
     profile_picture = serializers.SerializerMethodField()
-    address = serializers.SerializerMethodField()
-    area_code = serializers.SerializerMethodField()
-    rent = serializers.SerializerMethodField()
     role = serializers.SerializerMethodField()
+    property = serializers.SerializerMethodField()
     created_at = serializers.ReadOnlyField()
     updated_at = serializers.ReadOnlyField()
 
-    def get_address(self, obj):
-        return obj.address
+    def get_property(self, obj):
+        """
+        Returns the property by ID if it exists, otherwise returns user.property_id.
+        """
 
-    def get_area_code(self, obj):
-        return obj.area_code
-
-    def get_rent(self, obj):
-        return obj.rent
+        return obj.property.id if obj.property else None
 
     def get_id(self, obj):
         return obj.user.id
@@ -74,7 +70,7 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Authentication
-        fields = ['profile_picture', 'address', 'area_code', 'rent', 'role']
+        fields = ['profile_picture', 'role', 'property']
 
     # check if image is base64 string
     def is_base64(self, data):
@@ -98,6 +94,23 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         # fetch profile picture from validated data
         profile_picture_data = validated_data.get('profile_picture', None)
+
+        # variables to handle property id's
+        new_property = validated_data.get('property')
+        current_property = instance.property
+
+        # if the new property is different from the current one
+        if new_property != current_property:
+            # Set is_sold to True for the new property if it's not None
+            if new_property:
+                new_property.is_sold = True
+                new_property.save()
+
+            # Set is_sold to False for the previous property if it exists
+            if current_property:
+                current_property.is_sold = False
+                current_property.save()
+
 
         # check if profile_picture_data is a base64 string
         if profile_picture_data and self.is_base64(profile_picture_data):
@@ -123,5 +136,6 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
                 setattr(instance, attr, value)
 
         # save data to database
+        instance.property = new_property
         instance.save()
         return instance

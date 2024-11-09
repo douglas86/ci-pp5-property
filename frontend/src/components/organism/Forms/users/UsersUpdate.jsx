@@ -26,7 +26,7 @@ const UsersUpdate = () => {
   const { loading, view } = forms;
 
   // destructuring view
-  const { id, user, area_code, address, rent, profile_picture, role } = view;
+  const { id, user, property, profile_picture, role } = view;
 
   // React hook forms functions
   const {
@@ -39,17 +39,17 @@ const UsersUpdate = () => {
   } = useForm({
     defaultValues: {
       username: user,
-      area_code,
-      address,
-      rent,
       profile_picture,
+      property,
       role,
     },
   });
 
   // filtered data from server based on area_code
   const areaCode = watch("area_code");
-  const { data } = useFetch(`properties/filter?area_code=${areaCode}`);
+  const { data } = useFetch(
+    `properties/filter?area_code=${areaCode ? areaCode : ""}`,
+  );
 
   useEffect(() => {
     // change the header of the modal
@@ -99,18 +99,14 @@ const UsersUpdate = () => {
   ];
 
   // setValues of area_code, address and prices to correct value on click
-  const handleValues = (area_code, address, price) => {
+  const handleValues = (id, area_code) => {
+    setValue("property", id);
     setValue("area_code", area_code);
-    setValue("address", address);
-    setValue("rent", price);
   };
 
   // update users data on submit
   const onSubmit = (data) => {
-    const formData =
-      data.area_code === "None"
-        ? { area_code: "None", address: "None", rent: 0 }
-        : data;
+    const formData = data.area_code === "None" ? { property: null } : data;
 
     onUpdate(formData, `profile/update/${id}/`, dispatch);
   };
@@ -135,10 +131,10 @@ const UsersUpdate = () => {
 
       {/*display area_codes on correct data*/}
       {data
-        ? data.map(({ id, area_code, address, price }) => (
+        ? data.map(({ id, area_code, address }) => (
             <div key={id}>
               {button(
-                () => handleValues(area_code, address, price),
+                () => handleValues(id, area_code),
                 `${area_code} - address: ${address}`,
                 "light",
               )}

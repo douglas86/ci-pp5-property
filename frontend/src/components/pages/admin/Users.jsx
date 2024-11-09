@@ -4,7 +4,6 @@ import UsersCard from "../../organism/UsersCard";
 import ProtectedAccess from "../../molecule/ProtectedAccess";
 
 // custom hooks
-import useAdmin from "../../../hooks/useAdmin";
 import useAppContext from "../../../hooks/useAppContext";
 import useFetch from "../../../hooks/useFetch";
 
@@ -15,14 +14,10 @@ import useFetch from "../../../hooks/useFetch";
  */
 const Users = () => {
   // state store
-  const { isAdmin } = useAppContext();
+  const { isAdmin, refreshData } = useAppContext();
 
-  // only fetch data is isAdmin is true
-  const { data } = useFetch("profile/", isAdmin);
-
-  // custom hook for admin check
-  // if not logged in or admin show login modal
-  useAdmin();
+  // fetch from a database if user isAdmin or refreshData flag is true
+  const { data } = useFetch("profile/", isAdmin || refreshData);
 
   return (
     <>

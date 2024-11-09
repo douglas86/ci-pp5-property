@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from asgiref.sync import sync_to_async
 
-from authentication.authentication import IsSuperUser
+from authentication.authentication import IsSuperUser, IsAuthenticated
 from properties.models import Property
 from properties.serializer import PropertySerializer
 
@@ -41,6 +41,35 @@ class CreatePropertyView(APIView):
         })
 
 
+class PropertyByIDView(APIView):
+    """
+    Read property by ID.
+    """
+
+    model = Property
+    serializer_class = PropertySerializer
+
+    async def get(self, request, pk):
+        """
+        Fetch property by ID number asynchronously
+        """
+
+        try:
+            property_instance = await sync_to_async(lambda: self.model.objects.get(pk=pk))()
+            serializer = self.serializer_class(property_instance, context={'request': request})
+
+            return Response(
+                {
+                    'message': 'You have successfully fetched a property by ID number',
+                    'data': serializer.data,
+                    'status': status.HTTP_200_OK
+                })
+        except self.model.DoesNotExist:
+            return Response({
+                'message': 'Property with the given id was not found',
+                'status': status.HTTP_404_NOT_FOUND
+            })
+
 class ReadPropertyView(APIView):
     """
     Read a property asynchronously
@@ -48,14 +77,14 @@ class ReadPropertyView(APIView):
 
     model = Property
     serializer_class = PropertySerializer
-    permission_classes = [IsSuperUser]
+    permission_classes = [IsAuthenticated]
 
     async def get(self, request):
         """
         Gets a property asynchronously
         """
 
-        properties = await sync_to_async(lambda: list(self.model.objects.all()))()
+        properties = await sync_to_async(lambda: list(self.model.objects.filter(is_sold=False)))()
         serializer = self.serializer_class(properties, many=True, context={'request': request})
 
         return Response(
@@ -74,9 +103,9 @@ class FilterPropertyView(APIView):
         area_code = request.query_params.get('area_code', None)
 
         if area_code:
-            properties = await sync_to_async(lambda: list(self.model.objects.filter(area_code__icontains=area_code)[:3]))()
+            properties = await sync_to_async(lambda: list(self.model.objects.filter(area_code__icontains=area_code, is_sold=False)[:3]))()
         else:
-            properties = await sync_to_async(lambda: list(self.model.objects.all()[:3]))()
+            properties = await sync_to_async(lambda: list(self.model.objects.filter(is_sold=False)[:3]))()
 
         serializer = self.serializer_class(properties, many=True, context={'request': request})
 
