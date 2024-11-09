@@ -12,6 +12,7 @@ class Property(models.Model):
     address = models.CharField(max_length=120, default='None', blank=False, null=False)
     area_code = models.CharField(max_length=120, default='None')
     image = CloudinaryField('images', max_length=10000, default='default_post_r8m7an')
+    is_sold = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
