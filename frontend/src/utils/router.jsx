@@ -3,7 +3,7 @@ import LandingPage from "../components/pages/LandingPage";
 import AboutPage from "../components/pages/AboutPage";
 
 // users pages
-import UsersDashboard from "../components/pages/dashboards/UsersDashboard";
+import UsersDashboard from "../components/pages/user/UsersDashboard";
 
 // admin pages
 import Users from "../components/pages/admin/Users";
