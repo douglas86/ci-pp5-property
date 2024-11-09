@@ -25,11 +25,7 @@ const UsersDetails = () => {
   const { user, role, profile_picture, property } = view;
   const { created_at, updated_at } = view;
 
-  console.log("property", property);
-
   const { data } = useFetch(`properties/${property}`, property !== null);
-
-  console.log("data", data);
 
   // Calculated time ago
   const { created, updated } = DisplayTimeAgo(created_at, updated_at);

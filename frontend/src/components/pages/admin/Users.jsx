@@ -15,10 +15,10 @@ import useFetch from "../../../hooks/useFetch";
  */
 const Users = () => {
   // state store
-  const { isAdmin } = useAppContext();
+  const { isAdmin, refreshData } = useAppContext();
 
-  // only fetch data is isAdmin is true
-  const { data } = useFetch("profile/", isAdmin);
+  // fetch from a database if user isAdmin or refreshData flag is true
+  const { data } = useFetch("profile/", isAdmin || refreshData);
 
   // custom hook for admin check
   // if not logged in or admin show login modal

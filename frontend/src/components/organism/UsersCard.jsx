@@ -21,7 +21,7 @@ const UsersCard = ({ data }) => {
   return (
     <Container>
       <Row>
-        {/*display data when it exists another wise show spinner*/}
+        {/*display data when if exists or show spinner*/}
         {data
           ? data.map((items) => (
               <Col key={items.id} md={4}>
