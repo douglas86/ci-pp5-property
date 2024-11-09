@@ -25,7 +25,11 @@ const UsersDetails = () => {
   const { user, role, profile_picture, property } = view;
   const { created_at, updated_at } = view;
 
-  const { data } = useFetch(`properties/${property}`);
+  console.log("property", property);
+
+  const { data } = useFetch(`properties/${property}`, property !== null);
+
+  console.log("data", data);
 
   // Calculated time ago
   const { created, updated } = DisplayTimeAgo(created_at, updated_at);
@@ -37,27 +41,13 @@ const UsersDetails = () => {
           <Image src={profile_picture} width={80} height={80} roundedCircle />
           {titleCase(user)}
         </Card.Title>
-        {data ? (
-          <Card.Subtitle>
-            Postcode: {data.area_code === "None" ? "Unknown" : data.area_code}
-          </Card.Subtitle>
-        ) : (
-          spinner()
-        )}
+        <Card.Subtitle>
+          Postcode: {data ? data.area_code : "Unknown"}
+        </Card.Subtitle>
         <div>
-          {data ? (
-            <Card.Text>Rent: £ {data.price} per month</Card.Text>
-          ) : (
-            spinner()
-          )}
+          <Card.Text>Rent: £ {data ? data.price : 0} per month</Card.Text>
           <Card.Text>Permissions: {titleCase(role)}</Card.Text>
-          {data ? (
-            <Card.Text>
-              Address: {data.address === "None" ? "Unknown" : data.address}
-            </Card.Text>
-          ) : (
-            spinner()
-          )}
+          <Card.Text>Address: {data ? data.address : "Unknown"}</Card.Text>
           <Card.Text>
             Created: {created} on {formatDate(created_at)}
           </Card.Text>
