@@ -1,6 +1,7 @@
 import useAppContext from "../../../hooks/useAppContext";
 import ProtectedAccess from "../../molecule/ProtectedAccess";
 import PropertyCard from "../../organism/PropertyCard";
+import UsersCard from "../../organism/UsersCard";
 
 const UserDashboard = () => {
   // state store
@@ -9,7 +10,10 @@ const UserDashboard = () => {
   return (
     <>
       {isUser ? (
-        <PropertyCard id={user.property} />
+        <>
+          <UsersCard id={user.id} />
+          <PropertyCard id={user.property} />
+        </>
       ) : (
         <ProtectedAccess message="This is a protected page" />
       )}

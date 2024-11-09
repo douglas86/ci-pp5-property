@@ -28,10 +28,10 @@ const PropertyCard = ({ id }) => {
       {data ? (
         id === undefined ? (
           data.map((items) => (
-            <DisplayPropertyCard items={items} key={items.id} />
+            <DisplayPropertyCard data={items} key={items.id} />
           ))
         ) : (
-          <DisplayPropertyCard items={data} />
+          <DisplayPropertyCard data={data} />
         )
       ) : (
         spinner()

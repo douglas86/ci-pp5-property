@@ -2,21 +2,21 @@ import { Card, Image } from "react-bootstrap";
 import { button } from "../atom";
 import useAppContext from "../../hooks/useAppContext";
 
-const DisplayPropertyCard = ({ items }) => {
+const DisplayPropertyCard = ({ data }) => {
   const { dispatch } = useAppContext();
 
   return (
     <>
-      <Card key={items.id} style={{ width: "18rem" }}>
-        <Image src={items.image} width="100%" height="200" objectfit="cover" />
+      <Card key={data.id} style={{ width: "18rem" }}>
+        <Image src={data.image} width="100%" height="200" objectfit="cover" />
         <Card.Body>
-          <Card.Title>Post code: {items.area_code}</Card.Title>
+          <Card.Title>Post code: {data.area_code}</Card.Title>
           <hr />
-          <Card.Text>{items.description}</Card.Text>
+          <Card.Text>{data.description}</Card.Text>
           <hr />
-          <Card.Text>{items.address}</Card.Text>
+          <Card.Text>{data.address}</Card.Text>
           <hr />
-          <Card.Text>Price: £{items.price} per month</Card.Text>
+          <Card.Text>Price: £{data.price} per month</Card.Text>
           <hr />
           {/*view button to display property data in modal*/}
           <div className="d-flex flex-md-wrap justify-content-around gap-2 mt-3">
@@ -25,7 +25,7 @@ const DisplayPropertyCard = ({ items }) => {
                 // change modal header
                 dispatch({
                   type: "CHANGE HEADER",
-                  payload: `Property Address: ${items.address}`,
+                  payload: `Property Address: ${data.address}`,
                 });
                 // once clicked show modal
                 dispatch({
@@ -38,7 +38,7 @@ const DisplayPropertyCard = ({ items }) => {
                   payload: "READ PROPERTY",
                 });
                 // pushed data to view an object in form state
-                dispatch({ type: "FORM DETAILS", payload: items });
+                dispatch({ type: "FORM DETAILS", payload: data });
               },
               "View",
               "outline-info",
