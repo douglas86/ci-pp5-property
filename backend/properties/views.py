@@ -103,9 +103,9 @@ class FilterPropertyView(APIView):
         area_code = request.query_params.get('area_code', None)
 
         if area_code:
-            properties = await sync_to_async(lambda: list(self.model.objects.filter(area_code__icontains=area_code)[:3]))()
+            properties = await sync_to_async(lambda: list(self.model.objects.filter(area_code__icontains=area_code, is_sold=False)[:3]))()
         else:
-            properties = await sync_to_async(lambda: list(self.model.objects.all()[:3]))()
+            properties = await sync_to_async(lambda: list(self.model.objects.filter(is_sold=False)[:3]))()
 
         serializer = self.serializer_class(properties, many=True, context={'request': request})
 
