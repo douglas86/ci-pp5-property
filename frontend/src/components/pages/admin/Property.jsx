@@ -4,7 +4,6 @@ import PropertyCard from "../../organism/PropertyCard";
 import ProtectedAccess from "../../molecule/ProtectedAccess";
 
 // custom hooks
-import useAdmin from "../../../hooks/useAdmin";
 import useAppContext from "../../../hooks/useAppContext";
 
 /**
@@ -15,10 +14,6 @@ import useAppContext from "../../../hooks/useAppContext";
 const Property = () => {
   // state store
   const { isAdmin } = useAppContext();
-
-  // custom hook for admin check
-  // if not logged in or admin show login modal
-  useAdmin();
 
   return (
     <>
