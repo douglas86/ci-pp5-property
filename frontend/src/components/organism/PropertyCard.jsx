@@ -15,7 +15,10 @@ import DisplayPropertyCard from "../molecule/DisplayPropertyCard";
  */
 const PropertyCard = ({ id }) => {
   // fetch property by id if id is not undefined
-  const with_id = useFetch(`properties/${id}/`, id !== undefined);
+  const with_id = useFetch(
+    `properties/${id}/`,
+    id !== undefined && id !== null,
+  );
   // fetch property data if id is undefined
   const without_id = useFetch("properties/read/", id === undefined);
 
@@ -33,9 +36,9 @@ const PropertyCard = ({ id }) => {
         ) : (
           <DisplayPropertyCard data={data} />
         )
-      ) : (
+      ) : id !== null ? (
         spinner()
-      )}
+      ) : null}
     </div>
   );
 };

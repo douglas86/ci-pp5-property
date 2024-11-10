@@ -4,8 +4,17 @@
 
 ## Overview
 
-This is a London-based property website.
-This forms part of my final Project for Code Institute
+- This Project is of a London-based property website.
+- Where a potential client can see the property that they want to buy
+- With all the details of that property
+- This project was built using React and Django Rest Famework
+
+![image of website.png](frontend/src/assets/docs/image%20of%20website.png)
+
+My Live sites
+
+- [React](https://ci-pp5-property-react-6f6a16e0405e.herokuapp.com/)
+- [Django Rest Framework](https://ci-pp5-property-django-bcd4d87abb1f.herokuapp.com/)
 
 ---
 
@@ -154,7 +163,7 @@ Mobile
 
 #### [ERD diagrams for mapping out my models](#planning)
 
-![model.png](frontend/src/assets/docs/planning/api/model.png)
+![ERD diagram.png](frontend/src/assets/docs/planning/api/ERD%20diagram.png)
 
 #### [User Stories using MOSCOW Prioritization techniques](#planning)
 
@@ -269,8 +278,8 @@ Description of the design structure in a project setting
 - The components directory I define as anything that you can see within the UX/UI design
 - There are other components that fall out of the spec of the Atomic Structure
 - For example, App.jsx, which sits in the construction directory
-- this components' main purpose is to wrap the Layout Template around the hole project
-- and to make use of Authentication tokens, and it is for the use of routing between pages
+- this component has two purposes to call the Layout template for the header and footer
+- it is also used for routing of pages
 
 Description of Project structure
 
@@ -499,7 +508,21 @@ Django logs
 ![django app.png](frontend/src/assets/docs/deployment/heroku/django%20app.png)
 
 - once it has finished, you can click on open app for both of the heroku apps
-- you should see a finished project
+
+![open app.png](frontend/src/assets/docs/deployment/heroku/open%20app.png)
+
+- when you open up the heroku app, copy the path in the url
+- as that is needed for useFetch hook in React
+
+![heroku url.png](frontend/src/assets/docs/deployment/heroku/heroku%20url.png)
+
+- on your local machine, go to the directory that says, "frontend"
+- locate the apiSettings file you should find it in the utils directory
+- replace the heroku url that was just copied for this url
+
+![replace heroku url.png](frontend/src/assets/docs/deployment/heroku/replace%20heroku%20url.png)
+
+- you have now finished setup for local and heroku deployment 
 
 #### [Database manipulation](#deployment)
 
@@ -543,6 +566,7 @@ Connect to Heroku Postgres Database
 
 - for this demonstration, I will be using the following connection string
 - postgres://u3fon4jhlo790r:pdebdc4cf93dfcb1378061529a7a8f8254fc462179a31aaa184d8e80aeebd1546@cd27da2sn4hj7h.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d114t1oa0pt1n4
+- this connection string was taken for the database url environment variable in heroku dashboard
 - in the Server section, click the radio button that says, "URL"
 - in the connection string copy from the letter after the "@" symbol
 - and paste it in the URL: section
@@ -575,7 +599,7 @@ Note: this database has been deleted so the connection string is not valid
 - for simplicity’s sake, you can rename the connection
 - so that you know what it is for
 - right-click on the connection
-- when the dropdown list pops up click on the one that says, "Rename"
+- when the dropdown list pops up, click on the one that says, "Rename"
 - towards the bottom of the list
 - type in the correct name for the connection
 
