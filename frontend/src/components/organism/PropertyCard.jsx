@@ -26,6 +26,7 @@ const PropertyCard = ({ id }) => {
   const { data } = id === undefined ? without_id : with_id;
 
   console.log("with_id", with_id);
+  console.log("id", id);
 
   return (
     <div className={styles.card}>
