@@ -123,6 +123,8 @@ TEMPLATES = [
 SITE_ID = 1
 ASGI_APPLICATION = 'property.asgi.application'
 
+print('printing', os.environ.get('DATABASE_URL'))
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
