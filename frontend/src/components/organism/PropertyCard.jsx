@@ -25,6 +25,8 @@ const PropertyCard = ({ id }) => {
   // fetch data
   const { data } = id === undefined ? without_id : with_id;
 
+  console.log("with_id", with_id);
+
   return (
     <div className={styles.card}>
       {/*display data when it exists*/}
