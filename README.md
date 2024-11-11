@@ -41,6 +41,9 @@ My Live sites
   - [Auto Testing](#auto-testing)
     - [Testing the API locally](#testing-the-api-locally)
     - [Testing React locally with Cypress](#testing-react-locally-with-cypress)
+- [Bugs](#bugs) 
+  - [404 aren't found when updating properties](#404-arent-found-when-updating-properties)
+  - [Listing of the last remaining bugs](#listing-of-the-last-remaining-bugs)
 - [Credits](#credits)
 
 ---
@@ -794,6 +797,33 @@ ENV environment variable
 | Token Cookies get deleted on Logout | Pass      |
 | Works on Heroku for live deployment | Pass      |
 
+- Landing Page
+
+| Title                                                      | Pass/Fail |
+|------------------------------------------------------------|-----------|
+| Search Properties button only shows when you are logged in | Pass      |
+| if no data for carousel only single image is shown         | Pass      |
+| only show a maximum of 3 images for the carousel           | Pass      |
+
+
+- Dashboard Page
+
+| Title                                                                | Pass/Fail |
+|----------------------------------------------------------------------|-----------|
+| if role admin show admin dashboard                                   | Pass      |
+| if role user show user dashboard                                     | Pass      |
+| if you are not an admin or not logged in show protected page         | Pass      |
+| can only delete users with the role of user                          | Pass      |
+| on the properties page only show properties that are still available | Pass      |
+
+- Header
+
+| Title                                                                | Pass/Fail |
+|----------------------------------------------------------------------|-----------|
+| Only show Home about links when not logged in                        | Pass      |
+| show the dashboard when you are logged in                            | Pass      |
+| provide the correct dashboard depending on your role in the database | Pass      |
+
 #### [Auto Testing](#table-of-content)
 
 Section Index
@@ -847,9 +877,55 @@ Note: I have created an endpoint to auto delete the testing user from db after a
 
 ---
 
+### [Bugs](#table-of-content)
+
+Description
+
+- This repository was a complete re-build
+- of a [React](https://github.com/douglas86/ci-pp5-property-react) and [Django](https://github.com/douglas86/ci-pp5-property-api) repository
+- it has now been placed into one to solve alot of the bugs from the previous repo
+- it should also make it easier to maintain as it is now one
+
+Index
+
+- [404 aren't found when updating properties](#404-arent-found-when-updating-properties)
+- [Listing of the last remaining bugs](#listing-of-the-last-remaining-bugs)
+
+#### [404 aren't found when updating properties](#bugs)
+
+Problem?
+
+- There are two get requests in the property card
+- The first one is for if you only want a property by its id number
+- The second one is if you want all the property data
+- for some reason when trying to update it is calling both endpoints
+- When it should only call the second one
+
+![404 property error.png](frontend/src/assets/docs/bugs/404%20property%20error.png)
+
+Solution?
+
+- This problem still exists
+- But the program is working as expected
+
+#### [Listing of the last remaining bugs](#bugs)
+
+Description
+
+- This is just a list of the last remaining bugs that need to be squashed
+- They are small bugs that I have not been able to get to yet
+
+List
+
+- Footer seems to sit too high it doesn't want to be pushed to the bottom of the page were it should go
+- Styling is not working when you scale below 350 pixels
+- Warning message in console based on the fact that cloudinary is not using https
+- When on the Admin Dashboard page, I can't seem to update the user's name
+- Sometimes if an error message appears on the Login screen, and you switch to change password screen, the message is still left from the previous form
+
+---
+
 ### [Credits](#table-of-content)
 
 - [Code Institute](https://codeinstitute.net/) - Bootcamp
 - [Luke Buchanan](https://www.linkedin.com/in/lukebuchanan67/) - Mentor
-
----
