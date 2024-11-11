@@ -31,10 +31,14 @@ My Live sites
   - [GitHub Branching Strategy](#github-branching-strategy)
   - [Atomic Design Methodology](#atomic-design-methodology)
   - [Daphne Implementation for async/await with Django Rest Framework](#daphne-implementation-for-asyncawait-with-django-rest-framework)
+- [Technology Used](#technology-used)
+  - [Languages Used](#languages-used)
+  - [Frameworks, Libraries & Programs Used](#frameworks-libraries--programs-used)
 - [Deployment](#deployment)
   - [Setting up for Local development](#setting-up-for-local-development)
   - [Setting up on Heroku](#setting-up-on-heroku)
   - [Database manipulation](#database-manipulation)
+  - [Changing the users' role](#changing-the-users-role)
   - [Environment Variables](#environment-variables)
 - [Testing](#testing)
   - [Manual Testing](#manual-testing)
@@ -219,6 +223,24 @@ Section Index
 - I was also able to make full use of the Atomic Design Methodology for the Look and feel of the site
 - Async/Await was used for the Server side structure to make it very responsive on the server side
 
+Main Features
+
+- Admin and User Dashboard
+- You can change the permission of the user by [manipulating the database](#database-manipulation) in [dbeaver](#changing-the-users-role)
+- Carousel fetches data from database
+- filter for properties only if they are not sold
+- display properties on admin dashboard if they are not sold
+- display users on admin dashboard
+- create, read, update and delete properties
+- update users for what property they want
+- form validation using react hook forms on the front, and there is also form validation on the API side
+
+Future Features
+
+- Add a page to see what properties are sold or not sold
+- Add contract work pages for maintenance related issues
+- Add a messaging service for easier communication between contractors and clients
+
 #### [GitHub Branching Strategy](#features)
 
 ![github_branch_strategy.png](frontend/src/assets/docs/features/github_branch_strategy.png)
@@ -331,12 +353,46 @@ Why Did I choose Daphne for this Project?
 
 ---
 
+### [Technology Used](#table-of-content)
+
+Index
+
+- [Languages Used](#languages-used)
+- [Frameworks, Libraries & Programs Used](#frameworks-libraries--programs-used)
+
+#### [Languages Used](#technology-used)
+
+- HTML5
+- CSS3
+- JavaScript
+- Python
+
+#### [Frameworks, Libraries & Programs Used](#technology-used)
+
+- [React Bootstrap](https://react-bootstrap.netlify.app/)
+  - This framework was used is the creation of the UI elements to help make it responsive
+- [React Hook Form](https://react-hook-form.com/)
+  - React Hook form was used for form validation within React
+- [Cypress](https://www.cypress.io/)
+  - Cypress is a testing framework for test my React components
+- [Django Rest Framework](https://www.django-rest-framework.org/)
+  - DRF was used in the building and creating of the API taking security into account
+- [Daphne](https://docs.djangoproject.com/en/5.1/howto/deployment/asgi/daphne/)
+  - Daphne is a pip package that helps make DRF async/await compatible
+- [Git](https://github.com/)
+  - Git was used as my version controle system
+- [Heroku](https://dashboard.heroku.com/apps)
+  - Heroku is my online cloud provider for my apps
+
+---
+
 ### [Deployment](#table-of-content)
 
 Index
 - [Setting up for Local development](#setting-up-for-local-development)
 - [Setting up on Heroku](#setting-up-on-heroku)
 - [Database manipulation](#database-manipulation)
+- [Changing the users' role](#changing-the-users-role)
 - [Environment Variables](#environment-variables)
 
 #### [Setting up for Local development](#deployment)
@@ -641,7 +697,7 @@ Connect to Local database
 - type in the correct name for the connection
 - in my case, I used localhost
 
-Changing the users' role:
+#### [Changing the users' role](#deployment)
 
 - For security reasons, I have decided to not include functionality
 - to change the role of the user
@@ -706,7 +762,7 @@ python manage.py shell -c "from django.core.management.utils import get_random_s
 ```
 
 - save that newly generated key for Heroku or whatever services you need
-- once you have saved the key then exit out of the container by running exit
+- once you have saved the key, then exit out of the container by running exit
 
 ```
 exit
@@ -922,6 +978,7 @@ List
 - Warning message in console based on the fact that cloudinary is not using https
 - When on the Admin Dashboard page, I can't seem to update the user's name
 - Sometimes if an error message appears on the Login screen, and you switch to change password screen, the message is still left from the previous form
+- If you leave the web browser idling for too long, it keeps on talking about WebSocket
 
 ---
 
