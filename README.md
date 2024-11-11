@@ -426,6 +426,10 @@ Installation Instructions
 - this package.json file does not sit in any directories
 - replacing the name in the react:push and react:release scripts
 - we will come to that again later
+- in the heroku dashboard for this app, go to settings tab
+- as there is just one environment variable that needs to be added
+- REACT_APP_NODE_ENV
+- you can find out how to add it in the [environment variable](#environment-variables) section
 
 ![react scripts.png](frontend/src/assets/docs/deployment/heroku/react%20scripts.png)
 
@@ -634,7 +638,50 @@ Connect to Local database
 - type in the correct name for the connection
 - in my case, I used localhost
 
+Changing the users' role:
+
+- For security reasons, I have decided to not include functionality
+- to change the role of the user
+- however, the best way to change the user's role is in dbeaver
+
+- go to the database for the heroku project
+- click the open arrow to see the items under it
+
+![db items.png](frontend/src/assets/docs/deployment/database/db%20items.png)
+
+- then click on the one that says, "Databases"
+- then we need to see the schemas that are for that database
+
+![database schema.png](frontend/src/assets/docs/deployment/database/database%20schema.png)
+
+- then open up schemas, public and tables
+
+![tables.png](frontend/src/assets/docs/deployment/database/tables.png)
+
+- that will be all the tables for your models
+- which will include authentication tables
+- double-click on the model that says, "auth_user"
+- which should present you with this screen
+
+![auth_user table.png](frontend/src/assets/docs/deployment/database/auth_user%20table.png)
+
+- this is on the tab that says, "Data"
+- to change the role of the user, you can click on superuser
+- as it is a boolean value
+
+![super to true.png](frontend/src/assets/docs/deployment/database/super%20to%20true.png)
+
+- then you can click on save for saving that model
+- that's all you need to do
+
 #### [Environment Variables](#deployment)
+
+REACT_APP_NODE_ENV environment variable
+
+- This variable is only used for heroku
+- it is used to tell node what environment you are in
+- the key is REACT_APP_NODE_ENV
+- and the value is going to be production
 
 DJANGO_SETTING_KEY environment variable
 
