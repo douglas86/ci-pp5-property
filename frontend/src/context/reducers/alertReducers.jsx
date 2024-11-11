@@ -5,6 +5,7 @@
  * @returns {(*&{msg, status: number})|*|(*&{msg: string})}
  */
 export const alertReducers = (state, action) => {
+  // destructure action
   const { type, payload } = action;
 
   switch (type) {

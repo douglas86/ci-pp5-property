@@ -5,7 +5,10 @@
  * @returns {(*&{loadForm: string, data: {}, err: {}, success: {}, loading: boolean, url: string})|(*&{data})|(*&{loadForm})|(*&{err})|(*&{success})|*|(*&{loading})|(*&{url})}
  */
 export const formsReducers = (state, action) => {
+  // destructure action
   const { type, payload } = action;
+
+  // destructure name and value if it exists
   const { name, value } = payload || {};
 
   switch (type) {
@@ -35,6 +38,7 @@ export const formsReducers = (state, action) => {
     // resets the view object in the forms state store
     case "RESET FORM VIEW":
       return { ...state, view: payload };
+    // update form view
     case "UPDATE FORM VIEW":
       return { ...state, view: { ...state.view, [name]: value } };
     // refresh data by use of a flag

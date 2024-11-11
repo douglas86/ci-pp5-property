@@ -1,9 +1,16 @@
+// 3rd party
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./styles/index.css";
+
+// construction
 import App from "./construction/App";
 import reportWebVitals from "./construction/reportWebVitals";
+
+// state store
 import { Provider } from "./context/store";
+
+// styling
+import "./styles/index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

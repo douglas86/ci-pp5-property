@@ -38,35 +38,35 @@ export const router = [
   },
   // dashboards
   {
-    id: 4,
+    id: 3,
     title: "Dashboard",
     page: <UsersDashboard />,
     path: "/user_dashboard",
     role: "user",
   },
   {
-    id: 5,
+    id: 4,
     page: <VisitProperties />,
     path: "/properties",
     role: "user",
   },
   // admin pages
   {
-    id: 6,
+    id: 5,
     title: "Dashboard",
     page: <Users />,
     path: "/admin/users",
     role: "admin",
   },
   {
-    id: 7,
+    id: 6,
     page: <Property />,
     path: "admin/property",
     role: "admin",
   },
   // error and not found pages
   {
-    id: 8,
+    id: 7,
     page: <NotFound />,
     path: "*",
   },

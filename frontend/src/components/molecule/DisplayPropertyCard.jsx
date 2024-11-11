@@ -1,8 +1,20 @@
+// 3rd party
 import { Card, Image } from "react-bootstrap";
+
+// atomic design
 import { button } from "../atom";
+
+// custom hooks
 import useAppContext from "../../hooks/useAppContext";
 
+/**
+ * Display Property cards when data is passed
+ * @param data
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const DisplayPropertyCard = ({ data }) => {
+  // state store
   const { dispatch } = useAppContext();
 
   return (

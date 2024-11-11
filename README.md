@@ -4,8 +4,17 @@
 
 ## Overview
 
-This is a London-based property website.
-This forms part of my final Project for Code Institute
+- This Project is of a London-based property website.
+- Where a potential client can see the property that they want to buy
+- With all the details of that property
+- This project was built using React and Django Rest Famework
+
+![image of website.png](frontend/src/assets/docs/image%20of%20website.png)
+
+My Live sites
+
+- [React](https://ci-pp5-property-react-6f6a16e0405e.herokuapp.com/)
+- [Django Rest Framework](https://ci-pp5-property-django-bcd4d87abb1f.herokuapp.com/)
 
 ---
 
@@ -22,16 +31,23 @@ This forms part of my final Project for Code Institute
   - [GitHub Branching Strategy](#github-branching-strategy)
   - [Atomic Design Methodology](#atomic-design-methodology)
   - [Daphne Implementation for async/await with Django Rest Framework](#daphne-implementation-for-asyncawait-with-django-rest-framework)
+- [Technology Used](#technology-used)
+  - [Languages Used](#languages-used)
+  - [Frameworks, Libraries & Programs Used](#frameworks-libraries--programs-used)
 - [Deployment](#deployment)
   - [Setting up for Local development](#setting-up-for-local-development)
   - [Setting up on Heroku](#setting-up-on-heroku)
   - [Database manipulation](#database-manipulation)
+  - [Changing the users' role](#changing-the-users-role)
   - [Environment Variables](#environment-variables)
 - [Testing](#testing)
   - [Manual Testing](#manual-testing)
   - [Auto Testing](#auto-testing)
     - [Testing the API locally](#testing-the-api-locally)
     - [Testing React locally with Cypress](#testing-react-locally-with-cypress)
+- [Bugs](#bugs) 
+  - [404 aren't found when updating properties](#404-arent-found-when-updating-properties)
+  - [Listing of the last remaining bugs](#listing-of-the-last-remaining-bugs)
 - [Credits](#credits)
 
 ---
@@ -154,7 +170,7 @@ Mobile
 
 #### [ERD diagrams for mapping out my models](#planning)
 
-![model.png](frontend/src/assets/docs/planning/api/model.png)
+![ERD diagram.png](frontend/src/assets/docs/planning/api/ERD%20diagram.png)
 
 #### [User Stories using MOSCOW Prioritization techniques](#planning)
 
@@ -206,6 +222,24 @@ Section Index
 - While using the GitHub Branching Strategy
 - I was also able to make full use of the Atomic Design Methodology for the Look and feel of the site
 - Async/Await was used for the Server side structure to make it very responsive on the server side
+
+Main Features
+
+- Admin and User Dashboard
+- You can change the permission of the user by [manipulating the database](#database-manipulation) in [dbeaver](#changing-the-users-role)
+- Carousel fetches data from database
+- filter for properties only if they are not sold
+- display properties on admin dashboard if they are not sold
+- display users on admin dashboard
+- create, read, update and delete properties
+- update users for what property they want
+- form validation using react hook forms on the front, and there is also form validation on the API side
+
+Future Features
+
+- Add a page to see what properties are sold or not sold
+- Add contract work pages for maintenance related issues
+- Add a messaging service for easier communication between contractors and clients
 
 #### [GitHub Branching Strategy](#features)
 
@@ -269,8 +303,8 @@ Description of the design structure in a project setting
 - The components directory I define as anything that you can see within the UX/UI design
 - There are other components that fall out of the spec of the Atomic Structure
 - For example, App.jsx, which sits in the construction directory
-- this components' main purpose is to wrap the Layout Template around the hole project
-- and to make use of Authentication tokens, and it is for the use of routing between pages
+- this component has two purposes to call the Layout template for the header and footer
+- it is also used for routing of pages
 
 Description of Project structure
 
@@ -319,12 +353,46 @@ Why Did I choose Daphne for this Project?
 
 ---
 
+### [Technology Used](#table-of-content)
+
+Index
+
+- [Languages Used](#languages-used)
+- [Frameworks, Libraries & Programs Used](#frameworks-libraries--programs-used)
+
+#### [Languages Used](#technology-used)
+
+- HTML5
+- CSS3
+- JavaScript
+- Python
+
+#### [Frameworks, Libraries & Programs Used](#technology-used)
+
+- [React Bootstrap](https://react-bootstrap.netlify.app/)
+  - This framework was used is the creation of the UI elements to help make it responsive
+- [React Hook Form](https://react-hook-form.com/)
+  - React Hook form was used for form validation within React
+- [Cypress](https://www.cypress.io/)
+  - Cypress is a testing framework for test my React components
+- [Django Rest Framework](https://www.django-rest-framework.org/)
+  - DRF was used in the building and creating of the API taking security into account
+- [Daphne](https://docs.djangoproject.com/en/5.1/howto/deployment/asgi/daphne/)
+  - Daphne is a pip package that helps make DRF async/await compatible
+- [Git](https://github.com/)
+  - Git was used as my version controle system
+- [Heroku](https://dashboard.heroku.com/apps)
+  - Heroku is my online cloud provider for my apps
+
+---
+
 ### [Deployment](#table-of-content)
 
 Index
 - [Setting up for Local development](#setting-up-for-local-development)
 - [Setting up on Heroku](#setting-up-on-heroku)
 - [Database manipulation](#database-manipulation)
+- [Changing the users' role](#changing-the-users-role)
 - [Environment Variables](#environment-variables)
 
 #### [Setting up for Local development](#deployment)
@@ -417,6 +485,10 @@ Installation Instructions
 - this package.json file does not sit in any directories
 - replacing the name in the react:push and react:release scripts
 - we will come to that again later
+- in the heroku dashboard for this app, go to settings tab
+- as there is just one environment variable that needs to be added
+- REACT_APP_NODE_ENV
+- you can find out how to add it in the [environment variable](#environment-variables) section
 
 ![react scripts.png](frontend/src/assets/docs/deployment/heroku/react%20scripts.png)
 
@@ -499,7 +571,21 @@ Django logs
 ![django app.png](frontend/src/assets/docs/deployment/heroku/django%20app.png)
 
 - once it has finished, you can click on open app for both of the heroku apps
-- you should see a finished project
+
+![open app.png](frontend/src/assets/docs/deployment/heroku/open%20app.png)
+
+- when you open up the heroku app, copy the path in the url
+- as that is needed for useFetch hook in React
+
+![heroku url.png](frontend/src/assets/docs/deployment/heroku/heroku%20url.png)
+
+- on your local machine, go to the directory that says, "frontend"
+- locate the apiSettings file you should find it in the utils directory
+- replace the heroku url that was just copied for this url
+
+![replace heroku url.png](frontend/src/assets/docs/deployment/heroku/replace%20heroku%20url.png)
+
+- you have now finished setup for local and heroku deployment 
 
 #### [Database manipulation](#deployment)
 
@@ -543,6 +629,7 @@ Connect to Heroku Postgres Database
 
 - for this demonstration, I will be using the following connection string
 - postgres://u3fon4jhlo790r:pdebdc4cf93dfcb1378061529a7a8f8254fc462179a31aaa184d8e80aeebd1546@cd27da2sn4hj7h.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d114t1oa0pt1n4
+- this connection string was taken for the database url environment variable in heroku dashboard
 - in the Server section, click the radio button that says, "URL"
 - in the connection string copy from the letter after the "@" symbol
 - and paste it in the URL: section
@@ -575,7 +662,7 @@ Note: this database has been deleted so the connection string is not valid
 - for simplicity’s sake, you can rename the connection
 - so that you know what it is for
 - right-click on the connection
-- when the dropdown list pops up click on the one that says, "Rename"
+- when the dropdown list pops up, click on the one that says, "Rename"
 - towards the bottom of the list
 - type in the correct name for the connection
 
@@ -610,7 +697,50 @@ Connect to Local database
 - type in the correct name for the connection
 - in my case, I used localhost
 
+#### [Changing the users' role](#deployment)
+
+- For security reasons, I have decided to not include functionality
+- to change the role of the user
+- however, the best way to change the user's role is in dbeaver
+
+- go to the database for the heroku project
+- click the open arrow to see the items under it
+
+![db items.png](frontend/src/assets/docs/deployment/database/db%20items.png)
+
+- then click on the one that says, "Databases"
+- then we need to see the schemas that are for that database
+
+![database schema.png](frontend/src/assets/docs/deployment/database/database%20schema.png)
+
+- then open up schemas, public and tables
+
+![tables.png](frontend/src/assets/docs/deployment/database/tables.png)
+
+- that will be all the tables for your models
+- which will include authentication tables
+- double-click on the model that says, "auth_user"
+- which should present you with this screen
+
+![auth_user table.png](frontend/src/assets/docs/deployment/database/auth_user%20table.png)
+
+- this is on the tab that says, "Data"
+- to change the role of the user, you can click on superuser
+- as it is a boolean value
+
+![super to true.png](frontend/src/assets/docs/deployment/database/super%20to%20true.png)
+
+- then you can click on save for saving that model
+- that's all you need to do
+
 #### [Environment Variables](#deployment)
+
+REACT_APP_NODE_ENV environment variable
+
+- This variable is only used for heroku
+- it is used to tell node what environment you are in
+- the key is REACT_APP_NODE_ENV
+- and the value is going to be production
 
 DJANGO_SETTING_KEY environment variable
 
@@ -632,7 +762,7 @@ python manage.py shell -c "from django.core.management.utils import get_random_s
 ```
 
 - save that newly generated key for Heroku or whatever services you need
-- once you have saved the key then exit out of the container by running exit
+- once you have saved the key, then exit out of the container by running exit
 
 ```
 exit
@@ -723,6 +853,33 @@ ENV environment variable
 | Token Cookies get deleted on Logout | Pass      |
 | Works on Heroku for live deployment | Pass      |
 
+- Landing Page
+
+| Title                                                      | Pass/Fail |
+|------------------------------------------------------------|-----------|
+| Search Properties button only shows when you are logged in | Pass      |
+| if no data for carousel only single image is shown         | Pass      |
+| only show a maximum of 3 images for the carousel           | Pass      |
+
+
+- Dashboard Page
+
+| Title                                                                | Pass/Fail |
+|----------------------------------------------------------------------|-----------|
+| if role admin show admin dashboard                                   | Pass      |
+| if role user show user dashboard                                     | Pass      |
+| if you are not an admin or not logged in show protected page         | Pass      |
+| can only delete users with the role of user                          | Pass      |
+| on the properties page only show properties that are still available | Pass      |
+
+- Header
+
+| Title                                                                | Pass/Fail |
+|----------------------------------------------------------------------|-----------|
+| Only show Home about links when not logged in                        | Pass      |
+| show the dashboard when you are logged in                            | Pass      |
+| provide the correct dashboard depending on your role in the database | Pass      |
+
 #### [Auto Testing](#table-of-content)
 
 Section Index
@@ -776,9 +933,56 @@ Note: I have created an endpoint to auto delete the testing user from db after a
 
 ---
 
+### [Bugs](#table-of-content)
+
+Description
+
+- This repository was a complete re-build
+- of a [React](https://github.com/douglas86/ci-pp5-property-react) and [Django](https://github.com/douglas86/ci-pp5-property-api) repository
+- it has now been placed into one to solve alot of the bugs from the previous repo
+- it should also make it easier to maintain as it is now one
+
+Index
+
+- [404 aren't found when updating properties](#404-arent-found-when-updating-properties)
+- [Listing of the last remaining bugs](#listing-of-the-last-remaining-bugs)
+
+#### [404 aren't found when updating properties](#bugs)
+
+Problem?
+
+- There are two get requests in the property card
+- The first one is for if you only want a property by its id number
+- The second one is if you want all the property data
+- for some reason when trying to update it is calling both endpoints
+- When it should only call the second one
+
+![404 property error.png](frontend/src/assets/docs/bugs/404%20property%20error.png)
+
+Solution?
+
+- This problem still exists
+- But the program is working as expected
+
+#### [Listing of the last remaining bugs](#bugs)
+
+Description
+
+- This is just a list of the last remaining bugs that need to be squashed
+- They are small bugs that I have not been able to get to yet
+
+List
+
+- Footer seems to sit too high it doesn't want to be pushed to the bottom of the page were it should go
+- Styling is not working when you scale below 350 pixels
+- Warning message in console based on the fact that cloudinary is not using https
+- When on the Admin Dashboard page, I can't seem to update the user's name
+- Sometimes if an error message appears on the Login screen, and you switch to change password screen, the message is still left from the previous form
+- If you leave the web browser idling for too long, it keeps on talking about WebSocket
+
+---
+
 ### [Credits](#table-of-content)
 
 - [Code Institute](https://codeinstitute.net/) - Bootcamp
 - [Luke Buchanan](https://www.linkedin.com/in/lukebuchanan67/) - Mentor
-
----

@@ -33,7 +33,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 SECRET_KEY = os.environ.get('DJANGO_SETTINGS_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False if os.environ.get('ENV') == 'production' else True
+DEBUG = False
 
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get("CLOUDINARY_URL"),
