@@ -979,6 +979,7 @@ List
 - When on the Admin Dashboard page, I can't seem to update the user's name
 - Sometimes if an error message appears on the Login screen, and you switch to change password screen, the message is still left from the previous form
 - If you leave the web browser idling for too long, it keeps on talking about WebSocket
+- Sometimes I had the problem where form validation was not accepting the field, or you entered the password, and it says, "this field is required." There seems to be a token issue here if you delete all tokens from the cookie store in your web browser and refresh the problem is not there anymore
 
 ---
 
