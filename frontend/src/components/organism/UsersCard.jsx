@@ -1,14 +1,11 @@
 // 3rd party
-import { Card, Col, Container, Row, Image } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 // atomic design
-import { button } from "../atom";
+import DisplayUsersCard from "../molecule/DisplayUsersCard";
 
 // custom hooks and utils
-import useAppContext from "../../hooks/useAppContext";
-import { titleCase } from "../../utils";
 import useFetch from "../../hooks/useFetch";
-import DisplayUsersCard from "../molecule/DisplayUsersCard";
 
 /**
  * Displaying of users information in card format
@@ -17,9 +14,7 @@ import DisplayUsersCard from "../molecule/DisplayUsersCard";
  * @constructor
  */
 const UsersCard = ({ id }) => {
-  // state store
-  const { dispatch } = useAppContext();
-
+  // fetch data based on id being passed
   const with_id = useFetch(`profile/me/`, id !== undefined);
   const without_id = useFetch(`profile/`, id === undefined);
 

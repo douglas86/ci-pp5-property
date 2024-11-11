@@ -1,4 +1,5 @@
 // atomic design
+import DisplayPropertyCard from "../molecule/DisplayPropertyCard";
 import { spinner } from "../atom";
 
 // custom hooks
@@ -6,7 +7,6 @@ import useFetch from "../../hooks/useFetch";
 
 // styling
 import styles from "../../styles/components/organism/Card.module.css";
-import DisplayPropertyCard from "../molecule/DisplayPropertyCard";
 
 /**
  * Displaying of Property in Card format

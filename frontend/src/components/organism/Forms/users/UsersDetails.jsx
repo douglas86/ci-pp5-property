@@ -8,8 +8,8 @@ import { button } from "../../../atom";
 
 // custom hooks and utils
 import useAppContext from "../../../../hooks/useAppContext";
-import { titleCase } from "../../../../utils";
 import useFetch from "../../../../hooks/useFetch";
+import { titleCase } from "../../../../utils";
 
 /**
  * Form to display the user's information from a database

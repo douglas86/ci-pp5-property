@@ -1,7 +1,9 @@
 // 3rd party
 import axios from "axios";
-import { server } from "./apiSettings";
 import Cookies from "js-cookie";
+
+// utilities
+import { server } from "./apiSettings";
 
 /**
  * helper function used to delete data from server

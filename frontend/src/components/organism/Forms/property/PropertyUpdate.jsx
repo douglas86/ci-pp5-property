@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 // atomic design
-import { button, spinner } from "../../../atom";
 import MapToFormController from "../../../molecule/MapToFormController";
+import { button, spinner } from "../../../atom";
 
 // custom hooks and utils
 import useAppContext from "../../../../hooks/useAppContext";

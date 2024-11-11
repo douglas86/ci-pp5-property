@@ -1,7 +1,15 @@
-import useAppContext from "../../../hooks/useAppContext";
-import ProtectedAccess from "../../molecule/ProtectedAccess";
+// atomic design
 import PropertyCard from "../../organism/PropertyCard";
+import ProtectedAccess from "../../molecule/ProtectedAccess";
 
+// custom hooks
+import useAppContext from "../../../hooks/useAppContext";
+
+/**
+ * Visit the Properties Page
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const VisitProperties = () => {
   // state store
   const { isUser, isAdmin } = useAppContext();

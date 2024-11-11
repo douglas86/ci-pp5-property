@@ -1,8 +1,19 @@
+// 3rd party
 import { Card, Col, Image } from "react-bootstrap";
-import { titleCase } from "../../utils";
-import { button } from "../atom";
-import useAppContext from "../../hooks/useAppContext";
 
+// atomic design
+import { button } from "../atom";
+
+// custom hooks and utils
+import useAppContext from "../../hooks/useAppContext";
+import { titleCase } from "../../utils";
+
+/**
+ * Dispaly users as a card when data is being passed
+ * @param data
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const DisplayUserCard = ({ data }) => {
   const { dispatch, isAdmin } = useAppContext();
 

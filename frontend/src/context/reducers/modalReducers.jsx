@@ -5,6 +5,7 @@
  * @returns {(*&{showModal})|*|(*&{header})}
  */
 export const modalReducers = (state, action) => {
+  // desctructure action
   const { type, payload } = action;
 
   switch (type) {

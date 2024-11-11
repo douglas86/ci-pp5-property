@@ -1,7 +1,9 @@
+// 3rd party
 import { Controller } from "react-hook-form";
-import Form from "react-bootstrap/Form";
+import { Form, Image } from "react-bootstrap";
+
+// custom hook
 import useAppContext from "../../hooks/useAppContext";
-import Image from "react-bootstrap/Image";
 
 /**
  * From controller used from React hook form

@@ -5,6 +5,7 @@
  * @returns {*|(*&{err})|(*&{user})}
  */
 export const userReducers = (state, action) => {
+  // destructure action
   const { type, payload } = action;
 
   switch (type) {
